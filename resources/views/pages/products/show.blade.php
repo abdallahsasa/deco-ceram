@@ -12,7 +12,7 @@
                 <a href="{{ url(app()->getLocale() . '/products') }}"
                     class="hover:text-brand-charcoal transition-colors">{{ __('messages.products.catalog') }}</a>
                 <span>/</span>
-                <span>{{ __('messages.categories.' . Str::slug($product['category'])) }}</span>
+                <span>{{ __('messages.categories.' . Str::slug($product->category->id ?? $product['category'])) }}</span>
             </nav>
             <h1 class="text-3xl md:text-4xl font-serif">{{ $product['name'] }}</h1>
         </div>
@@ -75,21 +75,25 @@
                     <!-- Technical Specs -->
                     <div class="space-y-4">
                         <h4 class="text-xs font-bold uppercase tracking-widest border-b border-brand-stone pb-2">
-                            {{ __('messages.products.specs') }}</h4>
+                            {{ __('messages.products.specs') }}
+                        </h4>
                         <table class="w-full text-sm">
                             <tr class="border-b border-brand-stone/50">
                                 <td class="py-4 text-brand-charcoal/50 uppercase tracking-tighter text-[11px]">
-                                    {{ __('messages.products.attributes.material') }}</td>
+                                    {{ __('messages.products.attributes.material') }}
+                                </td>
                                 <td class="py-4 text-right font-medium">{{ $product['material'] }}</td>
                             </tr>
                             <tr class="border-b border-brand-stone/50">
                                 <td class="py-4 text-brand-charcoal/50 uppercase tracking-tighter text-[11px]">
-                                    {{ __('messages.products.attributes.finish') }}</td>
+                                    {{ __('messages.products.attributes.finish') }}
+                                </td>
                                 <td class="py-4 text-right font-medium">{{ $product['finish'] }}</td>
                             </tr>
                             <tr class="border-b border-brand-stone/50">
                                 <td class="py-4 text-brand-charcoal/50 uppercase tracking-tighter text-[11px]">
-                                    {{ __('messages.products.attributes.size') }}</td>
+                                    {{ __('messages.products.attributes.size') }}
+                                </td>
                                 <td class="py-4 text-right font-medium">{{ $product['size'] }}</td>
                             </tr>
                             <tr class="border-b border-brand-stone/50">
@@ -100,7 +104,8 @@
                             </tr>
                             <tr class="border-b border-brand-stone/50">
                                 <td class="py-4 text-brand-charcoal/50 uppercase tracking-tighter text-[11px]">
-                                    {{ __('messages.products.attributes.look') }}</td>
+                                    {{ __('messages.products.attributes.look') }}
+                                </td>
                                 <td class="py-4 text-right font-medium">{{ $product['look'] }}</td>
                             </tr>
                         </table>

@@ -11,7 +11,8 @@
     <div class="space-y-2">
         <div class="flex justify-between items-start">
             <h3 class="text-lg font-serif">{{ $product['name'] }}</h3>
-            <span class="text-xs uppercase tracking-widest text-brand-charcoal/40">{{ $product['category'] }}</span>
+            <span
+                class="text-xs uppercase tracking-widest text-brand-charcoal/40">{{ $product->category->name ?? $product['category'] }}</span>
         </div>
         <p class="text-xs text-brand-charcoal/60 uppercase tracking-tighter">{{ $product['finish'] }} •
             {{ $product['size'] }}

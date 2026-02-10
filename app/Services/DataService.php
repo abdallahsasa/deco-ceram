@@ -8,45 +8,42 @@ class DataService
 {
     public function getProducts()
     {
-        return $this->loadJson('products.json');
+        return \App\Models\Product::with('category')->get();
     }
 
     public function getProjects()
     {
-        return $this->loadJson('projects.json');
+        return \App\Models\Project::all();
     }
 
     public function getCategories()
     {
-        return $this->loadJson('categories.json');
+        return \App\Models\Category::all();
     }
 
     public function getProductById($id)
     {
-        return collect($this->getProducts())->firstWhere('id', $id);
+        return \App\Models\Product::with('category', 'projects')->find($id);
     }
 
     public function getProjectById($id)
     {
-        return collect($this->getProjects())->firstWhere('id', $id);
+        return \App\Models\Project::with('products')->find($id);
     }
 
     public function getFeaturedProducts($limit = 6)
     {
-        return collect($this->getProducts())->where('featured', true)->take($limit);
+        return \App\Models\Product::where('featured', true)->take($limit)->get();
     }
 
     public function getFeaturedProjects($limit = 3)
     {
-        return collect($this->getProjects())->where('featured', true)->take($limit);
+        return \App\Models\Project::where('featured', true)->take($limit)->get();
     }
 
     private function loadJson($filename)
     {
-        $path = storage_path("app/data/{$filename}");
-        if (!File::exists($path)) {
-            return [];
-        }
-        return json_decode(File::get($path), true);
+        // No longer needed, but kept as placeholder if required
+        return [];
     }
 }

@@ -17,7 +17,7 @@
         <p class="text-xs text-brand-charcoal/60 uppercase tracking-tighter">{{ $product['finish'] }} •
             {{ $product['size'] }}
         </p>
-        <a href="{{ url(app()->getLocale() . '/products/' . $product['id']) }}"
+        <a href="{{ route('products.show', ['locale' => app()->getLocale(), 'brand' => $product->collection->brand->slug, 'collection' => $product->collection->slug, 'product' => $product->slug]) }}"
             class="inline-block text-xs uppercase tracking-widest border-b border-brand-charcoal/20 pb-1 mt-4 hover:border-brand-charcoal transition-colors">
             {{ __('messages.cta.browse') }}
         </a>

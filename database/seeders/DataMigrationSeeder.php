@@ -18,19 +18,47 @@ class DataMigrationSeeder extends Seeder
             \App\Models\Category::updateOrCreate(['id' => $cat['id']], $cat);
         }
 
-        // 2. Products
-        $productsJson = json_decode(file_get_contents(storage_path('app/data/products.json')), true);
-        foreach ($productsJson as $prod) {
-            // Map category name to ID if necessary, but JSON seems to have ID or Name?
-            // products.json: "category": "Large Slabs"
-            // categories.json: "id": "large-slabs", "name": "Large Slabs"
-            $category = \App\Models\Category::where('name', $prod['category'])->first();
-            $prod['category_id'] = $category ? $category->id : null;
-            unset($prod['category']);
-            \App\Models\Product::updateOrCreate(['id' => $prod['id']], $prod);
+        // 2. Brands
+        if (file_exists(storage_path('app/data/brands.json'))) {
+            $brandsJson = json_decode(file_get_contents(storage_path('app/data/brands.json')), true);
+            foreach ($brandsJson as $brand) {
+                \App\Models\Brand::updateOrCreate(['id' => $brand['id']], $brand);
+            }
         }
 
-        // 3. Projects
+        // 3. Collections
+        if (file_exists(storage_path('app/data/collections.json'))) {
+            $collectionsJson = json_decode(file_get_contents(storage_path('app/data/collections.json')), true);
+            foreach ($collectionsJson as $coll) {
+                \App\Models\Collection::updateOrCreate(['id' => $coll['id']], $coll);
+            }
+        }
+
+        // 4. Products & Variants
+        $productsJson = json_decode(file_get_contents(storage_path('app/data/products.json')), true);
+        foreach ($productsJson as $prod) {
+            $variants = $prod['variants'] ?? [];
+            unset($prod['variants']);
+
+            // Handle legacy category mapping if necessary
+            if (isset($prod['category'])) {
+                $category = \App\Models\Category::where('name', $prod['category'])->first();
+                $prod['category_id'] = $category ? $category->id : $prod['category_id'] ?? null;
+                unset($prod['category']);
+            }
+
+            $product = \App\Models\Product::updateOrCreate(['id' => $prod['id']], $prod);
+
+            // Seed Variants
+            if (!empty($variants)) {
+                $product->variants()->delete(); // Clear existing variants for this product
+                foreach ($variants as $variant) {
+                    $product->variants()->create($variant);
+                }
+            }
+        }
+
+        // 5. Projects
         $projectsJson = json_decode(file_get_contents(storage_path('app/data/projects.json')), true);
         foreach ($projectsJson as $proj) {
             $productsUsed = $proj['products_used'] ?? [];

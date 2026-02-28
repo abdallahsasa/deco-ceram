@@ -25,7 +25,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                         <div class="space-y-4">
                             <h4 class="text-xs font-bold uppercase tracking-widest text-brand-sand">
-                                {{ __('messages.contact.office') }}</h4>
+                                {{ __('messages.contact.office') }}
+                            </h4>
                             <p class="text-sm text-brand-charcoal/80 leading-relaxed">
                                 123 Avenue des Champs-Élysées<br>
                                 75008 Paris, France
@@ -33,20 +34,22 @@
                         </div>
                         <div class="space-y-4">
                             <h4 class="text-xs font-bold uppercase tracking-widest text-brand-sand">
-                                {{ __('messages.contact.inquiries') }}</h4>
+                                {{ __('messages.contact.inquiries') }}
+                            </h4>
                             <p class="text-sm text-brand-charcoal/80">
                                 <a href="mailto:info@deco-ceram.com"
                                     class="hover:text-brand-sand transition-colors">info@deco-ceram.com</a><br>
-                                <a href="tel:+33123456789" class="hover:text-brand-sand transition-colors">+33 1 23 45 67
-                                    89</a>
+                                <a href="tel:+33684130952" class="hover:text-brand-sand transition-colors">+33 6 84 13 09
+                                    52</a>
                             </p>
                         </div>
                     </div>
 
                     <div class="space-y-6">
                         <h4 class="text-xs font-bold uppercase tracking-widest text-brand-sand">
-                            {{ __('messages.contact.response') }}</h4>
-                        <a href="https://wa.me/33123456789"
+                            {{ __('messages.contact.response') }}
+                        </h4>
+                        <a href="https://wa.me/33684130952"
                             class="inline-flex items-center gap-4 p-6 bg-brand-stone/20 border border-brand-stone hover:bg-brand-stone/40 transition-all group w-full max-w-sm">
                             <div class="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -99,7 +102,7 @@
                             <div class="space-y-2">
                                 <label
                                     class="text-[10px] uppercase tracking-[0.2em] font-bold">{{ __('messages.contact.form.phone') }}</label>
-                                <input type="tel" placeholder="+33 1 23 45 67 89"
+                                <input type="tel" placeholder="+33 6 84 13 09 52"
                                     class="w-full bg-transparent border-0 border-b border-brand-stone py-2 focus:ring-0 focus:border-brand-sand transition-all text-sm">
                             </div>
                         </div>

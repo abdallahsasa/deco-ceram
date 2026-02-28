@@ -85,10 +85,10 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
                         </svg>
-                        <a href="tel:+33123456789" class="hover:text-white transition-colors">+33 1 23 45 67 89</a>
+                        <a href="tel:+33684130952" class="hover:text-white transition-colors">+33 6 84 13 09 52</a>
                     </li>
                     <li class="pt-4">
-                        <a href="https://wa.me/33123456789"
+                        <a href="https://wa.me/33684130952"
                             class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md text-xs font-bold uppercase tracking-widest hover:bg-green-700 transition-colors">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                 <path

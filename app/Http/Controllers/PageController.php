@@ -14,7 +14,7 @@ class PageController extends Controller
         $this->dataService = $dataService;
     }
 
-    public function home()
+    public function home($locale)
     {
         $featuredProducts = $this->dataService->getFeaturedProducts(4);
         $featuredProjects = $this->dataService->getFeaturedProjects(3);
@@ -23,7 +23,7 @@ class PageController extends Controller
         return view('pages.home', compact('featuredProducts', 'featuredProjects', 'categories'));
     }
 
-    public function products(Request $request)
+    public function products($locale, Request $request)
     {
         $products = collect($this->dataService->getProducts());
         $categories = $this->dataService->getCategories();
@@ -72,7 +72,7 @@ class PageController extends Controller
         return view('pages.products.show', compact('product'));
     }
 
-    public function projects()
+    public function projects($locale)
     {
         $projects = $this->dataService->getProjects();
         return view('pages.projects.index', compact('projects'));
@@ -87,27 +87,27 @@ class PageController extends Controller
         return view('pages.projects.show', compact('project'));
     }
 
-    public function professionals()
+    public function professionals($locale)
     {
         return view('pages.professionals');
     }
 
-    public function about()
+    public function about($locale)
     {
         return view('pages.about');
     }
 
-    public function contact()
+    public function contact($locale)
     {
         return view('pages.contact');
     }
 
-    public function legal()
+    public function legal($locale)
     {
         return view('pages.legal');
     }
 
-    public function privacy()
+    public function privacy($locale)
     {
         return view('pages.privacy');
     }

@@ -10,8 +10,10 @@ Route::get('/', function () {
 
 Route::prefix('{locale}')->where(['locale' => 'fr|ar|en'])->group(function () {
     Route::get('/', [PageController::class, 'home'])->name('home');
-    Route::get('/products', [PageController::class, 'products'])->name('products');
-    Route::get('/products/{id}', [PageController::class, 'productShow'])->name('products.show');
+    Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
+    Route::get('/products/brand/{brand}', [App\Http\Controllers\ProductController::class, 'brandShow'])->name('products.brand');
+    Route::get('/products/brand/{brand}/collection/{collection}', [App\Http\Controllers\ProductController::class, 'collectionShow'])->name('products.collection');
+    Route::get('/products/brand/{brand}/collection/{collection}/product/{product}', [App\Http\Controllers\ProductController::class, 'productShow'])->name('products.show');
     Route::get('/projects', [PageController::class, 'projects'])->name('projects');
     Route::get('/projects/{id}', [PageController::class, 'projectShow'])->name('projects.show');
     Route::get('/professionals', [PageController::class, 'professionals'])->name('professionals');

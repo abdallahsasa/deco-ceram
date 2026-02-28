@@ -9,6 +9,8 @@ class Product extends Model
     protected $fillable = [
         'id',
         'name',
+        'slug',
+        'collection_id',
         'category_id',
         'material',
         'finish',
@@ -16,8 +18,9 @@ class Product extends Model
         'thickness',
         'look',
         'color',
-        'collection',
         'description',
+        'technical_specs',
+        'downloads',
         'applications',
         'images',
         'featured',
@@ -25,6 +28,8 @@ class Product extends Model
     ];
 
     protected $casts = [
+        'technical_specs' => 'array',
+        'downloads' => 'array',
         'applications' => 'array',
         'images' => 'array',
         'featured' => 'boolean',
@@ -36,6 +41,16 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function collection()
+    {
+        return $this->belongsTo(Collection::class);
+    }
+
+    public function variants()
+    {
+        return $this->hasMany(Variant::class);
     }
 
     public function projects()

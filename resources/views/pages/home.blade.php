@@ -177,7 +177,7 @@
                     <a href="{{ url(app()->getLocale() . '/contact') }}" class="btn-premium">
                         {{ __('messages.cta.quote') }}
                     </a>
-                    <a href="https://wa.me/33123456789" class="btn-premium-outline flex items-center gap-2">
+                    <a href="https://wa.me/33684130952" class="btn-premium-outline flex items-center gap-2">
                         {{ __('messages.contact.whatsapp_support') }}
                     </a>
                 </div>

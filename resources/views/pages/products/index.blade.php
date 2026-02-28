@@ -1,126 +1,73 @@
 @extends('layouts.app')
 
-@section('title', 'Product Catalog | Deco & Ceram')
+@section('title', 'Collections | Deco & Ceram')
 
 @section('content')
-    <div class="bg-brand-white py-12 border-b border-brand-stone">
+    <!-- Hero/Header -->
+    <section class="pt-32 pb-16 bg-brand-stone/30">
         <div class="container mx-auto px-6">
-            <h1 class="text-4xl md:text-5xl font-serif mb-4">{{ __('messages.products.catalog') }}</h1>
-            <p class="text-brand-charcoal/60 uppercase tracking-widest text-xs">{{ __('messages.products.sub_title') }}</p>
+            <div class="max-w-3xl space-y-4 reveal reveal-up">
+                <span class="text-xs uppercase tracking-widest text-brand-sand font-bold">Catalog</span>
+                <h1 class="text-5xl md:text-6xl font-serif">Explore our <span class="italic">Collections</span></h1>
+                <p class="text-brand-charcoal/60 text-lg font-light leading-relaxed">
+                    Discover premium surfaces from the world's leading manufacturers, curated for architectural excellence.
+                </p>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <section class="py-20">
+    <!-- Browse by Brand -->
+    <section class="py-24">
         <div class="container mx-auto px-6">
-            <form action="{{ url(app()->getLocale() . '/products') }}" method="GET" id="filter-form"
-                class="flex flex-col lg:flex-row gap-16">
-                <!-- Sidebar Filters -->
-                <aside class="w-full lg:w-64 space-y-12 h-fit lg:sticky lg:top-32">
-                    <!-- Categories -->
-                    <div class="space-y-6">
-                        <h4 class="text-xs font-bold uppercase tracking-widest border-b border-brand-stone pb-2">
-                            {{ __('messages.products.filters.category') }}
-                        </h4>
-                        <ul class="space-y-3 text-sm">
-                            <li>
-                                <label class="flex items-center justify-between cursor-pointer group">
-                                    <input type="radio" name="category" value="" class="hidden"
-                                        onchange="this.form.submit()" @if(!Request::has('category') || Request::get('category') == '') checked @endif>
-                                    <span
-                                        class="group-hover:text-brand-sand transition-colors @if(!Request::has('category') || Request::get('category') == '') text-brand-sand font-medium @endif">
-                                        {{ __('messages.products.filters.all') }}
-                                    </span>
-                                </label>
-                            </li>
-                            @foreach($categories as $category)
-                                <li>
-                                    <label class="flex items-center justify-between cursor-pointer group">
-                                        <input type="radio" name="category" value="{{ $category['id'] }}" class="hidden"
-                                            onchange="this.form.submit()" @if(Request::get('category') == $category['id']) checked @endif>
-                                        <span
-                                            class="group-hover:text-brand-sand transition-colors @if(Request::get('category') == $category['id']) text-brand-sand font-medium @endif">
-                                            {{ __('messages.categories.' . $category['id']) }}
-                                        </span>
-                                    </label>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+            <div class="mb-12 reveal reveal-up">
+                <h2 class="text-3xl font-serif">Browse by Brand</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                @foreach($brands as $brand)
+                    <x-product.brand-card :brand="$brand" />
+                @endforeach
+            </div>
+        </div>
+    </section>
 
-                    <!-- Material -->
-                    <div class="space-y-6">
-                        <h4 class="text-xs font-bold uppercase tracking-widest border-b border-brand-stone pb-2">
-                            {{ __('messages.products.filters.material') }}
-                        </h4>
-                        <div class="space-y-3">
-                            @foreach(['Ceramic', 'Porcelain', 'Natural Stone'] as $material)
-                                <label class="flex items-center gap-3 text-sm cursor-pointer group">
-                                    <input type="checkbox" name="material[]" value="{{ $material }}"
-                                        onchange="this.form.submit()"
-                                        @if(is_array(Request::get('material')) && in_array($material, Request::get('material'))) checked @endif
-                                        class="w-4 h-4 rounded-none border-brand-stone text-brand-charcoal focus:ring-0">
-                                    <span class="group-hover:text-brand-sand transition-colors">
-                                        {{ $material }}
-                                    </span>
-                                </label>
-                            @endforeach
+    <!-- Browse by Category -->
+    <section class="py-24 bg-brand-stone/10 section-divider">
+        <div class="container mx-auto px-6">
+            <div class="mb-12 reveal reveal-up">
+                <h2 class="text-3xl font-serif">Browse by Category</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                @foreach($categories as $category)
+                    <a href="{{ url(app()->getLocale() . '/products?category=' . $category['id']) }}"
+                        class="group relative aspect-[3/4] overflow-hidden bg-brand-stone reveal reveal-up">
+                        <img src="{{ $category['image'] ?? '/images/placeholder.jpg' }}" alt="{{ $category['name'] }}"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-brand-charcoal/20 group-hover:bg-brand-charcoal/40 transition-colors">
                         </div>
-                    </div>
-
-                    <!-- Look -->
-                    <div class="space-y-6">
-                        <h4 class="text-xs font-bold uppercase tracking-widest border-b border-brand-stone pb-2">
-                            {{ __('messages.products.filters.look') }}</h4>
-                        <div class="space-y-3">
-                            @foreach(['Marble', 'Stone', 'Concrete', 'Wood', 'Terrazzo'] as $look)
-                                <label class="flex items-center gap-3 text-sm cursor-pointer group">
-                                    <input type="checkbox" name="look[]" value="{{ $look }}"
-                                        onchange="this.form.submit()"
-                                        @if(is_array(Request::get('look')) && in_array($look, Request::get('look'))) checked @endif
-                                        class="w-4 h-4 rounded-none border-brand-stone text-brand-charcoal focus:ring-0">
-                                    <span class="group-hover:text-brand-sand transition-colors">
-                                        {{ $look }}
-                                    </span>
-                                </label>
-                            @endforeach
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <h3 class="text-white text-xl md:text-2xl font-serif text-center px-4">
+                                {{ $category['name'] }}
+                            </h3>
                         </div>
-                    </div>
-                </aside>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
 
-                <!-- Product Grid -->
-                <div class="flex-1 space-y-12">
-                    <!-- Toolbar -->
-                    <div
-                        class="flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-brand-stone pb-6">
-                        <p class="text-sm text-brand-charcoal/60 italic">{{ count($products) }}
-                            {{ __('messages.products.found') }}</p>
-                        <div class="flex items-center gap-4">
-                            <span
-                                class="text-xs uppercase tracking-widest font-bold">{{ __('messages.products.filters.sort_by') }}</span>
-                            <select name="sort" onchange="this.form.submit()"
-                                class="bg-transparent border-none text-sm focus:ring-0 uppercase tracking-tighter cursor-pointer">
-                                <option value="popular" @if(Request::get('sort') == 'popular') selected @endif>{{ __('messages.products.filters.popular') }}</option>
-                                <option value="new" @if(Request::get('sort') == 'new') selected @endif>{{ __('messages.products.filters.new') }}</option>
-                                <option value="alphabetical" @if(Request::get('sort') == 'alphabetical') selected @endif>{{ __('messages.products.filters.alphabetical') }}</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">
-                        @forelse($products as $product)
-                            <x-product.card :product="$product" />
-                        @empty
-                            <div class="col-span-full py-20 text-center">
-                                <p class="text-brand-charcoal/60 italic">{{ __('messages.products.no_results') ?? 'No products found matching your criteria.' }}</p>
-                                <a href="{{ url(app()->getLocale() . '/products') }}" class="text-brand-sand underline mt-4 inline-block">
-                                    {{ __('messages.products.clear_filters') ?? 'Clear all filters' }}
-                                </a>
-                            </div>
-                        @endforelse
-                    </div>
+    <!-- Featured Collections -->
+    <section class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-end mb-12 gap-4">
+                <div class="reveal reveal-up">
+                    <h2 class="text-3xl font-serif">Featured Collections</h2>
                 </div>
-            </form>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                @foreach($featuredCollections as $collection)
+                    <x-product.collection-card :collection="$collection" />
+                @endforeach
+            </div>
         </div>
     </section>
 @endsection

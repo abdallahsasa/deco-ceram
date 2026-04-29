@@ -38,3 +38,15 @@ Route::get('/run-migrations', function () {
         return "Error: " . $e->getMessage();
     }
 });
+
+Route::get('/run-seeder', function () {
+    try {
+        echo "Running seeders...<br>";
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+        echo "Seeders done!<br>";
+        return "Success! Admin user created. You can now log in.";
+    } catch (\Exception $e) {
+        return "Error: " . $e->getMessage();
+    }
+});
+

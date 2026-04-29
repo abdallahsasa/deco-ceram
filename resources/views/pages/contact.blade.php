@@ -28,8 +28,8 @@
                                 {{ __('messages.contact.office') }}
                             </h4>
                             <p class="text-sm text-brand-charcoal/80 leading-relaxed">
-                                123 Avenue des Champs-Élysées<br>
-                                75008 Paris, France
+                                81 RUE DE SILLY<br>
+                                92100 BOULOGNE-BILLANCOURT, France
                             </p>
                         </div>
                         <div class="space-y-4">
@@ -37,8 +37,8 @@
                                 {{ __('messages.contact.inquiries') }}
                             </h4>
                             <p class="text-sm text-brand-charcoal/80">
-                                <a href="mailto:info@deco-ceram.com"
-                                    class="hover:text-brand-sand transition-colors">info@deco-ceram.com</a><br>
+                                <a href="mailto:contact@deco-ceram.fr"
+                                    class="hover:text-brand-sand transition-colors">contact@deco-ceram.fr</a><br>
                                 <a href="tel:+33684130952" class="hover:text-brand-sand transition-colors">+33 6 84 13 09
                                     52</a>
                             </p>

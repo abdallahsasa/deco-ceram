@@ -184,7 +184,7 @@ return [
         'title' => 'Legal Notice',
         's1_title' => '1. Edition',
         's1_desc' => 'This website is edited by DECO & CERAM, a company registered in France.',
-        's1_hq' => 'Headquarters: 123 Avenue des Champs-Élysées, 75008 Paris.',
+        's1_hq' => 'Headquarters: 81 RUE DE SILLY, 92100 BOULOGNE-BILLANCOURT.',
         's2_title' => '2. Hosting',
         's2_desc' => 'The site is hosted by Vercel Inc.',
         's3_title' => '3. Intellectual Property',
@@ -201,6 +201,6 @@ return [
         's3_title' => '3. Data Retention',
         's3_desc' => 'We retain personal data only for as long as necessary to fulfill the purposes for which it was collected, including for the purposes of satisfying any legal, accounting, or reporting requirements.',
         's4_title' => '4. Your Rights',
-        's4_desc' => 'You have the right to access, correct, or delete your personal information. To exercise these rights, please contact us at info@deco-ceram.com.',
+        's4_desc' => 'You have the right to access, correct, or delete your personal information. To exercise these rights, please contact us at contact@deco-ceram.fr.',
     ],
 ];

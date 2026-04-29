@@ -183,7 +183,7 @@ return [
         'title' => 'Mentions Légales',
         's1_title' => '1. Édition',
         's1_desc' => 'Ce site web est édité par DECO & CERAM, une société enregistrée en France.',
-        's1_hq' => 'Siège social : 123 Avenue des Champs-Élysées, 75008 Paris.',
+        's1_hq' => 'Siège social : 81 RUE DE SILLY, 92100 BOULOGNE-BILLANCOURT.',
         's2_title' => '2. Hébergement',
         's2_desc' => 'Le site est hébergé par Vercel Inc.',
         's3_title' => '3. Propriété Intellectuelle',
@@ -200,6 +200,6 @@ return [
         's3_title' => '3. Conservation des Données',
         's3_desc' => 'Nous ne conservons les données personnelles que le temps nécessaire à la réalisation des finalités pour lesquelles elles ont été collectées, y compris pour satisfaire à toute exigence légale, comptable ou de reporting.',
         's4_title' => '4. Vos Droits',
-        's4_desc' => 'Vous disposez d\'un droit d\'accès, de rectification ou de suppression de vos données personnelles. Pour exercer ces droits, veuillez nous contacter à info@deco-ceram.com.',
+        's4_desc' => 'Vous disposez d\'un droit d\'accès, de rectification ou de suppression de vos données personnelles. Pour exercer ces droits, veuillez nous contacter à contact@deco-ceram.fr.',
     ],
 ];

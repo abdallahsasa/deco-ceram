@@ -13,7 +13,7 @@
                         {{ __('messages.legal.s1_title') }}</h2>
                     <p>{{ __('messages.legal.s1_desc') }}</p>
                     <p>{{ __('messages.legal.s1_hq') }}</p>
-                    <p>Email: info@deco-ceram.com</p>
+                    <p>Email: contact@deco-ceram.fr</p>
                 </section>
 
                 <section class="space-y-4">

@@ -8,6 +8,12 @@ class Variant extends Model
 {
     protected $fillable = [
         'product_id',
+        'size_id',
+        'sku',
+        'price_full_pallet',
+        'price_partial_pallet',
+        'finish_type',
+        'is_active',
         'name',
         'size',
         'finish',
@@ -17,10 +23,18 @@ class Variant extends Model
 
     protected $casts = [
         'images' => 'array',
+        'price_full_pallet' => 'decimal:2',
+        'price_partial_pallet' => 'decimal:2',
+        'is_active' => 'boolean',
     ];
 
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function sizeModel()
+    {
+        return $this->belongsTo(Size::class, 'size_id');
     }
 }

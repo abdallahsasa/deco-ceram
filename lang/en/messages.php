@@ -88,6 +88,15 @@ return [
             'look_concrete' => 'Concrete',
             'look_wood' => 'Wood',
         ],
+        'variants' => [
+            'title' => 'Available Formats & Packaging',
+            'pcs_box' => 'Pcs / Box',
+            'sqm_box' => 'm² / Box',
+            'boxes_pallet' => 'Boxes / Pallet',
+            'sqm_pallet' => 'm² / Pallet',
+            'starting_from' => 'Starting from',
+            'partial_pallet' => 'Partial pallet:',
+        ],
     ],
     'projects' => [
         'title' => 'Iconic Projects',

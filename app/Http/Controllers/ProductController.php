@@ -62,7 +62,7 @@ class ProductController extends Controller
         $collection = Collection::where('slug', $collectionSlug)->where('brand_id', $brand->id)->firstOrFail();
         $product = Product::where('slug', $productSlug)
             ->where('collection_id', $collection->id)
-            ->with(['collection.brand', 'variants'])
+            ->with(['collection.brand', 'variants.sizeModel'])
             ->firstOrFail();
 
         return view('pages.products.show', compact('brand', 'collection', 'product'));

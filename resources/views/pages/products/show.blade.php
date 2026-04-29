@@ -78,20 +78,55 @@
                         </div>
                     </div>
 
-                    <!-- Variants (If Any) -->
+                    <!-- Variants & Sizes -->
                     @if($product->variants->isNotEmpty())
                         <div class="space-y-6">
-                            <h4 class="text-xs uppercase tracking-[0.2em] font-bold">Available Variants</h4>
-                            <div class="grid grid-cols-1 gap-4">
+                            <h4 class="text-xs uppercase tracking-[0.2em] font-bold">{{ __('messages.products.variants.title') }}</h4>
+                            <div class="space-y-4">
                                 @foreach($product->variants as $variant)
-                                    <div
-                                        class="flex items-center justify-between p-4 border border-brand-stone bg-brand-stone/10 group hover:border-brand-sand hover:bg-white transition-all">
-                                        <div class="space-y-1">
-                                            <span class="text-sm font-medium block">{{ $variant->name }}</span>
-                                            <span class="text-[10px] text-brand-charcoal/40 uppercase tracking-widest">
-                                                {{ $variant->size }} • {{ $variant->finish }} • {{ $variant->thickness }}
-                                            </span>
+                                    <div class="border border-brand-stone bg-brand-stone/5 overflow-hidden">
+                                        <div class="p-4 bg-brand-stone/10 border-b border-brand-stone flex justify-between items-center">
+                                            <div>
+                                                <span class="text-sm font-bold">{{ $variant->sizeModel?->name ?? $variant->size }}</span>
+                                                <span class="mx-2 text-brand-charcoal/20">|</span>
+                                                <span class="text-xs uppercase tracking-widest text-brand-charcoal/60">{{ $variant->finish }}</span>
+                                            </div>
+                                            @if($variant->price_full_pallet)
+                                                <div class="text-right">
+                                                    <span class="text-[10px] uppercase tracking-tighter text-brand-charcoal/40 block">{{ __('messages.products.variants.starting_from') }}</span>
+                                                    <span class="text-sm font-bold text-brand-sand">{{ $variant->price_full_pallet }}€ / m²</span>
+                                                </div>
+                                            @endif
                                         </div>
+                                        
+                                        @if($variant->sizeModel)
+                                            <div class="p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                                                <div class="space-y-1">
+                                                    <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">{{ __('messages.products.variants.pcs_box') }}</span>
+                                                    <span class="text-xs font-medium">{{ $variant->sizeModel->pcs_per_box }}</span>
+                                                </div>
+                                                <div class="space-y-1">
+                                                    <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">{{ __('messages.products.variants.sqm_box') }}</span>
+                                                    <span class="text-xs font-medium">{{ number_format($variant->sizeModel->sqm_per_box, 2) }}</span>
+                                                </div>
+                                                <div class="space-y-1">
+                                                    <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">{{ __('messages.products.variants.boxes_pallet') }}</span>
+                                                    <span class="text-xs font-medium">{{ $variant->sizeModel->boxes_per_pallet }}</span>
+                                                </div>
+                                                <div class="space-y-1">
+                                                    <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">{{ __('messages.products.variants.sqm_pallet') }}</span>
+                                                    <span class="text-xs font-medium">{{ number_format($variant->sizeModel->sqm_per_pallet, 2) }}</span>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        
+                                        @if($variant->price_partial_pallet && $variant->price_partial_pallet != $variant->price_full_pallet)
+                                            <div class="px-4 pb-4 flex justify-end">
+                                                <div class="text-[10px] text-brand-charcoal/40 italic">
+                                                    {{ __('messages.products.variants.partial_pallet') }} <span class="text-brand-charcoal font-medium not-italic">{{ $variant->price_partial_pallet }}€ / m²</span>
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
                                 @endforeach
                             </div>

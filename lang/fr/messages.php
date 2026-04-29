@@ -87,6 +87,15 @@ return [
             'look_concrete' => 'Béton',
             'look_wood' => 'Bois',
         ],
+        'variants' => [
+            'title' => 'Formats Disponibles & Conditionnement',
+            'pcs_box' => 'Pièces / Boîte',
+            'sqm_box' => 'm² / Boîte',
+            'boxes_pallet' => 'Boîtes / Palette',
+            'sqm_pallet' => 'm² / Palette',
+            'starting_from' => 'À partir de',
+            'partial_pallet' => 'Palette partielle :',
+        ],
     ],
     'projects' => [
         'title' => 'Projets Iconiques',

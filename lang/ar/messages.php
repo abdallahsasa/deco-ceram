@@ -87,6 +87,15 @@ return [
             'look_concrete' => 'خرسانة',
             'look_wood' => 'خشب',
         ],
+        'variants' => [
+            'title' => 'المقاسات المتوفرة والتعبئة',
+            'pcs_box' => 'قطعة / صندوق',
+            'sqm_box' => 'متر مربع / صندوق',
+            'boxes_pallet' => 'صندوق / طبلية',
+            'sqm_pallet' => 'متر مربع / طبلية',
+            'starting_from' => 'ابتداءً من',
+            'partial_pallet' => 'طبلية جزئية:',
+        ],
     ],
     'projects' => [
         'title' => 'مشاريع أيقونية',

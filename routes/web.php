@@ -22,3 +22,19 @@ Route::prefix('{locale}')->where(['locale' => 'fr|ar|en'])->group(function () {
     Route::get('/legal', [PageController::class, 'legal'])->name('legal');
     Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
 });
+
+Route::get('/run-migrations', function () {
+    try {
+        echo "Running migrations...<br>";
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        echo "Migrations done!<br>";
+
+        echo "Cleaning cache...<br>";
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+        echo "Cache cleared!<br>";
+
+        return "Success! You can now delete this route from web.php and refresh your site.";
+    } catch (\Exception $e) {
+        return "Error: " . $e->getMessage();
+    }
+});

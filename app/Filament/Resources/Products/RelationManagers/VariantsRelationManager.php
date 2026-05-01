@@ -35,7 +35,29 @@ class VariantsRelationManager extends RelationManager
                             ->required()
                             ->searchable()
                             ->preload()
-                            ->label('Technical Size'),
+                            ->label('Technical Size / Packaging')
+                            ->createOptionForm([
+                                Grid::make(2)
+                                    ->schema([
+                                        TextInput::make('id')
+                                            ->required()
+                                            ->label('Size ID (Technical)')
+                                            ->placeholder('e.g. 60x120-1pc'),
+                                        TextInput::make('name')
+                                            ->required()
+                                            ->label('Display Name')
+                                            ->placeholder('e.g. 60x120 cm (1 pc)'),
+                                    ]),
+                                Grid::make(3)
+                                    ->schema([
+                                        TextInput::make('pcs_per_box')->numeric()->default(1),
+                                        TextInput::make('sqm_per_box')->numeric()->step(0.0001)->label('m² / Box'),
+                                        TextInput::make('kg_per_box')->numeric()->step(0.01)->label('Kg / Box'),
+                                        TextInput::make('boxes_per_pallet')->numeric()->label('Boxes / Pallet'),
+                                        TextInput::make('sqm_per_pallet')->numeric()->step(0.0001)->label('m² / Pallet'),
+                                        TextInput::make('kg_per_pallet')->numeric()->step(0.01)->label('Kg / Pallet'),
+                                    ]),
+                            ]),
                         TextInput::make('sku')
                             ->required()
                             ->label('SKU (e.g. AFAL)'),

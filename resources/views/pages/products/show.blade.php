@@ -100,34 +100,31 @@
                                         </div>
                                         
                                         @if($variant->sizeModel)
-                                            <div class="p-4 grid grid-cols-3 gap-y-6 gap-x-4 text-center border-t border-brand-stone/40 bg-brand-stone/5">
-                                                <!-- Box Info -->
-                                                <div class="space-y-1">
-                                                    <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">{{ __('messages.products.variants.pcs_box') }}</span>
-                                                    <span class="text-xs font-bold">{{ $variant->sizeModel->pcs_per_box }}</span>
-                                                </div>
-                                                <div class="space-y-1">
-                                                    <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">{{ __('messages.products.variants.sqm_box') }}</span>
-                                                    <span class="text-xs font-bold">{{ number_format($variant->sizeModel->sqm_per_box, 2) }}</span>
-                                                </div>
-                                                <div class="space-y-1">
-                                                    <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">~ Kg / Box</span>
-                                                    <span class="text-xs font-bold">{{ $variant->sizeModel->kg_per_box ?? '-' }}</span>
-                                                </div>
-
-                                                <!-- Pallet Info -->
-                                                <div class="space-y-1">
-                                                    <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">{{ __('messages.products.variants.boxes_pallet') }}</span>
-                                                    <span class="text-xs font-bold">{{ $variant->sizeModel->boxes_per_pallet }}</span>
-                                                </div>
-                                                <div class="space-y-1">
-                                                    <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">{{ __('messages.products.variants.sqm_pallet') }}</span>
-                                                    <span class="text-xs font-bold">{{ number_format($variant->sizeModel->sqm_per_pallet, 2) }}</span>
-                                                </div>
-                                                <div class="space-y-1">
-                                                    <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">~ Kg / Pal</span>
-                                                    <span class="text-xs font-bold">{{ $variant->sizeModel->kg_per_pallet ?? '-' }}</span>
-                                                </div>
+                                            <div class="px-6 py-4 bg-brand-stone/10 border-t border-brand-stone/30">
+                                                <table class="w-full text-left">
+                                                    <thead>
+                                                        <tr class="border-b border-brand-stone/40">
+                                                            <th class="py-2 text-[8px] uppercase tracking-[0.2em] text-brand-charcoal/40 font-bold">Unit</th>
+                                                            <th class="py-2 text-[8px] uppercase tracking-[0.2em] text-brand-charcoal/40 font-bold text-center">Quantity</th>
+                                                            <th class="py-2 text-[8px] uppercase tracking-[0.2em] text-brand-charcoal/40 font-bold text-center">Surface (m²)</th>
+                                                            <th class="py-2 text-[8px] uppercase tracking-[0.2em] text-brand-charcoal/40 font-bold text-right">Weight (kg)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-brand-stone/20">
+                                                        <tr class="group">
+                                                            <td class="py-3 text-[10px] uppercase tracking-widest font-bold text-brand-charcoal/80">Box</td>
+                                                            <td class="py-3 text-xs font-medium text-center">{{ $variant->sizeModel->pcs_per_box }} pcs</td>
+                                                            <td class="py-3 text-xs font-medium text-center">{{ number_format($variant->sizeModel->sqm_per_box, 2) }}</td>
+                                                            <td class="py-3 text-xs font-medium text-right text-brand-charcoal/60">~ {{ $variant->sizeModel->kg_per_box ?? '-' }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="py-3 text-[10px] uppercase tracking-widest font-bold text-brand-charcoal/80">Pallet</td>
+                                                            <td class="py-3 text-xs font-medium text-center">{{ $variant->sizeModel->boxes_per_pallet }} boxes</td>
+                                                            <td class="py-3 text-xs font-medium text-center">{{ number_format($variant->sizeModel->sqm_per_pallet, 2) }}</td>
+                                                            <td class="py-3 text-xs font-medium text-right text-brand-charcoal/60">~ {{ $variant->sizeModel->kg_per_pallet ?? '-' }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         @endif
                                         

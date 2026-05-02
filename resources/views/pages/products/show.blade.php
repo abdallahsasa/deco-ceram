@@ -100,38 +100,58 @@
                                         </div>
                                         
                                         @if($variant->sizeModel)
-                                            <div class="px-6 py-5 border-t border-brand-stone/40">
-                                                <!-- Box Information -->
-                                                <div class="flex flex-wrap items-center gap-x-6 gap-y-3 mb-4">
-                                                    <span class="text-[8px] uppercase tracking-[0.2em] font-bold text-brand-charcoal/30 w-full md:w-auto">Box Data</span>
-                                                    <div class="flex items-center gap-1.5">
-                                                        <span class="text-[10px] text-brand-charcoal/40 uppercase">Pcs:</span>
-                                                        <span class="text-[11px] font-bold text-brand-charcoal">{{ $variant->sizeModel->pcs_per_box }}</span>
+                                            <div class="px-8 py-6 border-t border-brand-stone bg-brand-stone/5">
+                                                <div class="flex flex-col md:flex-row gap-8 md:gap-12">
+                                                    <!-- Box Specs -->
+                                                    <div class="flex-1 space-y-4">
+                                                        <h5 class="text-[8px] uppercase tracking-[0.3em] font-black text-brand-charcoal/40 mb-4 border-b border-brand-stone pb-2">Packaging / Box</h5>
+                                                        <div class="flex items-center justify-between">
+                                                            <div class="flex items-center gap-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-charcoal/30"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+                                                                <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/60">Pieces</span>
+                                                            </div>
+                                                            <span class="text-xs font-bold text-brand-charcoal">{{ $variant->sizeModel->pcs_per_box }}</span>
+                                                        </div>
+                                                        <div class="flex items-center justify-between">
+                                                            <div class="flex items-center gap-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-charcoal/30"><path d="M21 3H3v18h18V3z"/><path d="M3 9h18"/><path d="M9 3v18"/></svg>
+                                                                <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/60">Surface</span>
+                                                            </div>
+                                                            <span class="text-xs font-bold text-brand-charcoal">{{ number_format($variant->sizeModel->sqm_per_box, 2) }} m²</span>
+                                                        </div>
+                                                        <div class="flex items-center justify-between">
+                                                            <div class="flex items-center gap-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-charcoal/30"><path d="m12 2 10 7L12 16 2 9l10-7Z"/><path d="M2 9v7l10 7 10-7V9"/><path d="m2 9 10 7 10-7"/></svg>
+                                                                <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/60">Weight</span>
+                                                            </div>
+                                                            <span class="text-xs font-bold text-brand-charcoal">~{{ $variant->sizeModel->kg_per_box ?? '-' }} kg</span>
+                                                        </div>
                                                     </div>
-                                                    <div class="flex items-center gap-1.5 border-l border-brand-stone/60 pl-6">
-                                                        <span class="text-[10px] text-brand-charcoal/40 uppercase">Surface:</span>
-                                                        <span class="text-[11px] font-bold text-brand-charcoal">{{ number_format($variant->sizeModel->sqm_per_box, 2) }} m²</span>
-                                                    </div>
-                                                    <div class="flex items-center gap-1.5 border-l border-brand-stone/60 pl-6">
-                                                        <span class="text-[10px] text-brand-charcoal/40 uppercase">Weight:</span>
-                                                        <span class="text-[11px] font-bold text-brand-charcoal">~{{ $variant->sizeModel->kg_per_box ?? '-' }} kg</span>
-                                                    </div>
-                                                </div>
 
-                                                <!-- Pallet Information -->
-                                                <div class="flex flex-wrap items-center gap-x-6 gap-y-3 pt-4 border-t border-brand-stone/20">
-                                                    <span class="text-[8px] uppercase tracking-[0.2em] font-bold text-brand-charcoal/30 w-full md:w-auto">Pallet Data</span>
-                                                    <div class="flex items-center gap-1.5">
-                                                        <span class="text-[10px] text-brand-charcoal/40 uppercase">Boxes:</span>
-                                                        <span class="text-[11px] font-bold text-brand-charcoal">{{ $variant->sizeModel->boxes_per_pallet }}</span>
-                                                    </div>
-                                                    <div class="flex items-center gap-1.5 border-l border-brand-stone/60 pl-6">
-                                                        <span class="text-[10px] text-brand-charcoal/40 uppercase">Surface:</span>
-                                                        <span class="text-[11px] font-bold text-brand-charcoal">{{ number_format($variant->sizeModel->sqm_per_pallet, 2) }} m²</span>
-                                                    </div>
-                                                    <div class="flex items-center gap-1.5 border-l border-brand-stone/60 pl-6">
-                                                        <span class="text-[10px] text-brand-charcoal/40 uppercase">Weight:</span>
-                                                        <span class="text-[11px] font-bold text-brand-charcoal">~{{ $variant->sizeModel->kg_per_pallet ?? '-' }} kg</span>
+                                                    <!-- Pallet Specs -->
+                                                    <div class="flex-1 space-y-4">
+                                                        <h5 class="text-[8px] uppercase tracking-[0.3em] font-black text-brand-charcoal/40 mb-4 border-b border-brand-stone pb-2">Packaging / Pallet</h5>
+                                                        <div class="flex items-center justify-between">
+                                                            <div class="flex items-center gap-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-charcoal/30"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                                                                <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/60">Boxes</span>
+                                                            </div>
+                                                            <span class="text-xs font-bold text-brand-charcoal">{{ $variant->sizeModel->boxes_per_pallet }}</span>
+                                                        </div>
+                                                        <div class="flex items-center justify-between">
+                                                            <div class="flex items-center gap-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-charcoal/30"><path d="M21 3H3v18h18V3z"/><path d="M3 9h18"/><path d="M9 3v18"/></svg>
+                                                                <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/60">Surface</span>
+                                                            </div>
+                                                            <span class="text-xs font-bold text-brand-charcoal">{{ number_format($variant->sizeModel->sqm_per_pallet, 2) }} m²</span>
+                                                        </div>
+                                                        <div class="flex items-center justify-between">
+                                                            <div class="flex items-center gap-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-charcoal/30"><path d="m12 2 10 7L12 16 2 9l10-7Z"/><path d="M2 9v7l10 7 10-7V9"/><path d="m2 9 10 7 10-7"/></svg>
+                                                                <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/60">Weight</span>
+                                                            </div>
+                                                            <span class="text-xs font-bold text-brand-charcoal">~{{ $variant->sizeModel->kg_per_pallet ?? '-' }} kg</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

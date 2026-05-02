@@ -13,7 +13,7 @@ use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -28,7 +28,7 @@ class VariantsRelationManager extends RelationManager
     {
         return $schema
             ->components([
-                Grid::make(2)
+                Section::make('Technical Details')
                     ->schema([
                         Select::make('size_id')
                             ->relationship('sizeModel', 'name')
@@ -37,7 +37,7 @@ class VariantsRelationManager extends RelationManager
                             ->preload()
                             ->label('Technical Size / Packaging')
                             ->createOptionForm([
-                                Grid::make(2)
+                                Section::make('New Size')
                                     ->schema([
                                         TextInput::make('id')
                                             ->required()
@@ -47,16 +47,10 @@ class VariantsRelationManager extends RelationManager
                                             ->required()
                                             ->label('Display Name')
                                             ->placeholder('e.g. 60x120 cm (1 pc)'),
-                                    ]),
-                                Grid::make(3)
-                                    ->schema([
                                         TextInput::make('pcs_per_box')->numeric()->default(1),
                                         TextInput::make('sqm_per_box')->numeric()->step(0.0001)->label('m² / Box'),
                                         TextInput::make('kg_per_box')->numeric()->step(0.01)->label('Kg / Box'),
-                                        TextInput::make('boxes_per_pallet')->numeric()->label('Boxes / Pallet'),
-                                        TextInput::make('sqm_per_pallet')->numeric()->step(0.0001)->label('m² / Pallet'),
-                                        TextInput::make('kg_per_pallet')->numeric()->step(0.01)->label('Kg / Pallet'),
-                                    ]),
+                                    ])->columns(2),
                             ]),
                         TextInput::make('sku')
                             ->required()
@@ -75,7 +69,7 @@ class VariantsRelationManager extends RelationManager
                         Toggle::make('is_active')
                             ->default(true)
                             ->label('Is Active'),
-                    ]),
+                    ])->columns(2),
             ]);
     }
 

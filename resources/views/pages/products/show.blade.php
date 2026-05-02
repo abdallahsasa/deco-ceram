@@ -100,11 +100,11 @@
                                         </div>
                                         
                                         @if($variant->sizeModel)
-                                            <div class="px-8 py-10 border-t border-brand-stone bg-brand-stone/5">
-                                                <div class="flex flex-col md:flex-row gap-12 md:gap-20">
+                                            <div class="px-10 py-12 border-t border-brand-stone bg-brand-stone/5">
+                                                <div class="flex flex-col md:flex-row gap-16 md:gap-24">
                                                     <!-- Box Specs -->
-                                                    <div class="flex-1 space-y-5">
-                                                        <h5 class="text-[8px] uppercase tracking-[0.3em] font-black text-brand-charcoal/40 mb-6 border-b border-brand-stone pb-2">Packaging / Box</h5>
+                                                    <div class="flex-1 space-y-6">
+                                                        <h5 class="text-[8px] uppercase tracking-[0.3em] font-black text-brand-charcoal/40 mb-8 border-b border-brand-stone pb-2">Packaging / Box</h5>
                                                         <div class="flex items-center justify-between">
                                                             <div class="flex items-center gap-3">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-charcoal/30"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
@@ -129,8 +129,8 @@
                                                     </div>
 
                                                     <!-- Pallet Specs -->
-                                                    <div class="flex-1 space-y-5">
-                                                        <h5 class="text-[8px] uppercase tracking-[0.3em] font-black text-brand-charcoal/40 mb-6 border-b border-brand-stone pb-2">Packaging / Pallet</h5>
+                                                    <div class="flex-1 space-y-6">
+                                                        <h5 class="text-[8px] uppercase tracking-[0.3em] font-black text-brand-charcoal/40 mb-8 border-b border-brand-stone pb-2">Packaging / Pallet</h5>
                                                         <div class="flex items-center justify-between">
                                                             <div class="flex items-center gap-3">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-charcoal/30"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>

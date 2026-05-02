@@ -29,7 +29,8 @@ class ProductForm
                             ->afterStateUpdated(fn (string $operation, $state, $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
                         TextInput::make('slug')
                             ->required()
-                            ->unique(ignoreRecord: true),
+                            ->unique(ignoreRecord: true)
+                            ->placeholder('e.g. calacatta-gold'),
                         Textarea::make('description')
                             ->rows(3)
                             ->columnSpanFull(),

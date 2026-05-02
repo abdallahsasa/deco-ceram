@@ -100,31 +100,40 @@
                                         </div>
                                         
                                         @if($variant->sizeModel)
-                                            <div class="px-6 py-4 bg-brand-stone/10 border-t border-brand-stone/30">
-                                                <table class="w-full text-left">
-                                                    <thead>
-                                                        <tr class="border-b border-brand-stone/40">
-                                                            <th class="py-2 text-[8px] uppercase tracking-[0.2em] text-brand-charcoal/40 font-bold">Unit</th>
-                                                            <th class="py-2 text-[8px] uppercase tracking-[0.2em] text-brand-charcoal/40 font-bold text-center">Quantity</th>
-                                                            <th class="py-2 text-[8px] uppercase tracking-[0.2em] text-brand-charcoal/40 font-bold text-center">Surface (m²)</th>
-                                                            <th class="py-2 text-[8px] uppercase tracking-[0.2em] text-brand-charcoal/40 font-bold text-right">Weight (kg)</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="divide-y divide-brand-stone/20">
-                                                        <tr class="group">
-                                                            <td class="py-3 text-[10px] uppercase tracking-widest font-bold text-brand-charcoal/80">Box</td>
-                                                            <td class="py-3 text-xs font-medium text-center">{{ $variant->sizeModel->pcs_per_box }} pcs</td>
-                                                            <td class="py-3 text-xs font-medium text-center">{{ number_format($variant->sizeModel->sqm_per_box, 2) }}</td>
-                                                            <td class="py-3 text-xs font-medium text-right text-brand-charcoal/60">~ {{ $variant->sizeModel->kg_per_box ?? '-' }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="py-3 text-[10px] uppercase tracking-widest font-bold text-brand-charcoal/80">Pallet</td>
-                                                            <td class="py-3 text-xs font-medium text-center">{{ $variant->sizeModel->boxes_per_pallet }} boxes</td>
-                                                            <td class="py-3 text-xs font-medium text-center">{{ number_format($variant->sizeModel->sqm_per_pallet, 2) }}</td>
-                                                            <td class="py-3 text-xs font-medium text-right text-brand-charcoal/60">~ {{ $variant->sizeModel->kg_per_pallet ?? '-' }}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                            <div class="px-6 py-5 border-t border-brand-stone/40">
+                                                <!-- Box Information -->
+                                                <div class="flex flex-wrap items-center gap-x-6 gap-y-3 mb-4">
+                                                    <span class="text-[8px] uppercase tracking-[0.2em] font-bold text-brand-charcoal/30 w-full md:w-auto">Box Data</span>
+                                                    <div class="flex items-center gap-1.5">
+                                                        <span class="text-[10px] text-brand-charcoal/40 uppercase">Pcs:</span>
+                                                        <span class="text-[11px] font-bold text-brand-charcoal">{{ $variant->sizeModel->pcs_per_box }}</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1.5 border-l border-brand-stone/60 pl-6">
+                                                        <span class="text-[10px] text-brand-charcoal/40 uppercase">Surface:</span>
+                                                        <span class="text-[11px] font-bold text-brand-charcoal">{{ number_format($variant->sizeModel->sqm_per_box, 2) }} m²</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1.5 border-l border-brand-stone/60 pl-6">
+                                                        <span class="text-[10px] text-brand-charcoal/40 uppercase">Weight:</span>
+                                                        <span class="text-[11px] font-bold text-brand-charcoal">~{{ $variant->sizeModel->kg_per_box ?? '-' }} kg</span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Pallet Information -->
+                                                <div class="flex flex-wrap items-center gap-x-6 gap-y-3 pt-4 border-t border-brand-stone/20">
+                                                    <span class="text-[8px] uppercase tracking-[0.2em] font-bold text-brand-charcoal/30 w-full md:w-auto">Pallet Data</span>
+                                                    <div class="flex items-center gap-1.5">
+                                                        <span class="text-[10px] text-brand-charcoal/40 uppercase">Boxes:</span>
+                                                        <span class="text-[11px] font-bold text-brand-charcoal">{{ $variant->sizeModel->boxes_per_pallet }}</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1.5 border-l border-brand-stone/60 pl-6">
+                                                        <span class="text-[10px] text-brand-charcoal/40 uppercase">Surface:</span>
+                                                        <span class="text-[11px] font-bold text-brand-charcoal">{{ number_format($variant->sizeModel->sqm_per_pallet, 2) }} m²</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1.5 border-l border-brand-stone/60 pl-6">
+                                                        <span class="text-[10px] text-brand-charcoal/40 uppercase">Weight:</span>
+                                                        <span class="text-[11px] font-bold text-brand-charcoal">~{{ $variant->sizeModel->kg_per_pallet ?? '-' }} kg</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         @endif
                                         

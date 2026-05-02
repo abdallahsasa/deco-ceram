@@ -100,8 +100,8 @@
                                         </div>
                                         
                                         @if($variant->sizeModel)
-                                            <div class="px-10 py-12 border-t border-brand-stone bg-brand-stone/5">
-                                                <div class="flex flex-col md:flex-row gap-16 md:gap-24">
+                                            <div class="px-5 py-12 border-t border-brand-stone bg-brand-stone/5">
+                                                <div class="flex flex-col md:flex-row gap-16 md:gap-24 px-2">
                                                     <!-- Box Specs -->
                                                     <div class="flex-1 space-y-6">
                                                         <h5 class="text-[8px] uppercase tracking-[0.3em] font-black text-brand-charcoal/40 mb-8 border-b border-brand-stone pb-2">Packaging / Box</h5>

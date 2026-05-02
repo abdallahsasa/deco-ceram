@@ -100,35 +100,34 @@
                                         </div>
                                         
                                         @if($variant->sizeModel)
-                                            <div class="p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                                            <div class="p-4 grid grid-cols-3 gap-y-6 gap-x-4 text-center border-t border-brand-stone/40 bg-brand-stone/5">
+                                                <!-- Box Info -->
                                                 <div class="space-y-1">
                                                     <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">{{ __('messages.products.variants.pcs_box') }}</span>
-                                                    <span class="text-xs font-medium">{{ $variant->sizeModel->pcs_per_box }}</span>
+                                                    <span class="text-xs font-bold">{{ $variant->sizeModel->pcs_per_box }}</span>
                                                 </div>
                                                 <div class="space-y-1">
                                                     <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">{{ __('messages.products.variants.sqm_box') }}</span>
-                                                    <span class="text-xs font-medium">{{ number_format($variant->sizeModel->sqm_per_box, 2) }}</span>
+                                                    <span class="text-xs font-bold">{{ number_format($variant->sizeModel->sqm_per_box, 2) }}</span>
                                                 </div>
                                                 <div class="space-y-1">
+                                                    <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">~ Kg / Box</span>
+                                                    <span class="text-xs font-bold">{{ $variant->sizeModel->kg_per_box ?? '-' }}</span>
+                                                </div>
+
+                                                <!-- Pallet Info -->
+                                                <div class="space-y-1">
                                                     <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">{{ __('messages.products.variants.boxes_pallet') }}</span>
-                                                    <span class="text-xs font-medium">{{ $variant->sizeModel->boxes_per_pallet }}</span>
+                                                    <span class="text-xs font-bold">{{ $variant->sizeModel->boxes_per_pallet }}</span>
                                                 </div>
                                                 <div class="space-y-1">
                                                     <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">{{ __('messages.products.variants.sqm_pallet') }}</span>
-                                                    <span class="text-xs font-medium">{{ number_format($variant->sizeModel->sqm_per_pallet, 2) }}</span>
+                                                    <span class="text-xs font-bold">{{ number_format($variant->sizeModel->sqm_per_pallet, 2) }}</span>
                                                 </div>
-                                                @if($variant->sizeModel->kg_per_box)
-                                                    <div class="space-y-1">
-                                                        <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">~ Kg / Box</span>
-                                                        <span class="text-xs font-medium">{{ $variant->sizeModel->kg_per_box }}</span>
-                                                    </div>
-                                                @endif
-                                                @if($variant->sizeModel->kg_per_pallet)
-                                                    <div class="space-y-1">
-                                                        <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">~ Kg / Pal</span>
-                                                        <span class="text-xs font-medium">{{ $variant->sizeModel->kg_per_pallet }}</span>
-                                                    </div>
-                                                @endif
+                                                <div class="space-y-1">
+                                                    <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">~ Kg / Pal</span>
+                                                    <span class="text-xs font-bold">{{ $variant->sizeModel->kg_per_pallet ?? '-' }}</span>
+                                                </div>
                                             </div>
                                         @endif
                                         

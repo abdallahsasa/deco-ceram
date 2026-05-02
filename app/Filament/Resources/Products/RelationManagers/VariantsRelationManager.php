@@ -49,7 +49,8 @@ class VariantsRelationManager extends RelationManager
                                             ->placeholder('e.g. 60x120 cm (1 pc)'),
                                         TextInput::make('pcs_per_box')->numeric()->default(1),
                                         TextInput::make('sqm_per_box')->numeric()->step(0.0001)->label('m² / Box'),
-                                        TextInput::make('kg_per_box')->numeric()->step(0.01)->label('Kg / Box'),
+                                        TextInput::make('kg_per_box')->numeric()->step(0.01)->label('~ Kg / Box'),
+                                        TextInput::make('kg_per_pallet')->numeric()->step(0.01)->label('~ Kg / Pal'),
                                     ])->columns(2),
                             ]),
                         TextInput::make('sku')

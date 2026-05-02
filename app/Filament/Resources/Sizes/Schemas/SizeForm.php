@@ -42,7 +42,7 @@ class SizeForm
                         TextInput::make('kg_per_box')
                             ->numeric()
                             ->step(0.01)
-                            ->label('Kg/box'),
+                            ->label('~ Kg/box'),
                         TextInput::make('boxes_per_pallet')
                             ->numeric()
                             ->label('Boxes/pal (Sc/pal)'),
@@ -53,7 +53,7 @@ class SizeForm
                         TextInput::make('kg_per_pallet')
                             ->numeric()
                             ->step(0.01)
-                            ->label('Kg/pal'),
+                            ->label('~ Kg/pal'),
                     ])->columns(3),
             ]);
     }

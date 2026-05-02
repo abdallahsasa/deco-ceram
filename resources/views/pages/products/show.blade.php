@@ -117,6 +117,18 @@
                                                     <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">{{ __('messages.products.variants.sqm_pallet') }}</span>
                                                     <span class="text-xs font-medium">{{ number_format($variant->sizeModel->sqm_per_pallet, 2) }}</span>
                                                 </div>
+                                                @if($variant->sizeModel->kg_per_box)
+                                                    <div class="space-y-1">
+                                                        <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">~ Kg / Box</span>
+                                                        <span class="text-xs font-medium">{{ $variant->sizeModel->kg_per_box }}</span>
+                                                    </div>
+                                                @endif
+                                                @if($variant->sizeModel->kg_per_pallet)
+                                                    <div class="space-y-1">
+                                                        <span class="text-[9px] uppercase tracking-widest text-brand-charcoal/40 block">~ Kg / Pal</span>
+                                                        <span class="text-xs font-medium">{{ $variant->sizeModel->kg_per_pallet }}</span>
+                                                    </div>
+                                                @endif
                                             </div>
                                         @endif
                                         

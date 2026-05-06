@@ -50,3 +50,17 @@ Route::get('/run-seeder', function () {
     }
 });
 
+Route::get('/seed-caesar', function () {
+    try {
+        echo "Starting Caesar Products Import (this may take a minute)...<br>";
+        \Illuminate\Support\Facades\Artisan::call('db:seed', [
+            '--class' => 'CaesarProductsSeeder',
+            '--force' => true
+        ]);
+        echo "Import complete!<br>";
+        return "Success! Caesar products have been added to the database.";
+    } catch (\Exception $e) {
+        return "Error: " . $e->getMessage();
+    }
+});
+

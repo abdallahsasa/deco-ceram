@@ -66,31 +66,25 @@
         </div>
     </section>
 
-    <!-- Browse by Category -->
+    <!-- Browse by Collection -->
     <section class="py-24 border-t border-brand-stone">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
                 <div class="space-y-2 reveal reveal-up">
                     <span
-                        class="text-xs uppercase tracking-widest text-brand-sand font-bold">{{ __('messages.home.collections_title') }}</span>
-                    <h2 class="text-4xl md:text-5xl font-serif">{{ __('messages.home.browse_categories') }}</h2>
+                        class="text-xs uppercase tracking-widest text-brand-sand font-bold">Featured Series</span>
+                    <h2 class="text-4xl md:text-5xl font-serif">Explore Collections</h2>
+                </div>
+                <div class="reveal reveal-up">
+                    <a href="{{ url(app()->getLocale() . '/products') }}" class="text-xs uppercase tracking-widest border-b border-brand-sand pb-1 hover:text-brand-sand transition-colors">
+                        View All Products
+                    </a>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                @foreach($categories as $category)
-                    <a href="{{ url(app()->getLocale() . '/products?category=' . $category['id']) }}"
-                        class="group relative aspect-[3/4] overflow-hidden bg-brand-stone reveal reveal-up">
-                        <img src="{{ $category['image'] ?? '/images/categories/tiles.jpg' }}" alt="{{ $category['name'] }}"
-                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-brand-charcoal/20 group-hover:bg-brand-charcoal/40 transition-colors">
-                        </div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <h3 class="text-white text-xl md:text-2xl font-serif text-center px-4">
-                                {{ __('messages.categories.' . $category['id']) }}
-                            </h3>
-                        </div>
-                    </a>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                @foreach($collections as $collection)
+                    <x-product.collection-card :collection="$collection" />
                 @endforeach
             </div>
         </div>

@@ -41,6 +41,11 @@ class DataService
         return \App\Models\Project::where('featured', true)->take($limit)->get();
     }
 
+    public function getFeaturedCollections($limit = 4)
+    {
+        return \App\Models\Collection::with('brand')->take($limit)->get();
+    }
+
     private function loadJson($filename)
     {
         // No longer needed, but kept as placeholder if required

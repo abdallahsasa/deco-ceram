@@ -18,9 +18,9 @@ class PageController extends Controller
     {
         $featuredProducts = $this->dataService->getFeaturedProducts(4);
         $featuredProjects = $this->dataService->getFeaturedProjects(3);
-        $categories = $this->dataService->getCategories();
+        $collections = $this->dataService->getFeaturedCollections(4);
 
-        return view('pages.home', compact('featuredProducts', 'featuredProjects', 'categories'));
+        return view('pages.home', compact('featuredProducts', 'featuredProjects', 'collections'));
     }
 
     public function products($locale, Request $request)

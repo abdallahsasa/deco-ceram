@@ -50,6 +50,17 @@ Route::get('/run-seeder', function () {
     }
 });
 
+Route::get('/fix-storage', function () {
+    try {
+        echo "Creating storage link...<br>";
+        \Illuminate\Support\Facades\Artisan::call('storage:link');
+        echo "Link created!<br>";
+        return "Success! Your images should now be visible on the front-end.";
+    } catch (\Exception $e) {
+        return "Error: " . $e->getMessage();
+    }
+});
+
 Route::get('/seed-caesar', function () {
     try {
         echo "Starting Caesar Products Import (this may take a minute)...<br>";

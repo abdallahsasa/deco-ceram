@@ -25,12 +25,12 @@
                 <!-- 1. Hero Gallery Section -->
                 <div class="space-y-8 reveal reveal-up">
                     <div class="aspect-[21/9] bg-brand-stone overflow-hidden shadow-2xl">
-                        <img src="{{ $product->images[0] ?? '/images/placeholder.jpg' }}" alt="{{ $product->name }}"
+                        <img src="{{ $product->primary_image_url }}" alt="{{ $product->name }}"
                             class="w-full h-full object-cover">
                     </div>
-                    @if(count($product->images) > 1)
+                    @if(count($product->gallery_urls) > 1)
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                            @foreach(array_slice($product->images, 1) as $image)
+                            @foreach(array_slice($product->gallery_urls, 1) as $image)
                                 <div class="aspect-[4/3] bg-brand-stone overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
                                     <img src="{{ $image }}" alt="{{ $product->name }} view" class="w-full h-full object-cover">
                                 </div>

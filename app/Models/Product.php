@@ -101,4 +101,20 @@ class Product extends Model
     {
         return $this->belongsToMany(Project::class, 'project_product');
     }
+
+    public function getPrimaryImageUrlAttribute()
+    {
+        $image = $this->images[0] ?? null;
+        if (!$image) return asset('images/placeholder.jpg');
+        if (str_starts_with($image, 'http') || str_starts_with($image, '/')) return $image;
+        return asset('storage/' . $image);
+    }
+
+    public function getGalleryUrlsAttribute()
+    {
+        return collect($this->images)->map(function ($image) {
+            if (str_starts_with($image, 'http') || str_starts_with($image, '/')) return $image;
+            return asset('storage/' . $image);
+        })->toArray();
+    }
 }

@@ -33,4 +33,11 @@ class Collection extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function getHeroImageUrlAttribute()
+    {
+        if (!$this->hero_image) return asset('images/placeholder.jpg');
+        if (str_starts_with($this->hero_image, 'http') || str_starts_with($this->hero_image, '/')) return $this->hero_image;
+        return asset('storage/' . $this->hero_image);
+    }
 }

@@ -5,7 +5,7 @@
         class="block space-y-6">
         <!-- Image Container -->
         <div class="relative aspect-[3/4] overflow-hidden bg-brand-stone">
-            <img src="{{ $product['images'][0] ?? '/images/placeholder.jpg' }}" alt="{{ $product['name'] }}"
+            <img src="{{ $product->primary_image_url }}" alt="{{ $product['name'] }}"
                 class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
             
             <!-- Overlay on Hover -->

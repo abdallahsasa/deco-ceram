@@ -23,4 +23,18 @@ class Brand extends Model
     {
         return $this->hasMany(Collection::class);
     }
+
+    public function getHeroImageUrlAttribute()
+    {
+        if (!$this->hero_image) return asset('images/placeholder.jpg');
+        if (str_starts_with($this->hero_image, 'http') || str_starts_with($this->hero_image, '/')) return $this->hero_image;
+        return asset('storage/' . $this->hero_image);
+    }
+
+    public function getLogoUrlAttribute()
+    {
+        if (!$this->logo) return asset('images/placeholder.jpg');
+        if (str_starts_with($this->logo, 'http') || str_starts_with($this->logo, '/')) return $this->logo;
+        return asset('storage/' . $this->logo);
+    }
 }

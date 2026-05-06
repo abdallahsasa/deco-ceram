@@ -28,6 +28,17 @@ class Variant extends Model
         'is_active' => 'boolean',
     ];
 
+    /**
+     * Get the images.
+     *
+     * @param  string|null  $value
+     * @return array
+     */
+    public function getImagesAttribute($value)
+    {
+        return json_decode($value ?? '[]', true) ?? [];
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class);

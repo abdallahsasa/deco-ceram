@@ -35,6 +35,50 @@ class Product extends Model
         'featured' => 'boolean',
     ];
 
+    /**
+     * Get the technical specs.
+     *
+     * @param  string|null  $value
+     * @return array
+     */
+    public function getTechnicalSpecsAttribute($value)
+    {
+        return json_decode($value ?? '[]', true) ?? [];
+    }
+
+    /**
+     * Get the downloads.
+     *
+     * @param  string|null  $value
+     * @return array
+     */
+    public function getDownloadsAttribute($value)
+    {
+        return json_decode($value ?? '[]', true) ?? [];
+    }
+
+    /**
+     * Get the images.
+     *
+     * @param  string|null  $value
+     * @return array
+     */
+    public function getImagesAttribute($value)
+    {
+        return json_decode($value ?? '[]', true) ?? [];
+    }
+
+    /**
+     * Get the applications.
+     *
+     * @param  string|null  $value
+     * @return array
+     */
+    public function getApplicationsAttribute($value)
+    {
+        return json_decode($value ?? '[]', true) ?? [];
+    }
+
     public $incrementing = false;
     protected $keyType = 'string';
 

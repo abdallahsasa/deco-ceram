@@ -21,173 +21,178 @@
                 </ol>
             </nav>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
-                <!-- Gallery -->
-                <div class="space-y-6 reveal reveal-left">
-                    <div class="aspect-[4/5] bg-brand-stone overflow-hidden">
+            <div class="space-y-24">
+                <!-- 1. Hero Gallery Section -->
+                <div class="space-y-8 reveal reveal-up">
+                    <div class="aspect-[21/9] bg-brand-stone overflow-hidden shadow-2xl">
                         <img src="{{ $product->images[0] ?? '/images/placeholder.jpg' }}" alt="{{ $product->name }}"
                             class="w-full h-full object-cover">
                     </div>
-                    <div class="grid grid-cols-4 gap-4">
-                        @foreach($product->images as $image)
-                            <div
-                                class="aspect-square bg-brand-stone overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
-                                <img src="{{ $image }}" alt="{{ $product->name }} view" class="w-full h-full object-cover">
-                            </div>
-                        @endforeach
-                    </div>
+                    @if(count($product->images) > 1)
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                            @foreach(array_slice($product->images, 1) as $image)
+                                <div class="aspect-[4/3] bg-brand-stone overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
+                                    <img src="{{ $image }}" alt="{{ $product->name }} view" class="w-full h-full object-cover">
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
 
-                <!-- Info -->
-                <div class="space-y-12 reveal reveal-right">
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-4">
-                            <span
-                                class="text-xs uppercase tracking-widest text-brand-sand font-bold">{{ $product->collection->brand->name }}</span>
-                            <span class="w-1 h-1 bg-brand-stone rounded-full"></span>
-                            <span
-                                class="text-xs uppercase tracking-widest text-brand-charcoal/40">{{ $product->collection->name }}</span>
+                <!-- 2. Product Information & Description -->
+                <div class="max-w-4xl mx-auto text-center space-y-12 reveal reveal-up">
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-center gap-4">
+                            <span class="text-xs uppercase tracking-[0.3em] text-brand-sand font-black">{{ $brand->name }}</span>
+                            <span class="w-1.5 h-1.5 bg-brand-stone rounded-full"></span>
+                            <span class="text-xs uppercase tracking-[0.3em] text-brand-charcoal/40 font-medium">{{ $collection->name }}</span>
                         </div>
-                        <h1 class="text-4xl md:text-5xl font-serif">{{ $product->name }}</h1>
-                        <p class="text-brand-charcoal/60 text-lg font-light leading-relaxed">
+                        <h1 class="text-5xl md:text-7xl font-serif leading-tight">{{ $product->name }}</h1>
+                        <p class="text-brand-charcoal/60 text-xl font-light leading-relaxed max-w-2xl mx-auto italic">
                             {{ $product->description }}
                         </p>
                     </div>
 
-                    <!-- Technical Quick Specs -->
-                    <div class="grid grid-cols-2 gap-y-8 gap-x-12 border-y border-brand-stone py-8">
-                        <div>
-                            <span
-                                class="text-[10px] uppercase tracking-widest text-brand-charcoal/40 block mb-1">Material</span>
-                            <span class="text-sm font-medium">{{ $product->material }}</span>
+                    <!-- Technical Quick Specs Bar -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-brand-stone py-10">
+                        <div class="space-y-1">
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">Material</span>
+                            <span class="text-sm font-medium tracking-tight">{{ $product->material }}</span>
                         </div>
-                        <div>
-                            <span
-                                class="text-[10px] uppercase tracking-widest text-brand-charcoal/40 block mb-1">Look</span>
-                            <span class="text-sm font-medium">{{ $product->look }}</span>
+                        <div class="space-y-1">
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">Look</span>
+                            <span class="text-sm font-medium tracking-tight">{{ $product->look }}</span>
                         </div>
-                        <div>
-                            <span
-                                class="text-[10px] uppercase tracking-widest text-brand-charcoal/40 block mb-1">Finish</span>
-                            <span class="text-sm font-medium">{{ $product->finish }}</span>
+                        <div class="space-y-1">
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">Finish</span>
+                            <span class="text-sm font-medium tracking-tight">{{ $product->finish }}</span>
                         </div>
-                        <div>
-                            <span
-                                class="text-[10px] uppercase tracking-widest text-brand-charcoal/40 block mb-1">Thickness</span>
-                            <span class="text-sm font-medium">{{ $product->thickness }}</span>
+                        <div class="space-y-1">
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">Thickness</span>
+                            <span class="text-sm font-medium tracking-tight">{{ $product->thickness }}</span>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Variants & Sizes -->
-                    @if($product->variants->isNotEmpty())
-                        <div class="space-y-6">
-                            <h4 class="text-xs uppercase tracking-[0.2em] font-bold">{{ __('messages.products.variants.title') }}</h4>
-                            <div class="space-y-4">
-                                @foreach($product->variants as $variant)
-                                    <div class="border border-brand-stone bg-brand-stone/5 overflow-hidden">
-                                        <div class="p-4 bg-brand-stone/10 border-b border-brand-stone flex justify-between items-center">
-                                            <div>
-                                                <span class="text-sm font-bold">{{ $variant->sizeModel?->name ?? $variant->size }}</span>
-                                                <span class="mx-2 text-brand-charcoal/20">|</span>
-                                                <span class="text-xs uppercase tracking-widest text-brand-charcoal/60">{{ $variant->finish }}</span>
-                                            </div>
-                                            @if($variant->price_full_pallet)
-                                                <div class="text-right">
-                                                    <span class="text-[10px] uppercase tracking-tighter text-brand-charcoal/40 block">{{ __('messages.products.variants.starting_from') }}</span>
-                                                    <span class="text-sm font-bold text-brand-sand">{{ $variant->price_full_pallet }}€ / m²</span>
-                                                </div>
-                                            @endif
+                <!-- 3. Formats & Specifications Grid -->
+                @if($product->variants->isNotEmpty())
+                    <div class="space-y-12 reveal reveal-up">
+                        <div class="text-center space-y-2">
+                            <h2 class="text-3xl font-serif">Available Formats</h2>
+                            <p class="text-[10px] uppercase tracking-[0.3em] text-brand-charcoal/40">Technical Specifications per Size</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                            @foreach($product->variants as $variant)
+                                <div class="bg-white border border-brand-stone p-8 space-y-8 hover:shadow-xl transition-all duration-500 group">
+                                    <!-- Header -->
+                                    <div class="space-y-2">
+                                        <div class="flex justify-between items-start">
+                                            <span class="text-[10px] font-mono text-brand-charcoal/30 uppercase tracking-tighter">{{ $variant->sku ?? 'No SKU' }}</span>
+                                            <span class="text-[9px] uppercase tracking-widest text-brand-sand font-black px-2 py-1 bg-brand-sand/5">{{ $variant->finish }}</span>
                                         </div>
-                                        
-                                        @if($variant->sizeModel)
-                                            <div class="px-6 py-8 border-t border-brand-stone/40 bg-white">
-                                                <table class="w-full text-left border-collapse">
-                                                    <thead>
-                                                        <tr class="border-b border-brand-stone/60">
-                                                            <th class="pb-3 text-[9px] uppercase tracking-[0.2em] font-black text-brand-charcoal/30">Packaging</th>
-                                                            <th class="pb-3 text-[9px] uppercase tracking-[0.2em] font-black text-brand-charcoal/30 text-center">Quantity</th>
-                                                            <th class="pb-3 text-[9px] uppercase tracking-[0.2em] font-black text-brand-charcoal/30 text-center">m²</th>
-                                                            <th class="pb-3 text-[9px] uppercase tracking-[0.2em] font-black text-brand-charcoal/30 text-right">Weight</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="divide-y divide-brand-stone/30">
-                                                        <tr>
-                                                            <td class="py-4 text-[10px] uppercase tracking-widest font-bold text-brand-charcoal/80">Box</td>
-                                                            <td class="py-4 text-xs font-medium text-center text-brand-charcoal/70">{{ $variant->sizeModel->pcs_per_box }} pcs</td>
-                                                            <td class="py-4 text-xs font-medium text-center text-brand-charcoal/70">{{ number_format($variant->sizeModel->sqm_per_box, 2) }}</td>
-                                                            <td class="py-4 text-xs font-medium text-right text-brand-charcoal/50">~{{ $variant->sizeModel->kg_per_box ?? '-' }} kg</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="py-4 text-[10px] uppercase tracking-widest font-bold text-brand-charcoal/80">Pallet</td>
-                                                            <td class="py-4 text-xs font-medium text-center text-brand-charcoal/70">{{ $variant->sizeModel->boxes_per_pallet }} boxes</td>
-                                                            <td class="py-4 text-xs font-medium text-center text-brand-charcoal/70">{{ number_format($variant->sizeModel->sqm_per_pallet, 2) }}</td>
-                                                            <td class="py-4 text-xs font-medium text-right text-brand-charcoal/50">~{{ $variant->sizeModel->kg_per_pallet ?? '-' }} kg</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        @endif
-                                        
-                                        @if($variant->price_partial_pallet && $variant->price_partial_pallet != $variant->price_full_pallet)
-                                            <div class="px-4 pb-4 flex justify-end">
-                                                <div class="text-[10px] text-brand-charcoal/40 italic">
-                                                    {{ __('messages.products.variants.partial_pallet') }} <span class="text-brand-charcoal font-medium not-italic">{{ $variant->price_partial_pallet }}€ / m²</span>
+                                        <h5 class="text-2xl font-serif group-hover:text-brand-sand transition-colors">{{ $variant->sizeModel?->name ?? $variant->size }}</h5>
+                                    </div>
+
+                                    <!-- Specs Grid -->
+                                    <div class="grid grid-cols-2 gap-8 pt-6 border-t border-brand-stone/40">
+                                        <!-- Box -->
+                                        <div class="space-y-4">
+                                            <h6 class="text-[9px] uppercase tracking-[0.3em] font-black text-brand-charcoal/30">Box Packaging</h6>
+                                            <div class="space-y-2">
+                                                <div class="flex justify-between text-xs">
+                                                    <span class="text-brand-charcoal/40">Pieces</span>
+                                                    <span class="font-bold tracking-tighter">{{ $variant->sizeModel?->pcs_per_box ?? '-' }}</span>
+                                                </div>
+                                                <div class="flex justify-between text-xs">
+                                                    <span class="text-brand-charcoal/40">Surface</span>
+                                                    <span class="font-bold tracking-tighter">{{ number_format($variant->sizeModel?->sqm_per_box ?? 0, 2) }} m²</span>
+                                                </div>
+                                                <div class="flex justify-between text-xs">
+                                                    <span class="text-brand-charcoal/40">Weight</span>
+                                                    <span class="font-bold tracking-tighter">~{{ $variant->sizeModel?->kg_per_box ?? '-' }} kg</span>
                                                 </div>
                                             </div>
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endif
+                                        </div>
 
-                    <!-- CTAs -->
-                    <div class="flex flex-wrap gap-4 pt-4">
-                        <a href="{{ route('contact', ['locale' => app()->getLocale(), 'subject' => 'Quote Request: ' . $product->name]) }}"
-                            class="btn-premium flex-1 text-center">
-                            Request a Quote
-                        </a>
-                        <a href="{{ route('contact', ['locale' => app()->getLocale(), 'subject' => 'Sample Request: ' . $product->name]) }}"
-                            class="btn-premium-outline flex-1 text-center">
-                            Request Sample
-                        </a>
+                                        <!-- Pallet -->
+                                        <div class="space-y-4">
+                                            <h6 class="text-[9px] uppercase tracking-[0.3em] font-black text-brand-charcoal/30">Pallet Packaging</h6>
+                                            <div class="space-y-2">
+                                                <div class="flex justify-between text-xs">
+                                                    <span class="text-brand-charcoal/40">Boxes</span>
+                                                    <span class="font-bold tracking-tighter">{{ $variant->sizeModel?->boxes_per_pallet ?? '-' }}</span>
+                                                </div>
+                                                <div class="flex justify-between text-xs">
+                                                    <span class="text-brand-charcoal/40">Surface</span>
+                                                    <span class="font-bold tracking-tighter">{{ number_format($variant->sizeModel?->sqm_per_pallet ?? 0, 2) }} m²</span>
+                                                </div>
+                                                <div class="flex justify-between text-xs">
+                                                    <span class="text-brand-charcoal/40">Weight</span>
+                                                    <span class="font-bold tracking-tighter">~{{ $variant->sizeModel?->kg_per_pallet ?? '-' }} kg</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
+                @endif
 
-                    <!-- Technical Details Table -->
+                <!-- 4. Final Details & Action -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 pt-12 border-t border-brand-stone reveal reveal-up">
+                    <!-- Left: Technical Specs Table -->
                     @if(!empty($product->technical_specs))
-                        <div class="space-y-6 pt-8">
-                            <h4 class="text-xs uppercase tracking-[0.2em] font-bold">Technical Specifications</h4>
-                            <div class="border-t border-brand-stone">
+                        <div class="space-y-8">
+                            <h4 class="text-xs uppercase tracking-[0.2em] font-bold">Comprehensive Technical Data</h4>
+                            <div class="space-y-0">
                                 @foreach($product->technical_specs as $key => $value)
-                                    <div class="flex justify-between py-4 border-b border-brand-stone/40">
-                                        <span class="text-xs uppercase tracking-widest text-brand-charcoal/60">{{ $key }}</span>
-                                        <span class="text-xs font-bold">{{ $value }}</span>
+                                    <div class="flex justify-between py-5 border-b border-brand-stone/40">
+                                        <span class="text-[10px] uppercase tracking-widest text-brand-charcoal/60">{{ $key }}</span>
+                                        <span class="text-sm font-bold tracking-tight">{{ $value }}</span>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
                     @endif
 
-                    <!-- Downloads -->
-                    @if(!empty($product->downloads))
-                        <div class="space-y-6 pt-8">
-                            <h4 class="text-xs uppercase tracking-[0.2em] font-bold">Downloads</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                @foreach($product->downloads as $download)
-                                    <a href="{{ $download['url'] }}"
-                                        class="flex items-center gap-3 p-4 border border-brand-stone hover:bg-brand-stone/20 transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                            stroke="currentColor" class="w-5 h-5 text-brand-sand">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                        </svg>
-                                        <span
-                                            class="text-[10px] uppercase tracking-widest font-medium">{{ $download['name'] }}</span>
-                                    </a>
-                                @endforeach
+                    <!-- Right: Downloads & CTA -->
+                    <div class="space-y-12">
+                        @if(!empty($product->downloads))
+                            <div class="space-y-8">
+                                <h4 class="text-xs uppercase tracking-[0.2em] font-bold">Resources & Downloads</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    @foreach($product->downloads as $download)
+                                        <a href="{{ $download['url'] }}"
+                                            class="flex items-center justify-between p-6 border border-brand-stone hover:bg-brand-stone/10 transition-all group">
+                                            <span class="text-[10px] uppercase tracking-widest font-bold">{{ $download['name'] }}</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                                stroke="currentColor" class="w-4 h-4 text-brand-sand group-hover:translate-y-1 transition-transform">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                            </svg>
+                                        </a>
+                                    @endforeach
+                                </div>
                             </div>
+                        @endif
+
+                        <div class="space-y-6">
+                            <h4 class="text-xs uppercase tracking-[0.2em] font-bold">Start your project</h4>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <a href="{{ route('contact', ['locale' => app()->getLocale(), 'subject' => 'Quote Request: ' . $product->name]) }}"
+                                    class="btn-premium flex-1 text-center py-6">
+                                    Request a Quote
+                                </a>
+                                <a href="{{ route('contact', ['locale' => app()->getLocale(), 'subject' => 'Sample Request: ' . $product->name]) }}"
+                                    class="btn-premium-outline flex-1 text-center py-6">
+                                    Order Physical Sample
+                                </a>
+                            </div>
+                            <p class="text-[9px] text-brand-charcoal/40 uppercase tracking-widest text-center mt-4">Typical response time: < 24 hours</p>
                         </div>
-                    @endif
+                    </div>
                 </div>
             </div>
         </div>

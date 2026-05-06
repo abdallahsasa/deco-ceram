@@ -106,15 +106,32 @@ class Product extends Model
     {
         $image = $this->images[0] ?? null;
         if (!$image) return asset('images/placeholder.jpg');
-        if (str_starts_with($image, 'http') || str_starts_with($image, '/')) return $image;
-        return asset('storage/' . $image);
+        
+        if (str_starts_with($image, 'http')) return $image;
+        
+        $cleanPath = ltrim($image, '/');
+        
+        // Check public folder
+        if (file_exists(public_path($cleanPath))) {
+            return asset($cleanPath);
+        }
+        
+        // Check storage folder (via /storage link)
+        if (file_exists(storage_path('app/public/' . $cleanPath))) {
+            return asset('storage/' . $cleanPath);
+        }
+        
+        return asset('images/placeholder.jpg');
     }
 
     public function getGalleryUrlsAttribute()
     {
         return collect($this->images)->map(function ($image) {
-            if (str_starts_with($image, 'http') || str_starts_with($image, '/')) return $image;
-            return asset('storage/' . $image);
+            if (str_starts_with($image, 'http')) return $image;
+            $cleanPath = ltrim($image, '/');
+            if (file_exists(public_path($cleanPath))) return asset($cleanPath);
+            if (file_exists(storage_path('app/public/' . $cleanPath))) return asset('storage/' . $cleanPath);
+            return asset('images/placeholder.jpg');
         })->toArray();
     }
 }

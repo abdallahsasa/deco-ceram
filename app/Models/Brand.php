@@ -27,14 +27,24 @@ class Brand extends Model
     public function getHeroImageUrlAttribute()
     {
         if (!$this->hero_image) return asset('images/placeholder.jpg');
-        if (str_starts_with($this->hero_image, 'http') || str_starts_with($this->hero_image, '/')) return $this->hero_image;
-        return asset('storage/' . $this->hero_image);
+        if (str_starts_with($this->hero_image, 'http')) return $this->hero_image;
+        
+        $cleanPath = ltrim($this->hero_image, '/');
+        if (file_exists(public_path($cleanPath))) return asset($cleanPath);
+        if (file_exists(storage_path('app/public/' . $cleanPath))) return asset('storage/' . $cleanPath);
+        
+        return asset('images/placeholder.jpg');
     }
 
     public function getLogoUrlAttribute()
     {
         if (!$this->logo) return asset('images/placeholder.jpg');
-        if (str_starts_with($this->logo, 'http') || str_starts_with($this->logo, '/')) return $this->logo;
-        return asset('storage/' . $this->logo);
+        if (str_starts_with($this->logo, 'http')) return $this->logo;
+        
+        $cleanPath = ltrim($this->logo, '/');
+        if (file_exists(public_path($cleanPath))) return asset($cleanPath);
+        if (file_exists(storage_path('app/public/' . $cleanPath))) return asset('storage/' . $cleanPath);
+        
+        return asset('images/placeholder.jpg');
     }
 }

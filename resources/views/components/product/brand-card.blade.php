@@ -3,11 +3,11 @@
 <div class="group reveal reveal-up">
     <a href="{{ route('products.brand', ['locale' => app()->getLocale(), 'brand' => $brand->slug]) }}" class="block">
         <div class="relative aspect-video overflow-hidden bg-brand-stone mb-6">
-            <img src="{{ $brand->hero_image ?? '/images/placeholder.jpg' }}" alt="{{ $brand->name }}"
+            <img src="{{ $brand->hero_image_url }}" alt="{{ $brand->name }}"
                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
             <div class="absolute inset-0 bg-brand-charcoal/40 flex items-center justify-center">
                 <div class="bg-white/90 p-6 backdrop-blur-sm">
-                    <img src="{{ $brand->logo }}" alt="{{ $brand->name }} Logo" class="h-12 w-auto object-contain">
+                    <img src="{{ $brand->logo_url }}" alt="{{ $brand->name }} Logo" class="h-12 w-auto object-contain">
                 </div>
             </div>
             @if($brand->official_distributor)

@@ -4,7 +4,7 @@
     <a href="{{ route('products.collection', ['locale' => app()->getLocale(), 'brand' => $collection->brand->slug, 'collection' => $collection->slug]) }}"
         class="block">
         <div class="relative aspect-[16/10] overflow-hidden bg-brand-stone mb-6">
-            <img src="{{ $collection->hero_image ?? '/images/placeholder.jpg' }}" alt="{{ $collection->name }}"
+            <img src="{{ $collection->hero_image_url }}" alt="{{ $collection->name }}"
                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
             <div
                 class="absolute inset-0 bg-brand-charcoal/0 group-hover:bg-brand-charcoal/10 transition-colors duration-500">

@@ -54,7 +54,30 @@ Route::get('/fix-storage', function () {
     try {
         echo "Creating storage link...<br>";
         \Illuminate\Support\Facades\Artisan::call('storage:link');
-        echo "Link created!<br>";
+        
+        echo "Checking for private images...<br>";
+        $privatePath = storage_path('app/private/collections');
+        $publicPath = storage_path('app/public/collections');
+        
+        if (file_exists($privatePath)) {
+            if (!file_exists($publicPath)) {
+                mkdir($publicPath, 0755, true);
+            }
+            
+            $files = scandir($privatePath);
+            foreach ($files as $file) {
+                if ($file !== '.' && $file !== '..') {
+                    if (copy($privatePath . '/' . $file, $publicPath . '/' . $file)) {
+                        echo "Copied: $file to public storage<br>";
+                    }
+                }
+            }
+        }
+
+        echo "Cleaning cache...<br>";
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+
+        echo "Link and files fixed!<br>";
         return "Success! Your images should now be visible on the front-end.";
     } catch (\Exception $e) {
         return "Error: " . $e->getMessage();

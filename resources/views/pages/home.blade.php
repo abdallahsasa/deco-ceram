@@ -159,27 +159,6 @@
         </div>
     </section>
 
-    <!-- Featured Products -->
-    <section class="py-24 bg-brand-stone/30">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-6">
-                <div class="text-center md:text-left reveal reveal-up">
-                    <h2 class="text-4xl md:text-5xl font-serif">{{ __('messages.home.selected_surfaces') }}</h2>
-                </div>
-                <div class="reveal reveal-up">
-                    <a href="{{ url(app()->getLocale() . '/products') }}" class="btn-premium-outline">
-                        {{ __('messages.cta.explore_catalog') }}
-                    </a>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-                @foreach($featuredProducts as $product)
-                    <x-product.card :product="$product" />
-                @endforeach
-            </div>
-        </div>
-    </section>
 
     <!-- Projects Teaser -->
     <section class="py-24">

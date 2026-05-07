@@ -38,29 +38,82 @@
         </div>
     </section>
 
-    <!-- Strengths Section -->
-    <section class="py-24 bg-brand-white">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-                <div class="space-y-4 reveal reveal-up">
-                    <span class="text-brand-sand font-serif text-3xl font-light">01</span>
-                    <h3 class="text-xl uppercase tracking-widest">{{ __('messages.home.strengths.q_title') }}</h3>
-                    <p class="text-sm text-brand-charcoal/60 leading-relaxed">{{ __('messages.home.strengths.q_desc') }}</p>
+    <!-- Solutions Section -->
+    <section class="relative overflow-hidden bg-white">
+        <div class="flex flex-col lg:flex-row">
+            <!-- Left: Cinematic Image -->
+            <div class="w-full lg:w-1/2 h-[50vh] lg:h-[70vh] reveal reveal-left">
+                <img src="/images/solutions/main_banner.jpg" alt="Design Solutions" class="w-full h-full object-cover">
+            </div>
+            <!-- Right: Content -->
+            <div class="w-full lg:w-1/2 flex items-center justify-center p-12 lg:p-24 bg-brand-white reveal reveal-right">
+                <div class="max-w-md space-y-6">
+                    <h2 class="text-4xl md:text-5xl font-serif leading-tight">Solutions designed to bring your projects to life</h2>
+                    <p class="text-brand-charcoal/60 text-lg font-light leading-relaxed">
+                        Here are some concrete examples of how we can help you turn your ideas into results.
+                    </p>
+                    <div class="pt-4">
+                        <a href="{{ url(app()->getLocale() . '/products') }}" class="btn-premium-outline">
+                            Explore all inspirations
+                        </a>
+                    </div>
                 </div>
-                <div class="space-y-4 reveal reveal-up" style="transition-delay: 100ms;">
-                    <span class="text-brand-sand font-serif text-3xl font-light">02</span>
-                    <h3 class="text-xl uppercase tracking-widest">{{ __('messages.home.strengths.e_title') }}</h3>
-                    <p class="text-sm text-brand-charcoal/60 leading-relaxed">{{ __('messages.home.strengths.e_desc') }}</p>
+            </div>
+        </div>
+
+        <!-- Application Cards Row -->
+        <div class="container mx-auto px-6 -mt-16 relative z-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Bathroom -->
+                <div class="bg-white p-4 shadow-xl reveal reveal-up" style="transition-delay: 100ms;">
+                    <div class="aspect-[4/3] overflow-hidden mb-6">
+                        <img src="/images/solutions/bathroom.jpg" alt="Bathroom" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-serif text-center">Porcelain bathroom tiles</h3>
+                        <p class="text-[10px] text-brand-charcoal/50 leading-relaxed line-clamp-3">
+                            Caesar porcelain bathroom tiles guarantee excellent performance and aesthetic return, whether used for floor or wall.
+                        </p>
+                    </div>
                 </div>
-                <div class="space-y-4 reveal reveal-up" style="transition-delay: 200ms;">
-                    <span class="text-brand-sand font-serif text-3xl font-light">03</span>
-                    <h3 class="text-xl uppercase tracking-widest">{{ __('messages.home.strengths.s_title') }}</h3>
-                    <p class="text-sm text-brand-charcoal/60 leading-relaxed">{{ __('messages.home.strengths.s_desc') }}</p>
+
+                <!-- Kitchen -->
+                <div class="bg-white p-4 shadow-xl reveal reveal-up" style="transition-delay: 200ms;">
+                    <div class="aspect-[4/3] overflow-hidden mb-6">
+                        <img src="/images/solutions/kitchen.jpg" alt="Kitchen" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-serif text-center">Porcelain kitchen tiles</h3>
+                        <p class="text-[10px] text-brand-charcoal/50 leading-relaxed line-clamp-3">
+                            The porcelain kitchen tiles by Caesar combine technical quality and meticulous design for the most demanding projects.
+                        </p>
+                    </div>
                 </div>
-                <div class="space-y-4 reveal reveal-up" style="transition-delay: 300ms;">
-                    <span class="text-brand-sand font-serif text-3xl font-light">04</span>
-                    <h3 class="text-xl uppercase tracking-widest">{{ __('messages.home.strengths.l_title') }}</h3>
-                    <p class="text-sm text-brand-charcoal/60 leading-relaxed">{{ __('messages.home.strengths.l_desc') }}</p>
+
+                <!-- Pool -->
+                <div class="bg-white p-4 shadow-xl reveal reveal-up" style="transition-delay: 300ms;">
+                    <div class="aspect-[4/3] overflow-hidden mb-6">
+                        <img src="/images/solutions/pool.jpg" alt="Pool" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-serif text-center">Porcelain tiles for pools</h3>
+                        <p class="text-[10px] text-brand-charcoal/50 leading-relaxed line-clamp-3">
+                            The pool tiles in the Aquae collections by Caesar guarantee design freedom with all the advanced technical features.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Retail -->
+                <div class="bg-white p-4 shadow-xl reveal reveal-up" style="transition-delay: 400ms;">
+                    <div class="aspect-[4/3] overflow-hidden mb-6">
+                        <img src="/images/solutions/retail.jpg" alt="Retail" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-serif text-center">Retail</h3>
+                        <p class="text-[10px] text-brand-charcoal/50 leading-relaxed line-clamp-3">
+                            The Caesar collections of porcelain tile for commercial and public use make for seductive, durable and easy-to-clean spaces.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

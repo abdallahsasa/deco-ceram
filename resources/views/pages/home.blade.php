@@ -1,3 +1,8 @@
+@extends('layouts.app')
+
+@section('title', 'Deco & Ceram | Quiet Luxury Surfaces')
+
+@section('content')
     <!-- Hero Section: Cinematic Entrance -->
     <section class="relative h-screen overflow-hidden bg-brand-charcoal">
         <div class="absolute inset-0 scale-105">

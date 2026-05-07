@@ -35,10 +35,7 @@
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-fade-in');
-                        if (entry.target.classList.contains('reveal-up')) {
-                            entry.target.classList.add('animate-slide-up');
-                        }
+                        entry.target.classList.add('active');
                     }
                 });
             }, observerOptions);

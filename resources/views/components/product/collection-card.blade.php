@@ -4,7 +4,7 @@
     <a href="{{ route('products.collection', ['locale' => app()->getLocale(), 'brand' => $collection->brand->slug, 'collection' => $collection->slug]) }}"
         class="flex flex-col h-full">
         <!-- Image Container with fixed aspect ratio -->
-        <div class="relative aspect-[16/10] overflow-hidden bg-brand-stone mb-6 shrink-0">
+        <div class="relative w-full aspect-video overflow-hidden bg-brand-stone mb-6 shrink-0">
             <img src="{{ $collection->hero_image_url }}" alt="{{ $collection->name }}"
                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
             <div

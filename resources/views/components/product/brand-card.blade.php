@@ -2,7 +2,7 @@
 
 <div class="group reveal reveal-up h-full">
     <a href="{{ route('products.brand', ['locale' => app()->getLocale(), 'brand' => $brand->slug]) }}" class="flex flex-col h-full">
-        <div class="relative aspect-video overflow-hidden bg-brand-stone mb-6 shrink-0">
+        <div class="relative w-full aspect-video overflow-hidden bg-brand-stone mb-6 shrink-0">
             <img src="{{ $brand->hero_image_url }}" alt="{{ $brand->name }}"
                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
             <div class="absolute inset-0 bg-brand-charcoal/40 flex items-center justify-center">

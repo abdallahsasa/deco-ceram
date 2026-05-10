@@ -4,7 +4,7 @@
     <a href="{{ route('products.show', ['locale' => app()->getLocale(), 'brand' => $product->collection->brand->slug, 'collection' => $product->collection->slug, 'product' => $product->slug]) }}"
         class="flex flex-col h-full space-y-6">
         <!-- Image Container -->
-        <div class="relative aspect-[3/4] overflow-hidden bg-brand-stone shrink-0">
+        <div class="relative w-full aspect-[3/4] overflow-hidden bg-brand-stone shrink-0">
             <img src="{{ $product->primary_image_url }}" alt="{{ $product['name'] }}"
                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
             

@@ -14,7 +14,7 @@
                 <div class="absolute top-4 right-4 animate-fade-in">
                     <span
                         class="bg-brand-charcoal text-white text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 backdrop-blur-md bg-opacity-80 border border-white/20">
-                        Official Distributor
+                        {{ __('messages.products.official_distributor') }}
                     </span>
                 </div>
             @endif
@@ -26,7 +26,7 @@
             </p>
             <span
                 class="inline-block text-xs uppercase tracking-widest border-b border-brand-charcoal/20 pb-1 mt-4 group-hover:border-brand-charcoal transition-colors">
-                Explore Collections
+                {{ __('messages.products.explore_collections_btn') }}
             </span>
         </div>
     </a>

@@ -38,7 +38,7 @@
             
             <div class="pt-2">
                 <span class="inline-block text-[10px] uppercase tracking-[0.3em] font-bold border-b border-brand-stone pb-1 group-hover:border-brand-sand transition-colors">
-                    View Details
+                    {{ __('messages.products.view_details') }}
                 </span>
             </div>
         </div>

@@ -9,7 +9,7 @@
             <nav class="flex mb-12 text-xs uppercase tracking-widest text-brand-charcoal/40" aria-label="Breadcrumb">
                 <ol class="flex items-center space-x-2">
                     <li><a href="{{ route('products', app()->getLocale()) }}"
-                            class="hover:text-brand-sand transition-colors">Products</a></li>
+                            class="hover:text-brand-sand transition-colors">{{ __('messages.products.breadcrumb_products') }}</a></li>
                     <li><span class="mx-2">/</span></li>
                     <li><a href="{{ route('products.brand', ['locale' => app()->getLocale(), 'brand' => $brand->slug]) }}"
                             class="hover:text-brand-sand transition-colors">{{ $brand->name }}</a></li>
@@ -56,19 +56,19 @@
                     <!-- Technical Quick Specs Bar -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-brand-stone py-10">
                         <div class="space-y-1">
-                            <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">Material</span>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">{{ __('messages.products.attributes.material') }}</span>
                             <span class="text-sm font-medium tracking-tight">{{ $product->material }}</span>
                         </div>
                         <div class="space-y-1">
-                            <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">Look</span>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">{{ __('messages.products.attributes.look') }}</span>
                             <span class="text-sm font-medium tracking-tight">{{ $product->look }}</span>
                         </div>
                         <div class="space-y-1">
-                            <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">Finish</span>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">{{ __('messages.products.attributes.finish') }}</span>
                             <span class="text-sm font-medium tracking-tight">{{ $product->finish }}</span>
                         </div>
                         <div class="space-y-1">
-                            <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">Thickness</span>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">{{ __('messages.products.attributes.thickness') }}</span>
                             <span class="text-sm font-medium tracking-tight">{{ $product->thickness }}</span>
                         </div>
                     </div>
@@ -78,8 +78,8 @@
                 @if($product->variants->isNotEmpty())
                     <div class="space-y-12 reveal reveal-up">
                         <div class="text-center space-y-2">
-                            <h2 class="text-3xl font-serif">Available Formats</h2>
-                            <p class="text-[10px] uppercase tracking-[0.3em] text-brand-charcoal/40">Technical Specifications per Size</p>
+                            <h2 class="text-3xl font-serif">{{ __('messages.products.formats_packaging') }}</h2>
+                            <p class="text-[10px] uppercase tracking-[0.3em] text-brand-charcoal/40">{{ __('messages.products.technical_specs_per_size') }}</p>
                         </div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -98,18 +98,18 @@
                                     <div class="grid grid-cols-2 gap-8 pt-6 border-t border-brand-stone/40">
                                         <!-- Box -->
                                         <div class="space-y-4">
-                                            <h6 class="text-[9px] uppercase tracking-[0.3em] font-black text-brand-charcoal/30">Box Packaging</h6>
+                                            <h6 class="text-[9px] uppercase tracking-[0.3em] font-black text-brand-charcoal/30">{{ __('messages.products.box_packaging') }}</h6>
                                             <div class="space-y-2">
                                                 <div class="flex justify-between text-xs">
-                                                    <span class="text-brand-charcoal/40">Pieces</span>
+                                                    <span class="text-brand-charcoal/40">{{ __('messages.products.pcs') }}</span>
                                                     <span class="font-bold tracking-tighter">{{ $variant->sizeModel?->pcs_per_box ?? '-' }}</span>
                                                 </div>
                                                 <div class="flex justify-between text-xs">
-                                                    <span class="text-brand-charcoal/40">Surface</span>
+                                                    <span class="text-brand-charcoal/40">{{ __('messages.products.surface') }}</span>
                                                     <span class="font-bold tracking-tighter">{{ number_format($variant->sizeModel?->sqm_per_box ?? 0, 2) }} m²</span>
                                                 </div>
                                                 <div class="flex justify-between text-xs">
-                                                    <span class="text-brand-charcoal/40">Weight</span>
+                                                    <span class="text-brand-charcoal/40">{{ __('messages.products.weight') }}</span>
                                                     <span class="font-bold tracking-tighter">~{{ $variant->sizeModel?->kg_per_box ?? '-' }} kg</span>
                                                 </div>
                                             </div>
@@ -117,18 +117,18 @@
 
                                         <!-- Pallet -->
                                         <div class="space-y-4">
-                                            <h6 class="text-[9px] uppercase tracking-[0.3em] font-black text-brand-charcoal/30">Pallet Packaging</h6>
+                                            <h6 class="text-[9px] uppercase tracking-[0.3em] font-black text-brand-charcoal/30">{{ __('messages.products.pallet_packaging') }}</h6>
                                             <div class="space-y-2">
                                                 <div class="flex justify-between text-xs">
-                                                    <span class="text-brand-charcoal/40">Boxes</span>
+                                                    <span class="text-brand-charcoal/40">{{ __('messages.products.boxes') }}</span>
                                                     <span class="font-bold tracking-tighter">{{ $variant->sizeModel?->boxes_per_pallet ?? '-' }}</span>
                                                 </div>
                                                 <div class="flex justify-between text-xs">
-                                                    <span class="text-brand-charcoal/40">Surface</span>
+                                                    <span class="text-brand-charcoal/40">{{ __('messages.products.surface') }}</span>
                                                     <span class="font-bold tracking-tighter">{{ number_format($variant->sizeModel?->sqm_per_pallet ?? 0, 2) }} m²</span>
                                                 </div>
                                                 <div class="flex justify-between text-xs">
-                                                    <span class="text-brand-charcoal/40">Weight</span>
+                                                    <span class="text-brand-charcoal/40">{{ __('messages.products.weight') }}</span>
                                                     <span class="font-bold tracking-tighter">~{{ $variant->sizeModel?->kg_per_pallet ?? '-' }} kg</span>
                                                 </div>
                                             </div>
@@ -145,7 +145,7 @@
                     <!-- Left: Technical Specs Table -->
                     @if(!empty($product->technical_specs))
                         <div class="space-y-8">
-                            <h4 class="text-xs uppercase tracking-[0.2em] font-bold">Comprehensive Technical Data</h4>
+                            <h4 class="text-xs uppercase tracking-[0.2em] font-bold">{{ __('messages.products.comprehensive_data') }}</h4>
                             <div class="space-y-0">
                                 @foreach($product->technical_specs as $key => $value)
                                     <div class="flex justify-between py-5 border-b border-brand-stone/40">
@@ -161,7 +161,7 @@
                     <div class="space-y-12">
                         @if(!empty($product->downloads))
                             <div class="space-y-8">
-                                <h4 class="text-xs uppercase tracking-[0.2em] font-bold">Resources & Downloads</h4>
+                                <h4 class="text-xs uppercase tracking-[0.2em] font-bold">{{ __('messages.products.resources_downloads') }}</h4>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     @foreach($product->downloads as $download)
                                         <a href="{{ $download['url'] }}"
@@ -179,18 +179,18 @@
                         @endif
 
                         <div class="space-y-6">
-                            <h4 class="text-xs uppercase tracking-[0.2em] font-bold">Start your project</h4>
+                            <h4 class="text-xs uppercase tracking-[0.2em] font-bold">{{ __('messages.products.start_project') }}</h4>
                             <div class="flex flex-col sm:flex-row gap-4">
                                 <a href="{{ route('contact', ['locale' => app()->getLocale(), 'subject' => 'Quote Request: ' . $product->name]) }}"
                                     class="btn-premium flex-1 text-center py-6">
-                                    Request a Quote
+                                    {{ __('messages.cta.quote') }}
                                 </a>
                                 <a href="{{ route('contact', ['locale' => app()->getLocale(), 'subject' => 'Sample Request: ' . $product->name]) }}"
                                     class="btn-premium-outline flex-1 text-center py-6">
-                                    Order Physical Sample
+                                    {{ __('messages.products.order_sample') }}
                                 </a>
                             </div>
-                            <p class="text-[9px] text-brand-charcoal/40 uppercase tracking-widest text-center mt-4">Typical response time: < 24 hours</p>
+                            <p class="text-[9px] text-brand-charcoal/40 uppercase tracking-widest text-center mt-4">{{ __('messages.products.response_time') }}</p>
                         </div>
                     </div>
                 </div>

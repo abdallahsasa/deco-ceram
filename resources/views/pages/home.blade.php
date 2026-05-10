@@ -44,7 +44,7 @@
             <div class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
                 <img src="/images/brands/caesar-logo.png" alt="Caesar" class="h-8 w-auto object-contain">
                 <span class="h-1 w-1 bg-brand-stone rounded-full"></span>
-                <h3 class="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-charcoal/60">Official Partner of Excellence</h3>
+                <h3 class="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-charcoal/60">{{ __('messages.home.partner_excellence') }}</h3>
                 <span class="h-1 w-1 bg-brand-stone rounded-full"></span>
                 <img src="/images/logo.png" alt="Deco & Ceram" class="h-6 w-auto object-contain">
             </div>
@@ -62,15 +62,15 @@
             <div class="w-full lg:w-1/2 flex items-center justify-center p-12 lg:p-24 bg-brand-white reveal reveal-right">
                 <div class="max-w-md space-y-8">
                     <div class="space-y-4">
-                        <span class="text-xs uppercase tracking-[0.4em] text-brand-sand font-bold">Architectural Vision</span>
-                        <h2 class="text-5xl md:text-6xl font-serif leading-tight">Solutions designed to <br>bring your projects to life</h2>
+                        <span class="text-xs uppercase tracking-[0.4em] text-brand-sand font-bold">{{ __('messages.home.architectural_vision') }}</span>
+                        <h2 class="text-5xl md:text-6xl font-serif leading-tight">{{ __('messages.home.solutions_title') }}</h2>
                     </div>
                     <p class="text-editorial">
-                        Here are some concrete examples of how we can help you turn your ideas into results with the world's most sophisticated porcelain surfaces.
+                        {{ __('messages.home.solutions_desc') }}
                     </p>
                     <div class="pt-4">
                         <a href="{{ url(app()->getLocale() . '/products') }}" class="btn-premium">
-                            Explore all inspirations
+                            {{ __('messages.home.explore_inspirations') }}
                         </a>
                     </div>
                 </div>
@@ -86,9 +86,9 @@
                         <img src="/images/solutions/bathroom.jpg" alt="Bathroom" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                     </div>
                     <div class="space-y-3">
-                        <h3 class="text-lg font-serif text-center">Porcelain bathroom tiles</h3>
+                        <h3 class="text-lg font-serif text-center">{{ __('messages.home.bathroom_title') }}</h3>
                         <p class="text-[10px] text-brand-charcoal/50 leading-relaxed line-clamp-3">
-                            Caesar porcelain bathroom tiles guarantee excellent performance and aesthetic return, whether used for floor or wall.
+                            {{ __('messages.home.bathroom_desc') }}
                         </p>
                     </div>
                 </div>
@@ -99,9 +99,9 @@
                         <img src="/images/solutions/kitchen.jpg" alt="Kitchen" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                     </div>
                     <div class="space-y-3">
-                        <h3 class="text-lg font-serif text-center">Porcelain kitchen tiles</h3>
+                        <h3 class="text-lg font-serif text-center">{{ __('messages.home.kitchen_title') }}</h3>
                         <p class="text-[10px] text-brand-charcoal/50 leading-relaxed line-clamp-3">
-                            The porcelain kitchen tiles by Caesar combine technical quality and meticulous design for the most demanding projects.
+                            {{ __('messages.home.kitchen_desc') }}
                         </p>
                     </div>
                 </div>
@@ -112,9 +112,9 @@
                         <img src="/images/solutions/pool.jpg" alt="Pool" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                     </div>
                     <div class="space-y-3">
-                        <h3 class="text-lg font-serif text-center">Porcelain tiles for pools</h3>
+                        <h3 class="text-lg font-serif text-center">{{ __('messages.home.pool_title') }}</h3>
                         <p class="text-[10px] text-brand-charcoal/50 leading-relaxed line-clamp-3">
-                            The pool tiles in the Aquae collections by Caesar guarantee design freedom with all the advanced technical features.
+                            {{ __('messages.home.pool_desc') }}
                         </p>
                     </div>
                 </div>
@@ -125,9 +125,9 @@
                         <img src="/images/solutions/retail.jpg" alt="Retail" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                     </div>
                     <div class="space-y-3">
-                        <h3 class="text-lg font-serif text-center">Retail</h3>
+                        <h3 class="text-lg font-serif text-center">{{ __('messages.home.retail_title') }}</h3>
                         <p class="text-[10px] text-brand-charcoal/50 leading-relaxed line-clamp-3">
-                            The Caesar collections of porcelain tile for commercial and public use make for seductive, durable and easy-to-clean spaces.
+                            {{ __('messages.home.retail_desc') }}
                         </p>
                     </div>
                 </div>
@@ -141,12 +141,12 @@
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
                 <div class="space-y-2 reveal reveal-up">
                     <span
-                        class="text-xs uppercase tracking-widest text-brand-sand font-bold">Featured Series</span>
-                    <h2 class="text-4xl md:text-5xl font-serif">Explore Collections</h2>
+                        class="text-xs uppercase tracking-widest text-brand-sand font-bold">{{ __('messages.home.featured_series') }}</span>
+                    <h2 class="text-4xl md:text-5xl font-serif">{{ __('messages.home.explore_collections') }}</h2>
                 </div>
                 <div class="reveal reveal-up">
                     <a href="{{ url(app()->getLocale() . '/products') }}" class="text-xs uppercase tracking-widest border-b border-brand-sand pb-1 hover:text-brand-sand transition-colors">
-                        View All Products
+                        {{ __('messages.home.view_all_products') }}
                     </a>
                 </div>
             </div>

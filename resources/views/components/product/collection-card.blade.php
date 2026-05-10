@@ -17,7 +17,7 @@
             </p>
             <span
                 class="inline-block text-[10px] uppercase tracking-widest border-b border-brand-charcoal/10 pb-1 mt-4 group-hover:border-brand-charcoal transition-colors">
-                View Series
+                {{ __('messages.products.view_series') }}
             </span>
         </div>
     </a>

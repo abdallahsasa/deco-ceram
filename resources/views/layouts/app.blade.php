@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Deco & Ceram | Premium Surfaces')</title>
-
+    <title>@yield('title', 'Deco & Ceram | ' . __('messages.products.sub_title'))</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

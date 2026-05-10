@@ -1,12 +1,12 @@
 @props(['product'])
 
-<div class="group reveal reveal-up">
+<div class="group reveal reveal-up h-full">
     <a href="{{ route('products.show', ['locale' => app()->getLocale(), 'brand' => $product->collection->brand->slug, 'collection' => $product->collection->slug, 'product' => $product->slug]) }}"
-        class="block space-y-6">
+        class="flex flex-col h-full space-y-6">
         <!-- Image Container -->
-        <div class="relative aspect-[3/4] overflow-hidden bg-brand-stone">
+        <div class="relative aspect-[3/4] overflow-hidden bg-brand-stone shrink-0">
             <img src="{{ $product->primary_image_url }}" alt="{{ $product['name'] }}"
-                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
             
             <!-- Overlay on Hover -->
             <div class="absolute inset-0 bg-brand-charcoal/0 group-hover:bg-brand-charcoal/10 transition-colors duration-500"></div>
@@ -20,7 +20,7 @@
         </div>
 
         <!-- Content -->
-        <div class="space-y-3">
+        <div class="flex flex-col flex-grow space-y-3">
             <div class="space-y-1">
                 <h3 class="text-xl font-serif group-hover:text-brand-sand transition-colors duration-300 leading-tight">
                     {{ $product['name'] }}
@@ -36,7 +36,7 @@
                 </div>
             </div>
             
-            <div class="pt-2">
+            <div class="mt-auto pt-2">
                 <span class="inline-block text-[10px] uppercase tracking-[0.3em] font-bold border-b border-brand-stone pb-1 group-hover:border-brand-sand transition-colors">
                     {{ __('messages.products.view_details') }}
                 </span>

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
 
 class Product extends Model
 {
@@ -81,6 +83,20 @@ class Product extends Model
 
     public $incrementing = false;
     protected $keyType = 'string';
+
+    protected static function booted()
+    {
+        static::creating(function ($product) {
+            if (!$product->id) {
+                $slug = Str::slug($product->name);
+                $product->id = $product->collection_id . '-' . $slug;
+            }
+
+            if (!$product->category_id && $product->collection_id) {
+                $product->category_id = $product->collection?->category_id;
+            }
+        });
+    }
 
     public function category()
     {

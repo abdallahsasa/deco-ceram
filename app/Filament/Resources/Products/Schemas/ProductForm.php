@@ -22,6 +22,10 @@ class ProductForm
                             ->relationship('collection', 'name')
                             ->required()
                             ->label('Series (Collection)'),
+                        Select::make('category_id')
+                            ->relationship('category', 'name')
+                            ->required()
+                            ->label('Market Category'),
                         TextInput::make('name')
                             ->required()
                             ->label('Color Name (e.g. Spice)')

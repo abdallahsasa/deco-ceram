@@ -181,10 +181,14 @@
                         <div class="space-y-6">
                             <h4 class="text-xs uppercase tracking-[0.2em] font-bold">{{ __('messages.products.start_project') }}</h4>
                             <div class="flex flex-col sm:flex-row gap-4">
-                                <a href="{{ route('contact', ['locale' => app()->getLocale(), 'subject' => 'Quote Request: ' . $product->name]) }}"
-                                    class="btn-premium flex-1 text-center py-6">
-                                    {{ __('messages.cta.quote') }}
-                                </a>
+                                <button 
+                                    x-data="{ added: false }"
+                                    @click="$store.quoteCart.add({ product_id: '{{ $product->id }}', name: '{{ addslashes($product->name) }}', image: '{{ $product->primary_image_url }}', brand: '{{ addslashes($brand->name) }}' }); added = true; setTimeout(() => added = false, 2000)"
+                                    class="btn-premium flex-1 text-center py-6 relative"
+                                    :class="added ? 'bg-brand-sand' : ''">
+                                    <span x-show="!added">{{ __('messages.products.add_to_quote') ?? 'Add to Quote' }}</span>
+                                    <span x-show="added" x-cloak>{{ __('messages.products.added_to_quote') ?? 'Added!' }}</span>
+                                </button>
                                 <a href="{{ route('contact', ['locale' => app()->getLocale(), 'subject' => 'Sample Request: ' . $product->name]) }}"
                                     class="btn-premium-outline flex-1 text-center py-6">
                                     {{ __('messages.products.order_sample') }}

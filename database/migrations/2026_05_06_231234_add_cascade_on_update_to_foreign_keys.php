@@ -12,30 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('collections', function (Blueprint $table) {
-            $table->dropForeign(['brand_id']);
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
         });
 
         Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign(['collection_id']);
-            $table->dropForeign(['category_id']);
-            
+            $table->string('category_id')->nullable()->change();
+
             $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null')->onUpdate('cascade');
         });
 
         Schema::table('variants', function (Blueprint $table) {
-            $table->dropForeign(['product_id']);
-            $table->dropForeign(['size_id']);
-            
+            $table->string('size_id')->nullable()->change();
+
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('size_id')->references('id')->on('sizes')->onDelete('set null')->onUpdate('cascade');
         });
 
         Schema::table('project_product', function (Blueprint $table) {
-            $table->dropForeign(['project_id']);
-            $table->dropForeign(['product_id']);
-            
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
         });

@@ -39,7 +39,7 @@
                         <p class="text-lg font-serif">{{ __('messages.products.no_products_found') }}</p>
                     </div>
                 @else
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-20">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-24">
                         @foreach($products as $product)
                             <x-product.card :product="$product" />
                         @endforeach

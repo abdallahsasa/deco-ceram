@@ -119,7 +119,7 @@
 
 /* Custom transitions */
 .smooth-hover {
-    @apply transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1);
+    @apply transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)];
 }
 
 .text-editorial {

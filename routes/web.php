@@ -21,6 +21,9 @@ Route::prefix('{locale}')->where(['locale' => 'fr|ar|en'])->group(function () {
     Route::get('/contact', [PageController::class, 'contact'])->name('contact');
     Route::get('/legal', [PageController::class, 'legal'])->name('legal');
     Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
+    Route::get('/quote', [\App\Http\Controllers\QuoteController::class, 'index'])->name('quote');
+    Route::post('/quote', [\App\Http\Controllers\QuoteController::class, 'store'])->name('quote.store');
+    Route::get('/quote/thank-you/{quote}', [\App\Http\Controllers\QuoteController::class, 'thankYou'])->name('quote.thank-you');
 });
 
 Route::get('/run-migrations', function () {

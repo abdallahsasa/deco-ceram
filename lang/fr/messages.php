@@ -116,6 +116,8 @@ return [
         'technical_assets' => 'Ressources Techniques',
         'related' => 'Vous pourriez aussi aimer',
         'add_to_quote' => 'Ajouter au devis',
+        'added_to_quote' => 'Ajouté !',
+        'select_format_notice' => 'Veuillez sélectionner un format/dimensions ci-dessus pour l\'ajouter à votre devis.',
         'attributes' => [
             'material' => 'Matériau',
             'finish' => 'Finition',
@@ -263,6 +265,8 @@ return [
         'empty_subtitle' => 'Parcourez notre catalogue pour ajouter des produits à votre demande de devis.',
         'selected_items' => 'Articles Sélectionnés',
         'quantity' => 'Quantité (m2/pièces)',
+        'meters' => 'Mètres (m²)',
+        'pieces' => 'Pièces (pcs)',
         'contact_details' => 'DEMANDE RAPIDE',
         'form_first_name' => 'Prénom',
         'form_last_name' => 'Nom de famille',

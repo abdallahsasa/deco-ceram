@@ -37,10 +37,16 @@
                                         class="max-w-full max-h-full object-contain mix-blend-multiply">
                                 </div>
                                 <div class="flex-grow">
-                                    <h3 class="font-bold text-brand-charcoal">{{ $item->product->name ?? 'Unknown Product' }}
-                                    </h3>
-                                    <p class="text-sm text-brand-charcoal/60">{{ __('messages.quote.quantity') ?? 'Quantity' }}:
-                                        {{ $item->quantity ?? 1 }}
+                                    <h3 class="font-bold text-brand-charcoal">{{ $item->product->name ?? 'Unknown Product' }}</h3>
+                                    @if($item->variant_name)
+                                        <p class="text-xs text-brand-sand font-medium mt-0.5">{{ $item->variant_name }}</p>
+                                    @endif
+                                    <p class="text-xs text-brand-charcoal/60 mt-1">
+                                        @if($item->meters > 0)
+                                            {{ number_format($item->meters, 2) }} m² ({{ $item->quantity }} pcs)
+                                        @else
+                                            {{ $item->quantity }} pcs
+                                        @endif
                                     </p>
                                 </div>
                             </div>

@@ -27,6 +27,7 @@ class QuoteController extends Controller
             'items' => 'required|array',
             'items.*.product_id' => 'required|string',
             'items.*.variant_name' => 'nullable|string',
+            'items.*.meters' => 'nullable|numeric',
             'items.*.quantity' => 'nullable|numeric|min:1',
         ]);
 
@@ -49,6 +50,7 @@ class QuoteController extends Controller
                     $quote->items()->create([
                         'product_id' => $item['product_id'],
                         'variant_name' => $item['variant_name'] ?? null,
+                        'meters' => $item['meters'] ?? null,
                         'quantity' => $item['quantity'] ?? null,
                     ]);
                 }

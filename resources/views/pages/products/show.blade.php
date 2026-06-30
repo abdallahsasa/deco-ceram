@@ -84,55 +84,118 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                             @foreach($product->variants as $variant)
-                                <div class="bg-white border border-brand-stone p-8 space-y-8 hover:shadow-xl transition-all duration-500 group">
-                                    <!-- Header -->
-                                    <div class="space-y-2">
-                                        <div class="flex justify-between items-start">
-                                            <span class="text-[10px] font-mono text-brand-charcoal/30 uppercase tracking-tighter">{{ $variant->sku ?? 'No SKU' }}</span>
-                                            <span class="text-[9px] uppercase tracking-widest text-brand-sand font-black px-2 py-1 bg-brand-sand/5">{{ $variant->finish }}</span>
+                                <div x-data="{ 
+                                    meters: '', 
+                                    added: false,
+                                    pcsPerBox: {{ $variant->sizeModel?->pcs_per_box ?? 1 }},
+                                    sqmPerBox: {{ $variant->sizeModel?->sqm_per_box ?? 0 }},
+                                    variantSize: '{{ $variant->sizeModel?->name ?? $variant->size }}',
+                                    get sqmPerPiece() {
+                                        if (this.sqmPerBox > 0 && this.pcsPerBox > 0) {
+                                            return this.sqmPerBox / this.pcsPerBox;
+                                        }
+                                        return window.parseSqmFromName(this.variantSize) || 1;
+                                    },
+                                    get pieces() {
+                                        if (!this.meters || this.meters <= 0) return 0;
+                                        return Math.ceil(parseFloat(this.meters) / this.sqmPerPiece);
+                                    },
+                                    get boxes() {
+                                        if (this.pcsPerBox > 1 && this.pieces > 0) {
+                                            return Math.ceil(this.pieces / this.pcsPerBox);
+                                        }
+                                        return 0;
+                                    }
+                                }" class="bg-white border border-brand-stone p-8 space-y-6 hover:shadow-xl transition-all duration-500 group flex flex-col justify-between">
+                                    <div class="space-y-6">
+                                        <!-- Header -->
+                                        <div class="space-y-2">
+                                            <div class="flex justify-between items-start">
+                                                <span class="text-[10px] font-mono text-brand-charcoal/30 uppercase tracking-tighter">{{ $variant->sku ?? 'No SKU' }}</span>
+                                                <span class="text-[9px] uppercase tracking-widest text-brand-sand font-black px-2 py-1 bg-brand-sand/5">{{ $variant->finish }}</span>
+                                            </div>
+                                            <h5 class="text-2xl font-serif group-hover:text-brand-sand transition-colors">{{ $variant->sizeModel?->name ?? $variant->size }}</h5>
                                         </div>
-                                        <h5 class="text-2xl font-serif group-hover:text-brand-sand transition-colors">{{ $variant->sizeModel?->name ?? $variant->size }}</h5>
+
+                                        <!-- Specs Grid -->
+                                        <div class="grid grid-cols-2 gap-8 pt-6 border-t border-brand-stone/40">
+                                            <!-- Box -->
+                                            <div class="space-y-4">
+                                                <h6 class="text-[9px] uppercase tracking-[0.3em] font-black text-brand-charcoal/30">{{ __('messages.products.box_packaging') }}</h6>
+                                                <div class="space-y-2">
+                                                    <div class="flex justify-between text-xs">
+                                                        <span class="text-brand-charcoal/40">{{ __('messages.products.pcs') }}</span>
+                                                        <span class="font-bold tracking-tighter">{{ $variant->sizeModel?->pcs_per_box ?? '-' }}</span>
+                                                    </div>
+                                                    <div class="flex justify-between text-xs">
+                                                        <span class="text-brand-charcoal/40">{{ __('messages.products.surface') }}</span>
+                                                        <span class="font-bold tracking-tighter">{{ number_format($variant->sizeModel?->sqm_per_box ?? 0, 2) }} m²</span>
+                                                    </div>
+                                                    <div class="flex justify-between text-xs">
+                                                        <span class="text-brand-charcoal/40">{{ __('messages.products.weight') }}</span>
+                                                        <span class="font-bold tracking-tighter">~{{ $variant->sizeModel?->kg_per_box ?? '-' }} kg</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Pallet -->
+                                            <div class="space-y-4">
+                                                <h6 class="text-[9px] uppercase tracking-[0.3em] font-black text-brand-charcoal/30">{{ __('messages.products.pallet_packaging') }}</h6>
+                                                <div class="space-y-2">
+                                                    <div class="flex justify-between text-xs">
+                                                        <span class="text-brand-charcoal/40">{{ __('messages.products.boxes') }}</span>
+                                                        <span class="font-bold tracking-tighter">{{ $variant->sizeModel?->boxes_per_pallet ?? '-' }}</span>
+                                                    </div>
+                                                    <div class="flex justify-between text-xs">
+                                                        <span class="text-brand-charcoal/40">{{ __('messages.products.surface') }}</span>
+                                                        <span class="font-bold tracking-tighter">{{ number_format($variant->sizeModel?->sqm_per_pallet ?? 0, 2) }} m²</span>
+                                                    </div>
+                                                    <div class="flex justify-between text-xs">
+                                                        <span class="text-brand-charcoal/40">{{ __('messages.products.weight') }}</span>
+                                                        <span class="font-bold tracking-tighter">~{{ $variant->sizeModel?->kg_per_pallet ?? '-' }} kg</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <!-- Specs Grid -->
-                                    <div class="grid grid-cols-2 gap-8 pt-6 border-t border-brand-stone/40">
-                                        <!-- Box -->
-                                        <div class="space-y-4">
-                                            <h6 class="text-[9px] uppercase tracking-[0.3em] font-black text-brand-charcoal/30">{{ __('messages.products.box_packaging') }}</h6>
-                                            <div class="space-y-2">
-                                                <div class="flex justify-between text-xs">
-                                                    <span class="text-brand-charcoal/40">{{ __('messages.products.pcs') }}</span>
-                                                    <span class="font-bold tracking-tighter">{{ $variant->sizeModel?->pcs_per_box ?? '-' }}</span>
-                                                </div>
-                                                <div class="flex justify-between text-xs">
-                                                    <span class="text-brand-charcoal/40">{{ __('messages.products.surface') }}</span>
-                                                    <span class="font-bold tracking-tighter">{{ number_format($variant->sizeModel?->sqm_per_box ?? 0, 2) }} m²</span>
-                                                </div>
-                                                <div class="flex justify-between text-xs">
-                                                    <span class="text-brand-charcoal/40">{{ __('messages.products.weight') }}</span>
-                                                    <span class="font-bold tracking-tighter">~{{ $variant->sizeModel?->kg_per_box ?? '-' }} kg</span>
-                                                </div>
-                                            </div>
+                                    <!-- Add to Quote section for this variant -->
+                                    <div class="pt-6 border-t border-brand-stone/40 space-y-4">
+                                        <div class="space-y-2">
+                                            <label class="text-[10px] uppercase tracking-widest font-bold text-brand-charcoal/60">{{ __('messages.quote.meters') ?? 'Meters (m²)' }}</label>
+                                            <input type="number" step="any" min="0.01" x-model="meters" 
+                                                placeholder="e.g. 10" 
+                                                class="w-full bg-[#FAFAFA] border border-brand-stone/60 px-4 py-2 text-sm focus:ring-1 focus:ring-black focus:border-black transition-all">
+                                        </div>
+                                        
+                                        <div class="text-[11px] text-brand-charcoal/60 uppercase tracking-wider flex justify-between" x-show="pieces > 0">
+                                            <span>{{ __('messages.products.pcs') }}: <strong class="text-black" x-text="pieces"></strong></span>
+                                            <span x-show="boxes > 0">{{ __('messages.products.boxes') }}: <strong class="text-black" x-text="boxes"></strong></span>
                                         </div>
 
-                                        <!-- Pallet -->
-                                        <div class="space-y-4">
-                                            <h6 class="text-[9px] uppercase tracking-[0.3em] font-black text-brand-charcoal/30">{{ __('messages.products.pallet_packaging') }}</h6>
-                                            <div class="space-y-2">
-                                                <div class="flex justify-between text-xs">
-                                                    <span class="text-brand-charcoal/40">{{ __('messages.products.boxes') }}</span>
-                                                    <span class="font-bold tracking-tighter">{{ $variant->sizeModel?->boxes_per_pallet ?? '-' }}</span>
-                                                </div>
-                                                <div class="flex justify-between text-xs">
-                                                    <span class="text-brand-charcoal/40">{{ __('messages.products.surface') }}</span>
-                                                    <span class="font-bold tracking-tighter">{{ number_format($variant->sizeModel?->sqm_per_pallet ?? 0, 2) }} m²</span>
-                                                </div>
-                                                <div class="flex justify-between text-xs">
-                                                    <span class="text-brand-charcoal/40">{{ __('messages.products.weight') }}</span>
-                                                    <span class="font-bold tracking-tighter">~{{ $variant->sizeModel?->kg_per_pallet ?? '-' }} kg</span>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <button 
+                                            @click="
+                                                if(!meters || meters <= 0) return;
+                                                $store.quoteCart.add({ 
+                                                    product_id: '{{ $product->id }}', 
+                                                    name: '{{ addslashes($product->name) }}', 
+                                                    image: '{{ $product->primary_image_url }}', 
+                                                    brand: '{{ addslashes($brand->name) }}',
+                                                    variant_name: '{{ $variant->sizeModel?->name ?? $variant->size }} ({{ $variant->finish }})',
+                                                    sqm_per_piece: sqmPerPiece,
+                                                    meters: parseFloat(meters),
+                                                    quantity: pieces
+                                                }); 
+                                                added = true; 
+                                                setTimeout(() => added = false, 2000);
+                                                meters = '';
+                                            "
+                                            :disabled="!meters || meters <= 0"
+                                            class="w-full btn-premium py-3 text-center text-xs relative"
+                                            :class="added ? 'bg-brand-sand text-white' : ''">
+                                            <span x-show="!added">{{ __('messages.products.add_to_quote') ?? 'Add to Quote' }}</span>
+                                            <span x-show="added" x-cloak>{{ __('messages.products.added_to_quote') ?? 'Added!' }}</span>
+                                        </button>
                                     </div>
                                 </div>
                             @endforeach
@@ -180,20 +243,74 @@
 
                         <div class="space-y-6">
                             <h4 class="text-xs uppercase tracking-[0.2em] font-bold">{{ __('messages.products.start_project') }}</h4>
-                            <div class="flex flex-col sm:flex-row gap-4">
-                                <button 
-                                    x-data="{ added: false }"
-                                    @click="$store.quoteCart.add({ product_id: '{{ $product->id }}', name: '{{ addslashes($product->name) }}', image: '{{ $product->primary_image_url }}', brand: '{{ addslashes($brand->name) }}' }); added = true; setTimeout(() => added = false, 2000)"
-                                    class="btn-premium flex-1 text-center py-6 relative"
-                                    :class="added ? 'bg-brand-sand' : ''">
-                                    <span x-show="!added">{{ __('messages.products.add_to_quote') ?? 'Add to Quote' }}</span>
-                                    <span x-show="added" x-cloak>{{ __('messages.products.added_to_quote') ?? 'Added!' }}</span>
-                                </button>
-                                <a href="{{ route('contact', ['locale' => app()->getLocale(), 'subject' => 'Sample Request: ' . $product->name]) }}"
-                                    class="btn-premium-outline flex-1 text-center py-6">
-                                    {{ __('messages.products.order_sample') }}
-                                </a>
-                            </div>
+                            @if($product->variants->isEmpty())
+                                <div x-data="{
+                                    meters: '',
+                                    added: false,
+                                    variantSize: '{{ $product->size }}',
+                                    get sqmPerPiece() {
+                                        return window.parseSqmFromName(this.variantSize) || 1;
+                                    },
+                                    get pieces() {
+                                        if (!this.meters || this.meters <= 0) return 0;
+                                        return Math.ceil(parseFloat(this.meters) / this.sqmPerPiece);
+                                    }
+                                }" class="space-y-4 bg-brand-stone/10 p-6 border border-brand-stone">
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="space-y-1">
+                                            <label class="text-[10px] uppercase tracking-widest font-bold text-brand-charcoal/60">{{ __('messages.quote.meters') ?? 'Meters (m²)' }}</label>
+                                            <input type="number" step="any" min="0.01" x-model="meters" placeholder="e.g. 10" 
+                                                class="w-full bg-white border border-brand-stone/60 px-4 py-2 text-sm focus:ring-1 focus:ring-black focus:border-black transition-all">
+                                        </div>
+                                        <div class="flex flex-col justify-end">
+                                            <div class="text-[11px] text-brand-charcoal/60 uppercase tracking-wider pb-2" x-show="pieces > 0">
+                                                {{ __('messages.products.pcs') }}: <strong class="text-black" x-text="pieces"></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col sm:flex-row gap-4">
+                                        <button 
+                                            @click="
+                                                if(!meters || meters <= 0) return;
+                                                $store.quoteCart.add({ 
+                                                    product_id: '{{ $product->id }}', 
+                                                    name: '{{ addslashes($product->name) }}', 
+                                                    image: '{{ $product->primary_image_url }}', 
+                                                    brand: '{{ addslashes($brand->name) }}',
+                                                    variant_name: '',
+                                                    sqm_per_piece: sqmPerPiece,
+                                                    meters: parseFloat(meters),
+                                                    quantity: pieces
+                                                }); 
+                                                added = true; 
+                                                setTimeout(() => added = false, 2000);
+                                                meters = '';
+                                            "
+                                            :disabled="!meters || meters <= 0"
+                                            class="btn-premium flex-1 text-center py-6 relative"
+                                            :class="added ? 'bg-brand-sand' : ''">
+                                            <span x-show="!added">{{ __('messages.products.add_to_quote') ?? 'Add to Quote' }}</span>
+                                            <span x-show="added" x-cloak>{{ __('messages.products.added_to_quote') ?? 'Added!' }}</span>
+                                        </button>
+                                        <a href="{{ route('contact', ['locale' => app()->getLocale(), 'subject' => 'Sample Request: ' . $product->name]) }}"
+                                            class="btn-premium-outline flex-1 text-center py-6">
+                                            {{ __('messages.products.order_sample') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="space-y-4">
+                                    <div class="bg-brand-stone/10 p-6 border border-brand-stone/60 text-center text-xs uppercase tracking-widest text-brand-charcoal/60">
+                                        {{ __('messages.products.select_format_notice') ?? 'Please select a format/size above to add to your quote.' }}
+                                    </div>
+                                    <div class="flex">
+                                        <a href="{{ route('contact', ['locale' => app()->getLocale(), 'subject' => 'Sample Request: ' . $product->name]) }}"
+                                            class="btn-premium-outline flex-grow text-center py-6">
+                                            {{ __('messages.products.order_sample') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            @endif
                             <p class="text-[9px] text-brand-charcoal/40 uppercase tracking-widest text-center mt-4">{{ __('messages.products.response_time') }}</p>
                         </div>
                     </div>

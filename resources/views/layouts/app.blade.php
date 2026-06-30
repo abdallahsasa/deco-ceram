@@ -19,21 +19,60 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <script>
+        window.parseSqmFromName = function(name) {
+            if (!name) return 0;
+            let cleanName = name.replace(/,/g, '.').toLowerCase();
+            let match = cleanName.match(/(\d+(?:\.\d+)?)\s*x\s*(\d+(?:\.\d+)?)/);
+            if (match) {
+                let w = parseFloat(match[1]);
+                let h = parseFloat(match[2]);
+                let isMm = cleanName.includes('mm') || (w > 200 && h > 200 && !cleanName.includes('cm'));
+                let factor = isMm ? 1000 : 100;
+                return (w / factor) * (h / factor);
+            }
+            return 0;
+        };
+
         document.addEventListener('alpine:init', () => {
             Alpine.store('quoteCart', {
                 items: JSON.parse(localStorage.getItem('quoteCart')) || [],
                 
                 add(product) {
-                    const exists = this.items.find(item => item.product_id === product.product_id);
-                    if (!exists) {
+                    const variantName = product.variant_name || '';
+                    const cartId = product.product_id + '-' + (variantName || 'default');
+                    const exists = this.items.find(item => item.cart_id === cartId);
+                    
+                    const meters = parseFloat(product.meters || 0);
+                    const qty = parseInt(product.quantity || 1);
+                    const sqmPerPiece = parseFloat(product.sqm_per_piece || 0);
+
+                    if (exists) {
+                        exists.meters = parseFloat(exists.meters || 0) + meters;
+                        if (sqmPerPiece > 0) {
+                            exists.quantity = Math.ceil(exists.meters / sqmPerPiece);
+                        } else {
+                            exists.quantity = parseInt(exists.quantity || 0) + qty;
+                        }
+                        this.save();
+                        window.dispatchEvent(new CustomEvent('cart-added', { 
+                            detail: product.name + (variantName ? ' (' + variantName + ')' : '') 
+                        }));
+                    } else {
+                        product.cart_id = cartId;
+                        product.variant_name = variantName;
+                        product.meters = meters;
+                        product.quantity = qty;
+                        product.sqm_per_piece = sqmPerPiece;
                         this.items.push(product);
                         this.save();
-                        window.dispatchEvent(new CustomEvent('cart-added', { detail: product.name }));
+                        window.dispatchEvent(new CustomEvent('cart-added', { 
+                            detail: product.name + (variantName ? ' (' + variantName + ')' : '') 
+                        }));
                     }
                 },
                 
-                remove(productId) {
-                    this.items = this.items.filter(item => item.product_id !== productId);
+                remove(cartId) {
+                    this.items = this.items.filter(item => item.cart_id !== cartId);
                     this.save();
                 },
 

@@ -116,6 +116,8 @@ return [
         'technical_assets' => 'الأصول التقنية',
         'related' => 'قد يعجبك أيضاً',
         'add_to_quote' => 'إضافة إلى عرض السعر',
+        'added_to_quote' => 'تمت الإضافة!',
+        'select_format_notice' => 'يرجى اختيار مقاس/تنسيق من الأعلى لإضافته إلى عرض السعر.',
         'attributes' => [
             'material' => 'المادة',
             'finish' => 'الطبقة النهائية',
@@ -263,6 +265,8 @@ return [
         'empty_subtitle' => 'تصفح الكتالوج لإضافة منتجات إلى طلب عرض السعر.',
         'selected_items' => 'العناصر المحددة',
         'quantity' => 'الكمية (متر مربع/قطعة)',
+        'meters' => 'الأمتار (م²)',
+        'pieces' => 'القطع (قطعة)',
         'contact_details' => 'استفسار سريع',
         'form_first_name' => 'الاسم الأول',
         'form_last_name' => 'اسم العائلة',

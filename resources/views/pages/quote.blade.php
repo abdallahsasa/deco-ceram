@@ -45,7 +45,7 @@
                         <div class="lg:col-span-7">
                             <div class="bg-[#FCFCFC]  border border-[#EBEBEB] p-4 md:p-6 shadow-sm">
                                 <div class="flex flex-col">
-                                    <template x-for="(item, index) in $store.quoteCart.items" :key="item.product_id">
+                                    <template x-for="(item, index) in $store.quoteCart.items" :key="item.cart_id">
                                         <div class="relative flex gap-5 py-6"
                                             :class="index !== $store.quoteCart.items.length - 1 ? 'border-b border-[#EBEBEB]' : ''">
 
@@ -55,18 +55,60 @@
                                                     class="w-full h-full object-contain mix-blend-multiply">
                                             </div>
 
-                                            <!-- Product Info -->
-                                            <div class="flex-grow flex flex-col justify-center py-1">
+                                            <!-- Product Info & Quantities -->
+                                            <div class="flex-grow flex flex-col justify-between py-1">
                                                 <div>
                                                     <h3 class="text-lg font-bold text-black leading-tight pr-8"
                                                         x-text="item.name"></h3>
                                                     <p class="text-sm text-gray-500 mt-1">Brand: <span
                                                             x-text="item.brand"></span></p>
+                                                    <p class="text-sm text-brand-sand font-medium mt-1.5" x-show="item.variant_name" x-text="item.variant_name"></p>
+                                                </div>
+
+                                                <!-- Two-Way Bound Meters/Pieces adjustment inline -->
+                                                <div class="flex flex-wrap items-center gap-4 mt-3" x-data="{
+                                                    updateMeters(m) {
+                                                        item.meters = parseFloat(m) || 0;
+                                                        if (item.sqm_per_piece > 0) {
+                                                            item.quantity = Math.ceil(item.meters / item.sqm_per_piece);
+                                                        }
+                                                        $store.quoteCart.save();
+                                                    },
+                                                    updatePieces(p) {
+                                                        item.quantity = Math.max(1, parseInt(p) || 1);
+                                                        if (item.sqm_per_piece > 0) {
+                                                            item.meters = parseFloat((item.quantity * item.sqm_per_piece).toFixed(2));
+                                                        }
+                                                        $store.quoteCart.save();
+                                                    }
+                                                }">
+                                                    <!-- Meters -->
+                                                    <div class="flex items-center gap-1.5">
+                                                        <label class="text-[10px] uppercase tracking-wider text-brand-charcoal/40 font-bold">m²</label>
+                                                        <input type="number" step="any" min="0.01" 
+                                                            :value="item.meters" 
+                                                            @input="updateMeters($event.target.value)"
+                                                            class="w-16 bg-white border border-[#EBEBEB] px-2 py-1 text-xs text-black focus:ring-1 focus:ring-black focus:border-black transition-all">
+                                                    </div>
+
+                                                    <!-- Pieces decrement/increment -->
+                                                    <div class="flex items-center gap-1.5">
+                                                        <label class="text-[10px] uppercase tracking-wider text-brand-charcoal/40 font-bold">pcs</label>
+                                                        <div class="flex items-center bg-white border border-[#EBEBEB] px-2 py-0.5 shadow-sm gap-2">
+                                                            <button type="button" @click="if(item.quantity > 1) updatePieces(item.quantity - 1)"
+                                                                class="text-sm leading-none text-black">&minus;</button>
+                                                            <span class="text-xs font-semibold w-6 text-center select-none text-black"
+                                                                x-text="item.quantity || 1"></span>
+                                                            <button type="button"
+                                                                @click="updatePieces(parseInt(item.quantity || 1) + 1)"
+                                                                class="text-sm leading-none text-black">&plus;</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <!-- Trash Icon (top right) -->
-                                            <button type="button" @click="$store.quoteCart.remove(item.product_id)"
+                                            <button type="button" @click="$store.quoteCart.remove(item.cart_id)"
                                                 class="absolute top-6 right-0 text-[#FF4B4B] hover:text-red-700 transition-colors">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                                     fill="currentColor" class="w-5 h-5">
@@ -75,19 +117,6 @@
                                                         clip-rule="evenodd" />
                                                 </svg>
                                             </button>
-
-                                            <!-- Quantity Pill (bottom right) -->
-                                            <div class="absolute bottom-6 right-0">
-                                                <div class="flex items-center bg-white  px-3 py-1 shadow-sm gap-4">
-                                                    <button type="button" @click="if(item.quantity > 1) item.quantity--"
-                                                        class="text-lg leading-none text-black">&minus;</button>
-                                                    <span class="text-sm font-medium w-3 text-center select-none text-black"
-                                                        x-text="item.quantity || 1"></span>
-                                                    <button type="button"
-                                                        @click="item.quantity = parseInt(item.quantity || 1) + 1"
-                                                        class="text-lg leading-none text-black">&plus;</button>
-                                                </div>
-                                            </div>
 
                                         </div>
                                     </template>
@@ -194,6 +223,8 @@
                         ...this.form,
                         items: this.$store.quoteCart.items.map(item => ({
                             product_id: item.product_id,
+                            variant_name: item.variant_name || null,
+                            meters: item.meters || null,
                             quantity: item.quantity || null
                         }))
                     };

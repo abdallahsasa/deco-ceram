@@ -117,6 +117,8 @@ return [
         'technical_assets' => 'Technical Assets',
         'related' => 'You might also like',
         'add_to_quote' => 'Add to Quote',
+        'added_to_quote' => 'Added!',
+        'select_format_notice' => 'Please select a format/size above to add to your quote.',
         'attributes' => [
             'material' => 'Material',
             'finish' => 'Finish',
@@ -264,6 +266,8 @@ return [
         'empty_subtitle' => 'Browse our catalog to add products to your quote request.',
         'selected_items' => 'Selected Items',
         'quantity' => 'Quantity (m2/pcs)',
+        'meters' => 'Meters (m²)',
+        'pieces' => 'Pieces (pcs)',
         'contact_details' => 'QUICK INQUIRY',
         'form_first_name' => 'First Name',
         'form_last_name' => 'Last Name',

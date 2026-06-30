@@ -13,6 +13,7 @@ class QuoteRequestItem extends Model
         'quote_request_id',
         'product_id',
         'variant_name',
+        'meters',
         'quantity',
     ];
 

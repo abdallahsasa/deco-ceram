@@ -24,7 +24,21 @@
             <!-- Quick Add to Quote -->
             <div class="absolute top-4 right-4 z-10" @click.prevent>
                 <button x-data="{ added: false }"
-                    @click="$store.quoteCart.add({ product_id: '{{ $product->id }}', name: '{{ addslashes($product['name']) }}', image: '{{ $product->primary_image_url }}', brand: '{{ addslashes($product->collection->brand->name ?? '') }}' }); added = true; setTimeout(() => added = false, 2000)"
+                    @click="
+                        const sqm = window.parseSqmFromName('{{ $product->size }}') || 1;
+                        $store.quoteCart.add({ 
+                            product_id: '{{ $product->id }}', 
+                            name: '{{ addslashes($product['name']) }}', 
+                            image: '{{ $product->primary_image_url }}', 
+                            brand: '{{ addslashes($product->collection->brand->name ?? '') }}',
+                            variant_name: '',
+                            sqm_per_piece: sqm,
+                            meters: sqm,
+                            quantity: 1
+                        }); 
+                        added = true; 
+                        setTimeout(() => added = false, 2000)
+                    "
                     class="bg-white/90 hover:bg-brand-sand hover:text-white backdrop-blur-sm p-2 rounded-full shadow-sm transition-colors"
                     :class="added ? 'bg-brand-sand text-white' : 'text-brand-charcoal'"
                     title="{{ __('messages.products.add_to_quote') ?? 'Add to Quote' }}">

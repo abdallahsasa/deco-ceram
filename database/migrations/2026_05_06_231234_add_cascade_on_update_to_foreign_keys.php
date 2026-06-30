@@ -11,28 +11,59 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('collections', function (Blueprint $table) {
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
-        });
+        try {
+            Schema::table('collections', function (Blueprint $table) {
+                $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
+            });
+        } catch (\Exception $e) {}
 
-        Schema::table('products', function (Blueprint $table) {
-            $table->string('category_id')->nullable()->change();
+        try {
+            Schema::table('products', function (Blueprint $table) {
+                $table->string('category_id')->nullable()->change();
+            });
+        } catch (\Exception $e) {}
 
-            $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null')->onUpdate('cascade');
-        });
+        try {
+            Schema::table('products', function (Blueprint $table) {
+                $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade')->onUpdate('cascade');
+            });
+        } catch (\Exception $e) {}
 
-        Schema::table('variants', function (Blueprint $table) {
-            $table->string('size_id')->nullable()->change();
+        try {
+            Schema::table('products', function (Blueprint $table) {
+                $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null')->onUpdate('cascade');
+            });
+        } catch (\Exception $e) {}
 
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('size_id')->references('id')->on('sizes')->onDelete('set null')->onUpdate('cascade');
-        });
+        try {
+            Schema::table('variants', function (Blueprint $table) {
+                $table->string('size_id')->nullable()->change();
+            });
+        } catch (\Exception $e) {}
 
-        Schema::table('project_product', function (Blueprint $table) {
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
-        });
+        try {
+            Schema::table('variants', function (Blueprint $table) {
+                $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            });
+        } catch (\Exception $e) {}
+
+        try {
+            Schema::table('variants', function (Blueprint $table) {
+                $table->foreign('size_id')->references('id')->on('sizes')->onDelete('set null')->onUpdate('cascade');
+            });
+        } catch (\Exception $e) {}
+
+        try {
+            Schema::table('project_product', function (Blueprint $table) {
+                $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade')->onUpdate('cascade');
+            });
+        } catch (\Exception $e) {}
+
+        try {
+            Schema::table('project_product', function (Blueprint $table) {
+                $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            });
+        } catch (\Exception $e) {}
     }
 
     /**

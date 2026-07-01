@@ -188,7 +188,7 @@
                                                     name: '{{ addslashes($product->name) }}', 
                                                     image: '{{ $product->primary_image_url }}', 
                                                     brand: '{{ addslashes($brand->name) }}',
-                                                    variant_name: '{{ $variant->sizeModel?->name ?? $variant->size }} ({{ $variant->finish }})',
+                                                    variant_name: '{{ addslashes(str_replace(["\r", "\n"], ["", " "], ($variant->sizeModel?->name ?? $variant->size) . " (" . $variant->finish . ")")) }}',
                                                     pcs_per_box: pcsPerBox,
                                                     sqm_per_box: effectiveSqmPerBox,
                                                     boxes: boxes,

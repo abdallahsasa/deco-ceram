@@ -68,12 +68,29 @@
                                                 <!-- Two-Way Bound Meters/Boxes adjustment inline -->
                                                 <div class="flex flex-wrap items-center gap-4 mt-3" x-data="{
                                                     init() {
+                                                        let match = (item.variant_name || '').match(/(\d+)\s*pcs?/i);
+                                                        let parsedPcs = match ? parseInt(match[1]) : null;
+                                                        if (parsedPcs && (!item.pcs_per_box || item.pcs_per_box === 1)) {
+                                                            item.pcs_per_box = parsedPcs;
+                                                            let sqmPerPiece = item.sqm_per_piece || window.parseSqmFromName(item.variant_name) || 1;
+                                                            item.sqm_per_box = sqmPerPiece * item.pcs_per_box;
+                                                            if (item.meters) {
+                                                                item.boxes = Math.ceil(item.meters / item.sqm_per_box);
+                                                            }
+                                                            item.pcs = item.boxes * item.pcs_per_box;
+                                                        }
+
                                                         if (!item.pcs_per_box) item.pcs_per_box = 1;
-                                                        if (item.sqm_per_box === undefined) {
-                                                            item.sqm_per_box = item.sqm_per_piece || 1;
+                                                        if (item.sqm_per_box === undefined || item.sqm_per_box === null || item.sqm_per_box === 0) {
+                                                            let sqmPerPiece = item.sqm_per_piece || window.parseSqmFromName(item.variant_name) || 1;
+                                                            item.sqm_per_box = sqmPerPiece * item.pcs_per_box;
                                                         }
                                                         if (!item.boxes) {
-                                                            item.boxes = item.quantity || 1;
+                                                            if (item.meters && item.sqm_per_box > 0) {
+                                                                item.boxes = Math.ceil(item.meters / item.sqm_per_box);
+                                                            } else {
+                                                                item.boxes = item.quantity || 1;
+                                                            }
                                                         }
                                                         if (!item.pcs) {
                                                             item.pcs = item.boxes * item.pcs_per_box;

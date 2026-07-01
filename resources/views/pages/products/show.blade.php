@@ -87,17 +87,23 @@
                                 <div x-data="{ 
                                     meters: '', 
                                     added: false,
-                                    pcsPerBox: {{ $variant->sizeModel?->pcs_per_box ?? 1 }},
-                                    sqmPerBox: {{ $variant->sizeModel?->sqm_per_box ?? 0 }},
                                     variantSize: '{{ $variant->sizeModel?->name ?? $variant->size }}',
+                                    get pcsPerBox() {
+                                        let sizeModelPcs = {{ $variant->sizeModel?->pcs_per_box ?? 0 }};
+                                        if (sizeModelPcs > 0) return sizeModelPcs;
+                                        let match = this.variantSize.match(/(\d+)\s*pcs?/i);
+                                        return match ? parseInt(match[1]) : 1;
+                                    },
                                     get sqmPerPiece() {
-                                        if (this.sqmPerBox > 0 && this.pcsPerBox > 0) {
-                                            return this.sqmPerBox / this.pcsPerBox;
+                                        let sizeModelSqm = {{ $variant->sizeModel?->sqm_per_box ?? 0 }};
+                                        if (sizeModelSqm > 0 && this.pcsPerBox > 0) {
+                                            return sizeModelSqm / this.pcsPerBox;
                                         }
                                         return window.parseSqmFromName(this.variantSize) || 1;
                                     },
                                     get effectiveSqmPerBox() {
-                                        if (this.sqmPerBox > 0) return this.sqmPerBox;
+                                        let sizeModelSqm = {{ $variant->sizeModel?->sqm_per_box ?? 0 }};
+                                        if (sizeModelSqm > 0) return sizeModelSqm;
                                         return this.sqmPerPiece * this.pcsPerBox;
                                     },
                                     get boxes() {

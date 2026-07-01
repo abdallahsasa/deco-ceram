@@ -25,19 +25,23 @@
             <div class="absolute top-4 right-4 z-10" @click.prevent>
                 <button x-data="{ added: false }"
                     @click="
-                        const sqm = window.parseSqmFromName('{{ $product->size }}') || 1;
+                        const sizeStr = '{{ $product->size }}';
+                        const match = sizeStr.match(/(\d+)\s*pcs?/i);
+                        const pcsPerBox = match ? parseInt(match[1]) : 1;
+                        const sqmPerPiece = window.parseSqmFromName(sizeStr) || 1;
+                        const sqmPerBox = sqmPerPiece * pcsPerBox;
                         $store.quoteCart.add({ 
                             product_id: '{{ $product->id }}', 
                             name: '{{ addslashes($product['name']) }}', 
                             image: '{{ $product->primary_image_url }}', 
                             brand: '{{ addslashes($product->collection->brand->name ?? '') }}',
                             variant_name: '',
-                            pcs_per_box: 1,
-                            sqm_per_box: sqm,
+                            pcs_per_box: pcsPerBox,
+                            sqm_per_box: sqmPerBox,
                             boxes: 1,
-                            pcs: 1,
-                            meters: sqm,
-                            quantity: 1
+                            pcs: pcsPerBox,
+                            meters: sqmPerBox,
+                            quantity: pcsPerBox
                         }); 
                         added = true; 
                         setTimeout(() => added = false, 2000)

@@ -42,10 +42,17 @@
                                         <p class="text-xs text-brand-sand font-medium mt-0.5">{{ $item->variant_name }}</p>
                                     @endif
                                     <p class="text-xs text-brand-charcoal/60 mt-1">
-                                        @if($item->meters > 0)
-                                            {{ number_format($item->meters, 2) }} m² ({{ $item->quantity }} pcs)
+                                        @if($item->boxes > 0)
+                                            {{ $item->boxes }} {{ $item->boxes > 1 ? 'boxes' : 'box' }} 
+                                            @if(($item->pcs ?? $item->quantity) > 0 || $item->meters > 0)
+                                                ({{ $item->pcs ?? $item->quantity }} pcs{{ $item->meters > 0 ? ' / ' . number_format($item->meters, 2) . ' m²' : '' }})
+                                            @endif
                                         @else
-                                            {{ $item->quantity }} pcs
+                                            @if($item->meters > 0)
+                                                {{ number_format($item->meters, 2) }} m² ({{ $item->quantity }} pcs)
+                                            @else
+                                                {{ $item->quantity }} pcs
+                                            @endif
                                         @endif
                                     </p>
                                 </div>

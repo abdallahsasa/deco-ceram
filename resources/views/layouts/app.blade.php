@@ -42,17 +42,17 @@
                     const cartId = product.product_id + '-' + (variantName || 'default');
                     const exists = this.items.find(item => item.cart_id === cartId);
                     
+                    const boxes = parseInt(product.boxes || 1);
+                    const pcs = parseInt(product.pcs || 1);
                     const meters = parseFloat(product.meters || 0);
-                    const qty = parseInt(product.quantity || 1);
-                    const sqmPerPiece = parseFloat(product.sqm_per_piece || 0);
+                    const pcsPerBox = parseInt(product.pcs_per_box || 1);
+                    const sqmPerBox = parseFloat(product.sqm_per_box || 0);
 
                     if (exists) {
-                        exists.meters = parseFloat(exists.meters || 0) + meters;
-                        if (sqmPerPiece > 0) {
-                            exists.quantity = Math.ceil(exists.meters / sqmPerPiece);
-                        } else {
-                            exists.quantity = parseInt(exists.quantity || 0) + qty;
-                        }
+                        exists.boxes = parseInt(exists.boxes || 0) + boxes;
+                        exists.pcs = exists.boxes * (exists.pcs_per_box || pcsPerBox);
+                        exists.meters = parseFloat((exists.boxes * (exists.sqm_per_box || sqmPerBox)).toFixed(4));
+                        exists.quantity = exists.pcs;
                         this.save();
                         window.dispatchEvent(new CustomEvent('cart-added', { 
                             detail: product.name + (variantName ? ' (' + variantName + ')' : '') 
@@ -60,9 +60,12 @@
                     } else {
                         product.cart_id = cartId;
                         product.variant_name = variantName;
+                        product.pcs_per_box = pcsPerBox;
+                        product.sqm_per_box = sqmPerBox;
+                        product.boxes = boxes;
+                        product.pcs = pcs;
                         product.meters = meters;
-                        product.quantity = qty;
-                        product.sqm_per_piece = sqmPerPiece;
+                        product.quantity = pcs;
                         this.items.push(product);
                         this.save();
                         window.dispatchEvent(new CustomEvent('cart-added', { 

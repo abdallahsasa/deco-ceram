@@ -49,9 +49,11 @@ class QuoteRequestForm
                                     ->required()
                                     ->searchable(),
                                 TextInput::make('variant_name'),
-                                TextInput::make('quantity')->numeric(),
+                                TextInput::make('boxes')->numeric(),
+                                TextInput::make('pcs')->numeric()->label('Pieces (pcs)'),
+                                TextInput::make('meters')->numeric()->label('Meters (m²)'),
                             ])
-                            ->columns(3)
+                            ->columns(5)
                             ->defaultItems(0)
                             ->disableItemCreation()
                             ->disableItemDeletion(),

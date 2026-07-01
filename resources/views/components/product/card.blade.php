@@ -32,7 +32,10 @@
                             image: '{{ $product->primary_image_url }}', 
                             brand: '{{ addslashes($product->collection->brand->name ?? '') }}',
                             variant_name: '',
-                            sqm_per_piece: sqm,
+                            pcs_per_box: 1,
+                            sqm_per_box: sqm,
+                            boxes: 1,
+                            pcs: 1,
                             meters: sqm,
                             quantity: 1
                         }); 

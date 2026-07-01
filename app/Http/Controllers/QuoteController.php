@@ -29,6 +29,10 @@ class QuoteController extends Controller
             'items.*.variant_name' => 'nullable|string',
             'items.*.meters' => 'nullable|numeric',
             'items.*.quantity' => 'nullable|numeric|min:1',
+            'items.*.boxes' => 'nullable|integer',
+            'items.*.pcs' => 'nullable|integer',
+            'items.*.pcs_per_box' => 'nullable|integer',
+            'items.*.sqm_per_box' => 'nullable|numeric',
         ]);
 
         try {
@@ -52,6 +56,10 @@ class QuoteController extends Controller
                         'variant_name' => $item['variant_name'] ?? null,
                         'meters' => $item['meters'] ?? null,
                         'quantity' => $item['quantity'] ?? null,
+                        'boxes' => $item['boxes'] ?? null,
+                        'pcs' => $item['pcs'] ?? null,
+                        'pcs_per_box' => $item['pcs_per_box'] ?? null,
+                        'sqm_per_box' => $item['sqm_per_box'] ?? null,
                     ]);
                 }
             }

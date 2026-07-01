@@ -96,15 +96,16 @@
                                         }
                                         return window.parseSqmFromName(this.variantSize) || 1;
                                     },
-                                    get pieces() {
-                                        if (!this.meters || this.meters <= 0) return 0;
-                                        return Math.ceil(parseFloat(this.meters) / this.sqmPerPiece);
+                                    get effectiveSqmPerBox() {
+                                        if (this.sqmPerBox > 0) return this.sqmPerBox;
+                                        return this.sqmPerPiece * this.pcsPerBox;
                                     },
                                     get boxes() {
-                                        if (this.pcsPerBox > 1 && this.pieces > 0) {
-                                            return Math.ceil(this.pieces / this.pcsPerBox);
-                                        }
-                                        return 0;
+                                        if (!this.meters || this.meters <= 0) return 0;
+                                        return Math.ceil(parseFloat(this.meters) / this.effectiveSqmPerBox);
+                                    },
+                                    get pieces() {
+                                        return this.boxes * this.pcsPerBox;
                                     }
                                 }" class="bg-white border border-brand-stone p-8 space-y-6 hover:shadow-xl transition-all duration-500 group flex flex-col justify-between">
                                     <div class="space-y-6">
@@ -182,8 +183,11 @@
                                                     image: '{{ $product->primary_image_url }}', 
                                                     brand: '{{ addslashes($brand->name) }}',
                                                     variant_name: '{{ $variant->sizeModel?->name ?? $variant->size }} ({{ $variant->finish }})',
-                                                    sqm_per_piece: sqmPerPiece,
-                                                    meters: parseFloat(meters),
+                                                    pcs_per_box: pcsPerBox,
+                                                    sqm_per_box: effectiveSqmPerBox,
+                                                    boxes: boxes,
+                                                    pcs: pieces,
+                                                    meters: +(boxes * effectiveSqmPerBox).toFixed(4),
                                                     quantity: pieces
                                                 }); 
                                                 added = true; 
@@ -251,9 +255,12 @@
                                     get sqmPerPiece() {
                                         return window.parseSqmFromName(this.variantSize) || 1;
                                     },
-                                    get pieces() {
+                                    get boxes() {
                                         if (!this.meters || this.meters <= 0) return 0;
                                         return Math.ceil(parseFloat(this.meters) / this.sqmPerPiece);
+                                    },
+                                    get pieces() {
+                                        return this.boxes;
                                     }
                                 }" class="space-y-4 bg-brand-stone/10 p-6 border border-brand-stone">
                                     <div class="grid grid-cols-2 gap-4">
@@ -263,8 +270,9 @@
                                                 class="w-full bg-white border border-brand-stone/60 px-4 py-2 text-sm focus:ring-1 focus:ring-black focus:border-black transition-all">
                                         </div>
                                         <div class="flex flex-col justify-end">
-                                            <div class="text-[11px] text-brand-charcoal/60 uppercase tracking-wider pb-2" x-show="pieces > 0">
-                                                {{ __('messages.products.pcs') }}: <strong class="text-black" x-text="pieces"></strong>
+                                            <div class="text-[11px] text-brand-charcoal/60 uppercase tracking-wider pb-2 flex flex-col gap-1" x-show="pieces > 0">
+                                                <div>{{ __('messages.products.pcs') }}: <strong class="text-black" x-text="pieces"></strong></div>
+                                                <div>{{ __('messages.products.boxes') }}: <strong class="text-black" x-text="boxes"></strong></div>
                                             </div>
                                         </div>
                                     </div>
@@ -278,8 +286,11 @@
                                                     image: '{{ $product->primary_image_url }}', 
                                                     brand: '{{ addslashes($brand->name) }}',
                                                     variant_name: '',
-                                                    sqm_per_piece: sqmPerPiece,
-                                                    meters: parseFloat(meters),
+                                                    pcs_per_box: 1,
+                                                    sqm_per_box: sqmPerPiece,
+                                                    boxes: boxes,
+                                                    pcs: pieces,
+                                                    meters: +(boxes * sqmPerPiece).toFixed(4),
                                                     quantity: pieces
                                                 }); 
                                                 added = true; 

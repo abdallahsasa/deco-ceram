@@ -65,20 +65,41 @@
                                                     <p class="text-sm text-brand-sand font-medium mt-1.5" x-show="item.variant_name" x-text="item.variant_name"></p>
                                                 </div>
 
-                                                <!-- Two-Way Bound Meters/Pieces adjustment inline -->
+                                                <!-- Two-Way Bound Meters/Boxes adjustment inline -->
                                                 <div class="flex flex-wrap items-center gap-4 mt-3" x-data="{
-                                                    updateMeters(m) {
-                                                        item.meters = parseFloat(m) || 0;
-                                                        if (item.sqm_per_piece > 0) {
-                                                            item.quantity = Math.ceil(item.meters / item.sqm_per_piece);
+                                                    init() {
+                                                        if (!item.pcs_per_box) item.pcs_per_box = 1;
+                                                        if (item.sqm_per_box === undefined) {
+                                                            item.sqm_per_box = item.sqm_per_piece || 1;
                                                         }
+                                                        if (!item.boxes) {
+                                                            item.boxes = item.quantity || 1;
+                                                        }
+                                                        if (!item.pcs) {
+                                                            item.pcs = item.boxes * item.pcs_per_box;
+                                                        }
+                                                    },
+                                                    updateMeters(m) {
+                                                        let inputMeters = parseFloat(m) || 0;
+                                                        let sqmPerBox = parseFloat(item.sqm_per_box || 0);
+                                                        if (sqmPerBox > 0) {
+                                                            item.boxes = Math.ceil(inputMeters / sqmPerBox);
+                                                            item.meters = parseFloat((item.boxes * sqmPerBox).toFixed(2));
+                                                            item.pcs = item.boxes * parseInt(item.pcs_per_box || 1);
+                                                        } else {
+                                                            item.meters = inputMeters;
+                                                        }
+                                                        item.quantity = item.pcs;
                                                         $store.quoteCart.save();
                                                     },
-                                                    updatePieces(p) {
-                                                        item.quantity = Math.max(1, parseInt(p) || 1);
-                                                        if (item.sqm_per_piece > 0) {
-                                                            item.meters = parseFloat((item.quantity * item.sqm_per_piece).toFixed(2));
+                                                    updateBoxes(b) {
+                                                        item.boxes = Math.max(1, parseInt(b) || 1);
+                                                        let sqmPerBox = parseFloat(item.sqm_per_box || 0);
+                                                        if (sqmPerBox > 0) {
+                                                            item.meters = parseFloat((item.boxes * sqmPerBox).toFixed(2));
                                                         }
+                                                        item.pcs = item.boxes * parseInt(item.pcs_per_box || 1);
+                                                        item.quantity = item.pcs;
                                                         $store.quoteCart.save();
                                                     }
                                                 }">
@@ -91,18 +112,23 @@
                                                             class="w-16 bg-white border border-[#EBEBEB] px-2 py-1 text-xs text-black focus:ring-1 focus:ring-black focus:border-black transition-all">
                                                     </div>
 
-                                                    <!-- Pieces decrement/increment -->
+                                                    <!-- Boxes decrement/increment -->
                                                     <div class="flex items-center gap-1.5">
-                                                        <label class="text-[10px] uppercase tracking-wider text-brand-charcoal/40 font-bold">pcs</label>
+                                                        <label class="text-[10px] uppercase tracking-wider text-brand-charcoal/40 font-bold">boxes</label>
                                                         <div class="flex items-center bg-white border border-[#EBEBEB] px-2 py-0.5 shadow-sm gap-2">
-                                                            <button type="button" @click="if(item.quantity > 1) updatePieces(item.quantity - 1)"
+                                                            <button type="button" @click="if(item.boxes > 1) updateBoxes(item.boxes - 1)"
                                                                 class="text-sm leading-none text-black">&minus;</button>
                                                             <span class="text-xs font-semibold w-6 text-center select-none text-black"
-                                                                x-text="item.quantity || 1"></span>
+                                                                x-text="item.boxes || 1"></span>
                                                             <button type="button"
-                                                                @click="updatePieces(parseInt(item.quantity || 1) + 1)"
+                                                                @click="updateBoxes(parseInt(item.boxes || 1) + 1)"
                                                                 class="text-sm leading-none text-black">&plus;</button>
                                                         </div>
+                                                    </div>
+
+                                                    <!-- Static display of equivalent pieces -->
+                                                    <div class="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-brand-charcoal/40 font-bold">
+                                                        <span x-text="item.pcs + ' pcs'"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -222,10 +248,14 @@
                     const payload = {
                         ...this.form,
                         items: this.$store.quoteCart.items.map(item => ({
-                            product_id: item.product_id,
-                            variant_name: item.variant_name || null,
-                            meters: item.meters || null,
-                            quantity: item.quantity || null
+                                product_id: item.product_id,
+                                variant_name: item.variant_name || null,
+                                meters: item.meters || null,
+                                quantity: item.pcs || item.quantity || null,
+                                boxes: item.boxes || null,
+                                pcs: item.pcs || null,
+                                pcs_per_box: item.pcs_per_box || null,
+                                sqm_per_box: item.sqm_per_box || null
                         }))
                     };
 

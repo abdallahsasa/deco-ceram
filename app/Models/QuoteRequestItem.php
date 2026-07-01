@@ -15,6 +15,10 @@ class QuoteRequestItem extends Model
         'variant_name',
         'meters',
         'quantity',
+        'boxes',
+        'pcs',
+        'pcs_per_box',
+        'sqm_per_box',
     ];
 
     public function quoteRequest()

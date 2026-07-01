@@ -57,6 +57,10 @@ class QuoteSubmissionTest extends TestCase
                     'variant_name' => '60x120 cm (Matt)',
                     'meters' => 12.50,
                     'quantity' => 18,
+                    'boxes' => 5,
+                    'pcs' => 18,
+                    'pcs_per_box' => 4,
+                    'sqm_per_box' => 2.50,
                 ]
             ]
         ];
@@ -73,6 +77,10 @@ class QuoteSubmissionTest extends TestCase
             'variant_name' => '60x120 cm (Matt)',
             'meters' => 12.50,
             'quantity' => 18,
+            'boxes' => 5,
+            'pcs' => 18,
+            'pcs_per_box' => 4,
+            'sqm_per_box' => 2.50,
         ]);
     }
 }

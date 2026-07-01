@@ -104,7 +104,7 @@
         <!-- Secondary Bottom -->
         <div class="border-t border-white/10 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
             <p class="text-xs text-white/40 uppercase tracking-widest">
-                &copy; {{ date('Y') }} Deco & Ceram. {{ __('messages.footer.rights') }}
+                &copy; {{ date('Y') }} Deco & Ceram. {{ __('messages.footer.rights') }} | Made by <span class="text-white/60">ThreeDigits Software</span>
             </p>
             <div class="flex gap-8 text-xs text-white/40 uppercase tracking-widest">
                 <a href="{{ url(app()->getLocale() . '/legal') }}"

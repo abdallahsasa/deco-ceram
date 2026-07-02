@@ -6,6 +6,8 @@ use App\Models\QuoteRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\QuoteRequestMail;
 
 class QuoteController extends Controller
 {
@@ -63,6 +65,10 @@ class QuoteController extends Controller
                     ]);
                 }
             }
+
+            // Send notification email
+            $quote->load('items.product.collection.brand');
+            Mail::to('inquery@deco-ceram.fr')->send(new QuoteRequestMail($quote));
 
             return response()->json([
                 'success' => true,

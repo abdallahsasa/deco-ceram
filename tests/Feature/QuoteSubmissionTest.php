@@ -8,6 +8,8 @@ use App\Models\Collection;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\QuoteRequestMail;
 
 class QuoteSubmissionTest extends TestCase
 {
@@ -15,6 +17,7 @@ class QuoteSubmissionTest extends TestCase
 
     public function test_can_submit_quote_request_with_meters_and_variant(): void
     {
+        Mail::fake();
         // Set up mock brand, category, collection, product
         $brand = Brand::create([
             'id' => 'caesar',
@@ -82,5 +85,10 @@ class QuoteSubmissionTest extends TestCase
             'pcs_per_box' => 4,
             'sqm_per_box' => 2.50,
         ]);
+
+        Mail::assertSent(QuoteRequestMail::class, function ($mail) {
+            return $mail->hasTo('inquery@deco-ceram.fr') &&
+                   $mail->quoteRequest->email === 'john.doe@example.com';
+        });
     }
 }

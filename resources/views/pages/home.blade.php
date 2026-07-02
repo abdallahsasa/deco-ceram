@@ -41,10 +41,12 @@
     <!-- Brand Showcase -->
     <section class="py-12 bg-white border-b border-brand-stone/50">
         <div class="container mx-auto px-6">
-            <div class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+            <div
+                class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
                 <img src="/images/brands/caesar-logo.png" alt="Caesar" class="h-8 w-auto object-contain">
                 <span class="h-1 w-1 bg-brand-stone rounded-full"></span>
-                <h3 class="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-charcoal/60">{{ __('messages.home.partner_excellence') }}</h3>
+                <h3 class="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-charcoal/60">
+                    {{ __('messages.home.partner_excellence') }}</h3>
                 <span class="h-1 w-1 bg-brand-stone rounded-full"></span>
                 <img src="/images/logo.png" alt="Deco & Ceram" class="h-6 w-auto object-contain">
             </div>
@@ -62,8 +64,10 @@
             <div class="w-full lg:w-1/2 flex items-center justify-center p-12 lg:p-24 bg-brand-white reveal reveal-right">
                 <div class="max-w-md space-y-8">
                     <div class="space-y-4">
-                        <span class="text-xs uppercase tracking-[0.4em] text-brand-sand font-bold">{{ __('messages.home.architectural_vision') }}</span>
-                        <h2 class="text-5xl md:text-6xl font-serif leading-tight">{{ __('messages.home.solutions_title') }}</h2>
+                        <span
+                            class="text-xs uppercase tracking-[0.4em] text-brand-sand font-bold">{{ __('messages.home.architectural_vision') }}</span>
+                        <h2 class="text-5xl md:text-6xl font-serif leading-tight">{{ __('messages.home.solutions_title') }}
+                        </h2>
                     </div>
                     <p class="text-editorial">
                         {{ __('messages.home.solutions_desc') }}
@@ -83,7 +87,8 @@
                 <!-- Bathroom -->
                 <div class="bg-white p-4 shadow-xl reveal reveal-up" style="transition-delay: 100ms;">
                     <div class="aspect-[4/3] overflow-hidden mb-6">
-                        <img src="/images/solutions/bathroom.jpg" alt="Bathroom" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <img src="/images/solutions/bathroom.jpg" alt="Bathroom"
+                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                     </div>
                     <div class="space-y-3">
                         <h3 class="text-lg font-serif text-center">{{ __('messages.home.bathroom_title') }}</h3>
@@ -96,7 +101,8 @@
                 <!-- Kitchen -->
                 <div class="bg-white p-4 shadow-xl reveal reveal-up" style="transition-delay: 200ms;">
                     <div class="aspect-[4/3] overflow-hidden mb-6">
-                        <img src="/images/solutions/kitchen.jpg" alt="Kitchen" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <img src="/images/solutions/kitchen.jpg" alt="Kitchen"
+                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                     </div>
                     <div class="space-y-3">
                         <h3 class="text-lg font-serif text-center">{{ __('messages.home.kitchen_title') }}</h3>
@@ -109,7 +115,8 @@
                 <!-- Pool -->
                 <div class="bg-white p-4 shadow-xl reveal reveal-up" style="transition-delay: 300ms;">
                     <div class="aspect-[4/3] overflow-hidden mb-6">
-                        <img src="/images/solutions/pool.jpg" alt="Pool" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <img src="/images/solutions/pool.jpg" alt="Pool"
+                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                     </div>
                     <div class="space-y-3">
                         <h3 class="text-lg font-serif text-center">{{ __('messages.home.pool_title') }}</h3>
@@ -122,7 +129,8 @@
                 <!-- Retail -->
                 <div class="bg-white p-4 shadow-xl reveal reveal-up" style="transition-delay: 400ms;">
                     <div class="aspect-[4/3] overflow-hidden mb-6">
-                        <img src="/images/solutions/retail.jpg" alt="Retail" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <img src="/images/solutions/retail.jpg" alt="Retail"
+                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                     </div>
                     <div class="space-y-3">
                         <h3 class="text-lg font-serif text-center">{{ __('messages.home.retail_title') }}</h3>
@@ -145,7 +153,8 @@
                     <h2 class="text-4xl md:text-5xl font-serif">{{ __('messages.home.explore_collections') }}</h2>
                 </div>
                 <div class="reveal reveal-up">
-                    <a href="{{ url(app()->getLocale() . '/products') }}" class="text-xs uppercase tracking-widest border-b border-brand-sand pb-1 hover:text-brand-sand transition-colors">
+                    <a href="{{ url(app()->getLocale() . '/products/brand/caesar') }}"
+                        class="text-xs uppercase tracking-widest border-b border-brand-sand pb-1 hover:text-brand-sand transition-colors">
                         {{ __('messages.home.view_all_products') }}
                     </a>
                 </div>

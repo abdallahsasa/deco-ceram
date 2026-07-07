@@ -27,6 +27,8 @@ class QuoteRequestForm
                             ->options([
                                 'new' => 'New',
                                 'pending' => 'Pending',
+                                'sent_to_shipping' => 'Sent to Shipping Company',
+                                'shipped' => 'Shipped',
                                 'completed' => 'Completed',
                                 'rejected' => 'Rejected',
                             ])

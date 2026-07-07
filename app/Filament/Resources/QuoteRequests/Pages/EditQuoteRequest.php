@@ -27,7 +27,7 @@ class EditQuoteRequest extends EditRecord
                 ->icon('heroicon-o-check-circle')
                 ->color('success')
                 ->requiresConfirmation()
-                ->visible(fn (QuoteRequest $record): bool => $record->status !== 'completed')
+                ->visible(fn (QuoteRequest $record): bool => $record->status === 'new' || $record->status === 'pending')
                 ->form([
                     TextInput::make('weight')
                         ->label('Poids total (kg)')
@@ -52,7 +52,7 @@ class EditQuoteRequest extends EditRecord
                 ])
                 ->action(function (QuoteRequest $record, array $data) {
                     $record->update([
-                        'status' => 'completed',
+                        'status' => 'sent_to_shipping',
                         'address' => $data['delivery_address'],
                     ]);
                     $record->load('items.product.collection.brand');

@@ -32,9 +32,20 @@ class QuoteRequestsTable
                     ->searchable(),
                 TextColumn::make('status')
                     ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'new' => 'New',
+                        'pending' => 'Pending',
+                        'sent_to_shipping' => 'Sent to Shipping Company',
+                        'shipped' => 'Shipped',
+                        'completed' => 'Completed',
+                        'rejected' => 'Rejected',
+                        default => $state,
+                    })
                     ->color(fn (string $state): string => match ($state) {
                         'new' => 'gray',
                         'pending' => 'warning',
+                        'sent_to_shipping' => 'info',
+                        'shipped' => 'primary',
                         'completed' => 'success',
                         'rejected' => 'danger',
                         default => 'gray',
@@ -53,7 +64,7 @@ class QuoteRequestsTable
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
                     ->requiresConfirmation()
-                    ->visible(fn (QuoteRequest $record): bool => $record->status !== 'completed')
+                    ->visible(fn (QuoteRequest $record): bool => $record->status === 'new' || $record->status === 'pending')
                     ->form([
                         TextInput::make('weight')
                             ->label('Poids total (kg)')
@@ -78,7 +89,7 @@ class QuoteRequestsTable
                     ])
                     ->action(function (QuoteRequest $record, array $data) {
                         $record->update([
-                            'status' => 'completed',
+                            'status' => 'sent_to_shipping',
                             'address' => $data['delivery_address'],
                         ]);
                         $record->load('items.product.collection.brand');

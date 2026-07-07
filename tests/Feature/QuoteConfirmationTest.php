@@ -49,7 +49,7 @@ class QuoteConfirmationTest extends TestCase
         ];
 
         $quote->update([
-            'status' => 'completed',
+            'status' => 'sent_to_shipping',
             'address' => $data['delivery_address'],
         ]);
         $quote->load('items.product.collection.brand');

@@ -273,6 +273,7 @@ return [
         'form_email' => 'Adresse e-mail',
         'form_phone' => 'Numéro de téléphone',
         'form_company' => 'Entreprise / Studio',
+        'form_address' => 'Adresse de livraison',
         'form_message' => 'Votre Message ou Détails du Projet',
         'submit_btn' => 'ENVOYER LA DEMANDE',
         'success_message' => 'Demande de devis soumise avec succès ! Nous vous contacterons bientôt.',

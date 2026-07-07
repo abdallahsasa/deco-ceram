@@ -274,6 +274,7 @@ return [
         'form_email' => 'Email Address',
         'form_phone' => 'Phone Number',
         'form_company' => 'Company / Studio',
+        'form_address' => 'Delivery Address',
         'form_message' => 'Your Message or Project Details',
         'submit_btn' => 'SEND INQUIRY',
         'success_message' => 'Quote request submitted successfully! We will contact you soon.',

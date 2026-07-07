@@ -30,4 +30,29 @@ class QuoteRequestItem extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function getVariantAttribute()
+    {
+        if (!$this->variant_name) {
+            return null;
+        }
+
+        preg_match('/^(.*?)\s*\((.*?)\)$/', $this->variant_name, $matches);
+        if (count($matches) === 3) {
+            $sizePart = trim($matches[1]);
+            $finishPart = trim($matches[2]);
+
+            return \App\Models\Variant::where('product_id', $this->product_id)
+                ->where(function ($query) use ($sizePart) {
+                    $query->where('size', $sizePart)
+                          ->orWhereHas('sizeModel', function ($q) use ($sizePart) {
+                              $q->where('name', $sizePart);
+                          });
+                })
+                ->where('finish', $finishPart)
+                ->first();
+        }
+
+        return null;
+    }
 }

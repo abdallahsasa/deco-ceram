@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\QuoteRequestMail;
+use App\Mail\UserQuoteConfirmationMail;
 
 class QuoteSubmissionTest extends TestCase
 {
@@ -54,6 +55,7 @@ class QuoteSubmissionTest extends TestCase
             'phone' => '1234567890',
             'company' => 'Decor Corp',
             'message' => 'Need quick delivery.',
+            'address' => '123 Test Street, Paris, France',
             'items' => [
                 [
                     'product_id' => $product->id,
@@ -86,9 +88,19 @@ class QuoteSubmissionTest extends TestCase
             'sqm_per_box' => 2.50,
         ]);
 
+        $this->assertDatabaseHas('quote_requests', [
+            'email' => 'john.doe@example.com',
+            'address' => '123 Test Street, Paris, France',
+        ]);
+
         Mail::assertSent(QuoteRequestMail::class, function ($mail) {
             return $mail->hasTo('inquery@deco-ceram.fr') &&
                    $mail->quoteRequest->email === 'john.doe@example.com';
+        });
+
+        Mail::assertSent(UserQuoteConfirmationMail::class, function ($mail) {
+            return $mail->hasTo('john.doe@example.com') &&
+                   $mail->quoteRequest->address === '123 Test Street, Paris, France';
         });
     }
 }

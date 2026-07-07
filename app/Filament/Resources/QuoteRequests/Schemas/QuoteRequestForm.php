@@ -32,6 +32,9 @@ class QuoteRequestForm
                             ])
                             ->required()
                             ->default('new'),
+                        Textarea::make('address')
+                            ->columnSpanFull()
+                            ->label('Delivery Address'),
                     ])->columns(2),
 
                 Section::make('Message')

@@ -41,6 +41,30 @@ class QuoteRequestsTable
             ->filters([
                 //
             ])
+            ->actions([
+                \Filament\Tables\Actions\EditAction::make(),
+                \Filament\Tables\Actions\Action::make('confirm')
+                    ->label('Confirm Order')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->visible(fn (\App\Models\QuoteRequest $record): bool => $record->status !== 'completed')
+                    ->action(function (\App\Models\QuoteRequest $record) {
+                        $record->update(['status' => 'completed']);
+                        $record->load('items.product.collection.brand');
+
+                        // 1. Send acceptance email to customer
+                        \Illuminate\Support\Facades\Mail::to($record->email)
+                            ->send(new \App\Mail\OrderAcceptedMail($record));
+
+                        // 2. Send shipping request email to active shipping companies
+                        $shippingCompanies = \App\Models\ShippingCompany::where('is_active', true)->get();
+                        foreach ($shippingCompanies as $company) {
+                            \Illuminate\Support\Facades\Mail::to($company->email)
+                                ->send(new \App\Mail\ShippingRequestMail($record));
+                        }
+                    }),
+            ])
             ->recordActions([
                 EditAction::make(),
             ])

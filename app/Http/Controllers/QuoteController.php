@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\QuoteRequestMail;
+use App\Mail\UserQuoteConfirmationMail;
 
 class QuoteController extends Controller
 {
@@ -26,6 +27,7 @@ class QuoteController extends Controller
             'company' => 'nullable|string|max:255',
             'project_type' => 'nullable|string|max:255',
             'message' => 'nullable|string',
+            'address' => 'required|string|max:1000',
             'items' => 'required|array',
             'items.*.product_id' => 'required|string',
             'items.*.variant_name' => 'nullable|string',
@@ -46,6 +48,7 @@ class QuoteController extends Controller
                 'company' => $validated['company'] ?? null,
                 'project_type' => $validated['project_type'] ?? null,
                 'message' => $validated['message'] ?? null,
+                'address' => $validated['address'] ?? null,
                 'status' => 'new',
             ]);
 
@@ -69,6 +72,7 @@ class QuoteController extends Controller
             // Send notification email
             $quote->load('items.product.collection.brand');
             Mail::to('inquery@deco-ceram.fr')->send(new QuoteRequestMail($quote));
+            Mail::to($quote->email)->send(new UserQuoteConfirmationMail($quote));
 
             return response()->json([
                 'success' => true,

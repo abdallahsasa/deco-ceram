@@ -206,6 +206,10 @@
                                             placeholder="{{ __('messages.quote.form_company') }}"
                                             class="w-full bg-white border border-[#EBEBEB]  px-4 py-3 text-black placeholder-gray-400 focus:ring-1 focus:ring-black focus:border-black transition-all text-sm">
 
+                                        <textarea x-model="form.address" required rows="2"
+                                            placeholder="{{ __('messages.quote.form_address') }}"
+                                            class="w-full bg-white border border-[#EBEBEB]  px-4 py-3 text-black placeholder-gray-400 focus:ring-1 focus:ring-black focus:border-black transition-all text-sm resize-none"></textarea>
+
                                         <textarea x-model="form.message" rows="3"
                                             placeholder="{{ __('messages.quote.form_message') }}"
                                             class="w-full bg-white border border-[#EBEBEB]  px-4 py-3 text-black placeholder-gray-400 focus:ring-1 focus:ring-black focus:border-black transition-all text-sm resize-none"></textarea>
@@ -252,7 +256,8 @@
                     phone: '',
                     company: '',
                     message: '',
-                    project_type: ''
+                    project_type: '',
+                    address: ''
                 },
                 loading: false,
                 success: false,

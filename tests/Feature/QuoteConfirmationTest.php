@@ -40,17 +40,31 @@ class QuoteConfirmationTest extends TestCase
             'status' => 'new',
         ]);
 
-        // Simulate Filament action confirm execution
-        $quote->update(['status' => 'completed']);
+        // Simulate Filament action confirm execution with mock form data
+        $data = [
+            'weight' => 3000,
+            'pallets' => 4,
+            'delivery_address' => '26, Rue de la Côte, 57390 Rédange, France',
+            'shipping_companies' => [$activeCompany->id],
+        ];
+
+        $quote->update([
+            'status' => 'completed',
+            'address' => $data['delivery_address'],
+        ]);
         $quote->load('items.product.collection.brand');
 
         // Send acceptance email to customer
         Mail::to($quote->email)->send(new OrderAcceptedMail($quote));
 
-        // Send shipping request email to active shipping companies
-        $shippingCompanies = ShippingCompany::where('is_active', true)->get();
+        // Send shipping request email to selected active shipping companies
+        $shippingCompanies = ShippingCompany::whereIn('id', $data['shipping_companies'])->get();
         foreach ($shippingCompanies as $company) {
-            Mail::to($company->email)->send(new ShippingRequestMail($quote));
+            Mail::to($company->email)->send(new ShippingRequestMail(
+                $quote,
+                (int) $data['weight'],
+                (int) $data['pallets']
+            ));
         }
 
         // Assert customer email sent

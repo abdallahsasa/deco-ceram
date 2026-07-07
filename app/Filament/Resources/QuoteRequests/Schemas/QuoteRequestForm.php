@@ -56,7 +56,7 @@ class QuoteRequestForm
                                 TextInput::make('pcs')->numeric()->label('Pieces (pcs)'),
                                 TextInput::make('meters')->numeric()->label('Meters (m²)'),
                             ])
-                            ->columns(5)
+                            ->columns(2)
                             ->defaultItems(0)
                             ->disableItemCreation()
                             ->disableItemDeletion(),

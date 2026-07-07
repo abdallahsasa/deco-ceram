@@ -8,6 +8,11 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\BadgeColumn;
+use App\Models\QuoteRequest;
+use App\Models\ShippingCompany;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Select;
 
 class QuoteRequestsTable
 {
@@ -48,20 +53,49 @@ class QuoteRequestsTable
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
                     ->requiresConfirmation()
-                    ->visible(fn (\App\Models\QuoteRequest $record): bool => $record->status !== 'completed')
-                    ->action(function (\App\Models\QuoteRequest $record) {
-                        $record->update(['status' => 'completed']);
+                    ->visible(fn (QuoteRequest $record): bool => $record->status !== 'completed')
+                    ->form([
+                        TextInput::make('weight')
+                            ->label('Poids total (kg)')
+                            ->numeric()
+                            ->required()
+                            ->default(fn (QuoteRequest $record) => $record->getTotalWeight()),
+                        TextInput::make('pallets')
+                            ->label('Nombre de palettes')
+                            ->numeric()
+                            ->required()
+                            ->default(fn (QuoteRequest $record) => $record->getTotalPallets()),
+                        Textarea::make('delivery_address')
+                            ->label('Lieu de livraison')
+                            ->required()
+                            ->default(fn (QuoteRequest $record) => $record->address),
+                        Select::make('shipping_companies')
+                            ->label('Shipping Companies to notify')
+                            ->multiple()
+                            ->options(fn () => ShippingCompany::where('is_active', true)->pluck('name', 'id'))
+                            ->default(fn () => ShippingCompany::where('is_active', true)->pluck('id')->toArray())
+                            ->required(),
+                    ])
+                    ->action(function (QuoteRequest $record, array $data) {
+                        $record->update([
+                            'status' => 'completed',
+                            'address' => $data['delivery_address'],
+                        ]);
                         $record->load('items.product.collection.brand');
 
                         // 1. Send acceptance email to customer
                         \Illuminate\Support\Facades\Mail::to($record->email)
                             ->send(new \App\Mail\OrderAcceptedMail($record));
 
-                        // 2. Send shipping request email to active shipping companies
-                        $shippingCompanies = \App\Models\ShippingCompany::where('is_active', true)->get();
+                        // 2. Send shipping request email to selected shipping companies
+                        $shippingCompanies = ShippingCompany::whereIn('id', $data['shipping_companies'])->get();
                         foreach ($shippingCompanies as $company) {
                             \Illuminate\Support\Facades\Mail::to($company->email)
-                                ->send(new \App\Mail\ShippingRequestMail($record));
+                                ->send(new \App\Mail\ShippingRequestMail(
+                                    $record,
+                                    (int) $data['weight'],
+                                    (int) $data['pallets']
+                                ));
                         }
                     }),
             ])

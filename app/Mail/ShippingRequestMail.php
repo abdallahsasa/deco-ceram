@@ -20,11 +20,11 @@ class ShippingRequestMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(QuoteRequest $quoteRequest)
+    public function __construct(QuoteRequest $quoteRequest, ?int $totalWeight = null, ?int $totalPallets = null)
     {
         $this->quoteRequest = $quoteRequest;
-        $this->totalWeight = $quoteRequest->getTotalWeight();
-        $this->totalPallets = $quoteRequest->getTotalPallets();
+        $this->totalWeight = $totalWeight ?? $quoteRequest->getTotalWeight();
+        $this->totalPallets = $totalPallets ?? $quoteRequest->getTotalPallets();
     }
 
     /**

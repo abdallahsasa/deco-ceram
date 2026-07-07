@@ -42,8 +42,8 @@ class QuoteRequestsTable
                 //
             ])
             ->actions([
-                \Filament\Tables\Actions\EditAction::make(),
-                \Filament\Tables\Actions\Action::make('confirm')
+                \Filament\Actions\EditAction::make(),
+                \Filament\Actions\Action::make('confirm')
                     ->label('Confirm Order')
                     ->icon('heroicon-o-check-circle')
                     ->color('success')

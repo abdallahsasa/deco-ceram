@@ -1,4 +1,4 @@
-<header
+<header x-data="{ mobileMenuOpen: false }"
     class="fixed top-0 left-0 right-0 z-50 bg-brand-white/80 backdrop-blur-md border-b border-brand-stone transition-all duration-300">
     <div class="container mx-auto px-6 h-20 flex items-center justify-between">
         <a href="{{ url(app()->getLocale() . '/') }}" class="flex items-center gap-4 group">
@@ -58,14 +58,48 @@
             </a>
 
             <!-- Mobile Menu Toggle -->
-            <button class="lg:hidden p-2 text-brand-charcoal">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 text-brand-charcoal">
+                <svg x-show="!mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
+                <svg x-show="mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="display: none;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
             </button>
         </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div x-show="mobileMenuOpen"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 -translate-y-4"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-4"
+        @click.away="mobileMenuOpen = false"
+        class="absolute top-full left-0 right-0 bg-brand-white border-b border-brand-stone shadow-lg lg:hidden"
+        style="display: none;">
+        <nav class="flex flex-col py-6 px-6 gap-6">
+            <a href="{{ url(app()->getLocale() . '/products/brand/caesar') }}"
+                class="text-sm uppercase tracking-widest hover:text-brand-sand transition-colors @if(Request::is('*/products*')) text-brand-sand @endif">{{ __('messages.nav.products') }}</a>
+            <a href="{{ url(app()->getLocale() . '/projects') }}"
+                class="text-sm uppercase tracking-widest hover:text-brand-sand transition-colors @if(Request::is('*/projects*')) text-brand-sand @endif">{{ __('messages.nav.projects') }}</a>
+            <a href="{{ url(app()->getLocale() . '/professionals') }}"
+                class="text-sm uppercase tracking-widest hover:text-brand-sand transition-colors @if(Request::is('*/professionals*')) text-brand-sand @endif">{{ __('messages.nav.professionals') }}</a>
+            <a href="{{ url(app()->getLocale() . '/about') }}"
+                class="text-sm uppercase tracking-widest hover:text-brand-sand transition-colors @if(Request::is('*/about*')) text-brand-sand @endif">{{ __('messages.nav.about') }}</a>
+            <a href="{{ url(app()->getLocale() . '/contact') }}"
+                class="text-sm uppercase tracking-widest hover:text-brand-sand transition-colors @if(Request::is('*/contact*')) text-brand-sand @endif">{{ __('messages.nav.contact') }}</a>
+            
+            <hr class="border-brand-stone/30 my-2">
+            
+            <a href="{{ url(app()->getLocale() . '/contact') }}" class="btn-premium text-center w-full">
+                {{ __('messages.cta.quote') }}
+            </a>
+        </nav>
     </div>
 </header>
 

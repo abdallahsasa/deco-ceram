@@ -117,6 +117,8 @@ return [
         'related' => 'Vous pourriez aussi aimer',
         'add_to_quote' => 'Ajouter au devis',
         'added_to_quote' => 'Ajouté !',
+        'add_to_cart' => 'Ajouter au panier',
+        'added_to_cart' => 'Ajouté !',
         'select_format_notice' => 'Veuillez sélectionner un format/dimensions ci-dessus pour l\'ajouter à votre devis.',
         'attributes' => [
             'material' => 'Matériau',
@@ -281,6 +283,19 @@ return [
         'thank_you_title' => 'Merci !',
         'thank_you_message' => 'Notre équipe vous contactera très bientôt.',
         'order_summary' => 'Résumé de la demande',
+        'back_to_home' => 'Retour à l\'accueil',
+    ],
+    'checkout' => [
+        'title' => 'Votre Panier',
+        'empty_title' => 'Votre panier est vide',
+        'empty_subtitle' => 'Parcourez notre catalogue pour ajouter des produits à votre panier.',
+        'contact_details' => 'Détails de Facturation',
+        'proceed_to_payment' => 'Procéder au Paiement',
+        'success_message' => 'Commande soumise avec succès !',
+        'error_message' => 'Une erreur est survenue lors de la soumission de votre commande.',
+        'thank_you_title' => 'Merci !',
+        'thank_you_message' => 'Votre commande a été reçue. Notre équipe vous contactera bientôt pour le paiement.',
+        'order_summary' => 'Résumé de la commande',
         'back_to_home' => 'Retour à l\'accueil',
     ],
 ];

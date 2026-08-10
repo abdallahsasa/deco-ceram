@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>New Quote Request</title>
+    <title>New Order</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -113,34 +113,34 @@
             <table class="details-table">
                 <tr>
                     <td class="label">Name</td>
-                    <td>{{ $quoteRequest->first_name }} {{ $quoteRequest->last_name }}</td>
+                    <td>{{ $order->first_name }} {{ $order->last_name }}</td>
                 </tr>
                 <tr>
                     <td class="label">Email</td>
-                    <td><a href="mailto:{{ $quoteRequest->email }}" style="color: #8C8476; text-decoration: none;">{{ $quoteRequest->email }}</a></td>
+                    <td><a href="mailto:{{ $order->email }}" style="color: #8C8476; text-decoration: none;">{{ $order->email }}</a></td>
                 </tr>
-                @if($quoteRequest->phone)
+                @if($order->phone)
                 <tr>
                     <td class="label">Phone</td>
-                    <td>{{ $quoteRequest->phone }}</td>
+                    <td>{{ $order->phone }}</td>
                 </tr>
                 @endif
-                @if($quoteRequest->company)
+                @if($order->company)
                 <tr>
                     <td class="label">Company</td>
-                    <td>{{ $quoteRequest->company }}</td>
+                    <td>{{ $order->company }}</td>
                 </tr>
                 @endif
-                @if($quoteRequest->project_type)
+                @if($order->address)
                 <tr>
-                    <td class="label">Project Type</td>
-                    <td>{{ $quoteRequest->project_type }}</td>
+                    <td class="label">Billing Address</td>
+                    <td style="white-space: pre-line; line-height: 1.5;">{{ $order->address }}</td>
                 </tr>
                 @endif
-                @if($quoteRequest->message)
+                @if($order->notes)
                 <tr>
-                    <td class="label">Message</td>
-                    <td style="white-space: pre-line; line-height: 1.5;">{{ $quoteRequest->message }}</td>
+                    <td class="label">Notes</td>
+                    <td style="white-space: pre-line; line-height: 1.5;">{{ $order->notes }}</td>
                 </tr>
                 @endif
             </table>
@@ -156,7 +156,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($quoteRequest->items as $item)
+                    @foreach($order->items as $item)
                         <tr>
                             <td>
                                 <strong style="font-size: 14px;">{{ $item->product->name ?? 'Unknown Product' }}</strong><br>

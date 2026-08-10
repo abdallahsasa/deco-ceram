@@ -34,62 +34,62 @@
         };
 
         document.addEventListener('alpine:init', () => {
-            Alpine.store('quoteCart', {
-                items: JSON.parse(localStorage.getItem('quoteCart')) || [],
-                
-                add(product) {
-                    const variantName = product.variant_name || '';
-                    const cartId = product.product_id + '-' + (variantName || 'default');
-                    const exists = this.items.find(item => item.cart_id === cartId);
-                    
-                    const boxes = parseInt(product.boxes || 1);
-                    const pcs = parseInt(product.pcs || 1);
-                    const meters = parseFloat(product.meters || 0);
-                    const pcsPerBox = parseInt(product.pcs_per_box || 1);
-                    const sqmPerBox = parseFloat(product.sqm_per_box || 0);
+            Alpine.store('cart', {
+                items: JSON.parse(localStorage.getItem('cart')) || [],
 
-                    if (exists) {
-                        exists.boxes = parseInt(exists.boxes || 0) + boxes;
-                        exists.pcs = exists.boxes * (exists.pcs_per_box || pcsPerBox);
-                        exists.meters = parseFloat((exists.boxes * (exists.sqm_per_box || sqmPerBox)).toFixed(4));
-                        exists.quantity = exists.pcs;
-                        this.save();
-                        window.dispatchEvent(new CustomEvent('cart-added', { 
-                            detail: product.name + (variantName ? ' (' + variantName + ')' : '') 
-                        }));
-                    } else {
-                        product.cart_id = cartId;
-                        product.variant_name = variantName;
-                        product.pcs_per_box = pcsPerBox;
-                        product.sqm_per_box = sqmPerBox;
-                        product.boxes = boxes;
-                        product.pcs = pcs;
-                        product.meters = meters;
-                        product.quantity = pcs;
-                        this.items.push(product);
-                        this.save();
-                        window.dispatchEvent(new CustomEvent('cart-added', { 
-                            detail: product.name + (variantName ? ' (' + variantName + ')' : '') 
-                        }));
-                    }
+                get count() {
+                    return this.items.length;
                 },
-                
-                remove(cartId) {
-                    this.items = this.items.filter(item => item.cart_id !== cartId);
+
+                get total() {
+                    return this.items.reduce((sum, item) => sum + (parseFloat(item.total) || 0), 0);
+                },
+
+                get subtotal() {
+                    return this.items.reduce((sum, item) => sum + (parseFloat(item.total) || 0), 0);
+                },
+
+                add(item) {
+                    const existingItemIndex = this.items.findIndex(i => 
+                        i.product_id === item.product_id && 
+                        i.variant_name === item.variant_name
+                    );
+
+                    if (existingItemIndex > -1) {
+                        this.items[existingItemIndex].boxes = (this.items[existingItemIndex].boxes || 0) + (item.boxes || 0);
+                        this.items[existingItemIndex].meters = (this.items[existingItemIndex].meters || 0) + (item.meters || 0);
+                        this.items[existingItemIndex].pcs = (this.items[existingItemIndex].pcs || 0) + (item.pcs || 0);
+                        this.items[existingItemIndex].quantity = (this.items[existingItemIndex].quantity || 0) + (item.quantity || 0);
+                        this.items[existingItemIndex].total = (this.items[existingItemIndex].total || 0) + (item.total || 0);
+                    } else {
+                        item.cart_id = Date.now().toString() + Math.random().toString(36).substr(2, 9);
+                        this.items.push(item);
+                    }
+
                     this.save();
+                    window.dispatchEvent(new CustomEvent('cart-added'));
+                },
+
+                remove(cart_id) {
+                    this.items = this.items.filter(item => item.cart_id !== cart_id);
+                    this.save();
+                },
+
+                update(cart_id, key, value) {
+                    const item = this.items.find(i => i.cart_id === cart_id);
+                    if (item) {
+                        item[key] = value;
+                        this.save();
+                    }
                 },
 
                 clear() {
                     this.items = [];
                     this.save();
                 },
-                
-                save() {
-                    localStorage.setItem('quoteCart', JSON.stringify(this.items));
-                },
 
-                get count() {
-                    return this.items.length;
+                save() {
+                    localStorage.setItem('cart', JSON.stringify(this.items));
                 }
             });
         });

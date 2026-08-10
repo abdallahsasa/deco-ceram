@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Confirmation de votre demande de devis</title>
+    <title>Confirmation de votre commande</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -100,10 +100,10 @@
 
         <!-- Content -->
         <div class="content">
-            <p>Bonjour {{ $quoteRequest->first_name }} {{ $quoteRequest->last_name }},</p>
-            <p>Nous avons bien reçu votre demande de devis et nous vous en remercions. Notre équipe étudie votre demande et vous contactera dans les plus brefs délais.</p>
+            <p>Bonjour {{ $order->first_name }} {{ $order->last_name }},</p>
+            <p>Nous avons bien reçu votre commande et nous vous en remercions. Notre équipe étudie votre commande et vous contactera dans les plus brefs délais pour le paiement.</p>
 
-            <h2>Récapitulatif de votre demande</h2>
+            <h2>Récapitulatif de votre commande</h2>
             <table class="items-table">
                 <thead>
                     <tr>
@@ -113,7 +113,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($quoteRequest->items as $item)
+                    @foreach($order->items as $item)
                         <tr>
                             <td>
                                 <strong style="font-size: 14px;">{{ $item->product->name ?? 'Produit' }}</strong><br>

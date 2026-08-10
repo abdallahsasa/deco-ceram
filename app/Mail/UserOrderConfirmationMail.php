@@ -2,25 +2,25 @@
 
 namespace App\Mail;
 
-use App\Models\QuoteRequest;
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class QuoteRequestMail extends Mailable
+class UserOrderConfirmationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public QuoteRequest $quoteRequest;
+    public Order $order;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(QuoteRequest $quoteRequest)
+    public function __construct(Order $order)
     {
-        $this->quoteRequest = $quoteRequest;
+        $this->order = $order;
     }
 
     /**
@@ -29,7 +29,7 @@ class QuoteRequestMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Quote Request - ' . $this->quoteRequest->first_name . ' ' . $this->quoteRequest->last_name,
+            subject: 'Order Confirmation - #' . $this->order->id,
         );
     }
 
@@ -39,7 +39,7 @@ class QuoteRequestMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.quote-request',
+            view: 'emails.user-order-confirmation',
         );
     }
 

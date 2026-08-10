@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class QuoteRequestItem extends Model
+class OrderItem extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
-        'quote_request_id',
+        'order_id',
         'product_id',
         'variant_name',
         'meters',
@@ -19,11 +16,13 @@ class QuoteRequestItem extends Model
         'pcs',
         'pcs_per_box',
         'sqm_per_box',
+        'price',
+        'total',
     ];
 
-    public function quoteRequest()
+    public function order()
     {
-        return $this->belongsTo(QuoteRequest::class);
+        return $this->belongsTo(Order::class);
     }
 
     public function product()

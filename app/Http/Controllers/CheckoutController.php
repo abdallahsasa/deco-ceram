@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\QuoteRequest;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\QuoteRequestMail;
-use App\Mail\UserQuoteConfirmationMail;
 
-class QuoteController extends Controller
+class CheckoutController extends Controller
 {
     public function index()
     {
-        return view('pages.quote');
+        return view('pages.checkout');
     }
 
     public function store(Request $request)
@@ -25,8 +22,6 @@ class QuoteController extends Controller
             'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:255',
             'company' => 'nullable|string|max:255',
-            'project_type' => 'nullable|string|max:255',
-            'message' => 'nullable|string',
             'address' => 'required|string|max:1000',
             'items' => 'required|array',
             'items.*.product_id' => 'required|string',
@@ -37,26 +32,30 @@ class QuoteController extends Controller
             'items.*.pcs' => 'nullable|integer',
             'items.*.pcs_per_box' => 'nullable|integer',
             'items.*.sqm_per_box' => 'nullable|numeric',
+            'items.*.price' => 'nullable|numeric',
+            'items.*.total' => 'nullable|numeric',
+            'subtotal' => 'required|numeric',
+            'total_amount' => 'required|numeric',
         ]);
 
         try {
-            $quote = QuoteRequest::create([
+            $order = Order::create([
                 'first_name' => $validated['first_name'],
                 'last_name' => $validated['last_name'],
                 'email' => $validated['email'],
                 'phone' => $validated['phone'] ?? null,
                 'company' => $validated['company'] ?? null,
-                'project_type' => $validated['project_type'] ?? null,
-                'message' => $validated['message'] ?? null,
                 'address' => $validated['address'] ?? null,
-                'status' => 'new',
+                'subtotal' => $validated['subtotal'],
+                'total_amount' => $validated['total_amount'],
+                'status' => 'pending',
+                'payment_status' => 'unpaid',
             ]);
 
             foreach ($validated['items'] as $item) {
-                // Verify product exists before adding (optional but good practice)
                 $product = Product::find($item['product_id']);
                 if ($product) {
-                    $quote->items()->create([
+                    $order->items()->create([
                         'product_id' => $item['product_id'],
                         'variant_name' => $item['variant_name'] ?? null,
                         'meters' => $item['meters'] ?? null,
@@ -65,32 +64,38 @@ class QuoteController extends Controller
                         'pcs' => $item['pcs'] ?? null,
                         'pcs_per_box' => $item['pcs_per_box'] ?? null,
                         'sqm_per_box' => $item['sqm_per_box'] ?? null,
+                        'price' => $item['price'] ?? 0,
+                        'total' => $item['total'] ?? 0,
                     ]);
                 }
             }
 
-            // Send notification email
-            $quote->load('items.product.collection.brand');
-            Mail::to('inquery@deco-ceram.fr')->send(new QuoteRequestMail($quote));
-            Mail::to($quote->email)->send(new UserQuoteConfirmationMail($quote));
-
+            // Send Emails
+            try {
+                \Illuminate\Support\Facades\Mail::to('abdo.al.sasa@gmail.com')->send(new \App\Mail\OrderCreatedMail($order));
+                if ($order->email) {
+                    \Illuminate\Support\Facades\Mail::to($order->email)->send(new \App\Mail\UserOrderConfirmationMail($order));
+                }
+            } catch (\Exception $e) {
+                Log::error('Error sending order emails: ' . $e->getMessage());
+            }
             return response()->json([
                 'success' => true,
-                'message' => __('messages.quote.success_message') ?? 'Quote request submitted successfully!',
-                'quote_id' => $quote->id,
+                'message' => __('messages.checkout.success_message') ?? 'Order submitted successfully!',
+                'order_id' => $order->id,
             ]);
         } catch (\Exception $e) {
-            Log::error('Error submitting quote request: ' . $e->getMessage());
+            Log::error('Error submitting order: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => __('messages.quote.error_message') ?? 'An error occurred while submitting your request.',
+                'message' => __('messages.checkout.error_message') ?? 'An error occurred while submitting your order.',
             ], 500);
         }
     }
 
-    public function thankYou($locale, QuoteRequest $quote)
+    public function thankYou($locale, Order $order)
     {
-        $quote->load('items.product.collection.brand');
-        return view('pages.quote-thank-you', compact('quote'));
+        $order->load('items.product.collection.brand');
+        return view('pages.checkout-thank-you', compact('order'));
     }
 }

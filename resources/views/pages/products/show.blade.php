@@ -183,7 +183,7 @@
                                         <button 
                                             @click="
                                                 if(!meters || meters <= 0) return;
-                                                $store.quoteCart.add({ 
+                                                $store.cart.add({ 
                                                     product_id: '{{ $product->id }}', 
                                                     name: '{{ addslashes($product->name) }}', 
                                                     image: '{{ $product->primary_image_url }}', 
@@ -203,8 +203,8 @@
                                             :disabled="!meters || meters <= 0"
                                             class="w-full btn-premium py-3 text-center text-xs relative"
                                             :class="added ? 'bg-brand-sand text-white' : ''">
-                                            <span x-show="!added">{{ __('messages.products.add_to_quote') ?? 'Add to Quote' }}</span>
-                                            <span x-show="added" x-cloak>{{ __('messages.products.added_to_quote') ?? 'Added!' }}</span>
+                                            <span x-show="!added">{{ __('messages.products.add_to_cart') ?? 'Add to Cart' }}</span>
+                                            <span x-show="added" x-cloak>{{ __('messages.products.added_to_cart') ?? 'Added!' }}</span>
                                         </button>
                                     </div>
                                 </div>
@@ -286,7 +286,7 @@
                                         <button 
                                             @click="
                                                 if(!meters || meters <= 0) return;
-                                                $store.quoteCart.add({ 
+                                                $store.cart.add({ 
                                                     product_id: '{{ $product->id }}', 
                                                     name: '{{ addslashes($product->name) }}', 
                                                     image: '{{ $product->primary_image_url }}', 
@@ -306,8 +306,8 @@
                                             :disabled="!meters || meters <= 0"
                                             class="btn-premium flex-1 text-center py-6 relative"
                                             :class="added ? 'bg-brand-sand' : ''">
-                                            <span x-show="!added">{{ __('messages.products.add_to_quote') ?? 'Add to Quote' }}</span>
-                                            <span x-show="added" x-cloak>{{ __('messages.products.added_to_quote') ?? 'Added!' }}</span>
+                                            <span x-show="!added">{{ __('messages.products.add_to_cart') ?? 'Add to Cart' }}</span>
+                                            <span x-show="added" x-cloak>{{ __('messages.products.added_to_cart') ?? 'Added!' }}</span>
                                         </button>
                                         <a href="{{ route('contact', ['locale' => app()->getLocale(), 'subject' => 'Sample Request: ' . $product->name]) }}"
                                             class="btn-premium-outline flex-1 text-center py-6">

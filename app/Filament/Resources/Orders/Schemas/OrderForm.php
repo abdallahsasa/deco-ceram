@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\QuoteRequests\Schemas;
+namespace App\Filament\Resources\Orders\Schemas;
 
-use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
 use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\Repeater;
+use Filament\Schemas\Schema;
 
-class QuoteRequestForm
+class OrderForm
 {
     public static function configure(Schema $schema): Schema
     {
@@ -22,29 +22,38 @@ class QuoteRequestForm
                         TextInput::make('email')->email()->required(),
                         TextInput::make('phone'),
                         TextInput::make('company'),
-                        TextInput::make('project_type'),
                         Select::make('status')
                             ->options([
-                                'new' => 'New',
                                 'pending' => 'Pending',
-                                'sent_to_shipping' => 'Sent to Shipping Company',
-                                'shipped' => 'Shipped',
+                                'processing' => 'Processing',
                                 'completed' => 'Completed',
-                                'rejected' => 'Rejected',
+                                'cancelled' => 'Cancelled',
                             ])
                             ->required()
-                            ->default('new'),
+                            ->default('pending'),
+                        Select::make('payment_status')
+                            ->options([
+                                'unpaid' => 'Unpaid',
+                                'paid' => 'Paid',
+                                'failed' => 'Failed',
+                            ])
+                            ->required()
+                            ->default('unpaid'),
                         Textarea::make('address')
                             ->columnSpanFull()
-                            ->label('Delivery Address'),
+                            ->label('Billing/Shipping Address'),
+                        Textarea::make('notes')
+                            ->columnSpanFull()
+                            ->label('Order Notes'),
                     ])->columns(2),
 
-                Section::make('Message')
+                Section::make('Order Totals')
                     ->schema([
-                        Textarea::make('message')->columnSpanFull(),
-                    ]),
+                        TextInput::make('subtotal')->numeric()->prefix('€'),
+                        TextInput::make('total_amount')->numeric()->prefix('€')->required(),
+                    ])->columns(2),
 
-                Section::make('Requested Products')
+                Section::make('Ordered Products')
                     ->schema([
                         Repeater::make('items')
                             ->relationship()
@@ -57,6 +66,8 @@ class QuoteRequestForm
                                 TextInput::make('boxes')->numeric(),
                                 TextInput::make('pcs')->numeric()->label('Pieces (pcs)'),
                                 TextInput::make('meters')->numeric()->label('Meters (m²)'),
+                                TextInput::make('price')->numeric()->prefix('€'),
+                                TextInput::make('total')->numeric()->prefix('€'),
                             ])
                             ->columns(2)
                             ->defaultItems(0)

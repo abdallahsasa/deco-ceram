@@ -2,25 +2,25 @@
 
 namespace App\Mail;
 
-use App\Models\QuoteRequest;
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class UserQuoteConfirmationMail extends Mailable
+class OrderCreatedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public QuoteRequest $quoteRequest;
+    public $order;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(QuoteRequest $quoteRequest)
+    public function __construct(Order $order)
     {
-        $this->quoteRequest = $quoteRequest;
+        $this->order = $order;
     }
 
     /**
@@ -29,7 +29,7 @@ class UserQuoteConfirmationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Confirmation de votre demande de devis - Deco & Ceram',
+            subject: 'New Order Received - #' . $this->order->id,
         );
     }
 
@@ -39,7 +39,7 @@ class UserQuoteConfirmationMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.user-quote-confirmation',
+            view: 'emails.order-created',
         );
     }
 

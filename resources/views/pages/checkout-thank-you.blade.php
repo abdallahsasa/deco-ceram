@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('messages.quote.thank_you_title') ?? 'Thank You')
+@section('title', __('messages.checkout.thank_you_title') ?? 'Thank You')
 
 @section('content')
     <div class="bg-brand-white min-h-screen pt-32 pb-24">
@@ -15,20 +15,20 @@
                 </div>
 
                 <h1 class="text-3xl md:text-4xl font-serif text-brand-charcoal mb-4">
-                    {{ __('messages.quote.thank_you_title') ?? 'Thank You!' }}
+                    {{ __('messages.checkout.thank_you_title') ?? 'Thank You!' }}
                 </h1>
 
                 <p class="text-lg text-brand-charcoal/70 mb-10">
-                    {{ __('messages.quote.thank_you_message') ?? 'Our team will contact you soon.' }}
+                    {{ __('messages.checkout.thank_you_message') ?? 'Your order has been received. Our team will contact you soon for payment.' }}
                 </p>
 
                 <div class="text-left bg-[#FCFCFC] rounded-2xl border border-[#EBEBEB] p-6 md:p-8">
                     <h2 class="text-xl font-bold text-black mb-6">
-                        {{ __('messages.quote.order_summary') ?? 'Order Summary' }}
+                        {{ __('messages.checkout.order_summary') ?? 'Order Summary' }}
                     </h2>
 
                     <div class="space-y-4">
-                        @foreach($quote->items as $item)
+                        @foreach($order->items as $item)
                             <div class="flex items-center gap-4 py-4 border-b border-[#EBEBEB] last:border-0">
                                 <div
                                     class="w-16 h-16 bg-[#F0F0F0] rounded-xl overflow-hidden shrink-0 flex items-center justify-center p-2">
@@ -64,7 +64,7 @@
                 <div class="mt-10">
                     <a href="{{ route('home', app()->getLocale()) }}"
                         class="inline-block px-5 py-4 bg-black text-white text-[10px] uppercase tracking-[0.3em] font-bold rounded-full transition-all duration-500 hover:bg-gray-800">
-                        {{ __('messages.quote.back_to_home') ?? 'Back to Home' }}
+                        {{ __('messages.checkout.back_to_home') ?? 'Back to Home' }}
                     </a>
                 </div>
 

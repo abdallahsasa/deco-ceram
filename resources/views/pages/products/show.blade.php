@@ -67,10 +67,7 @@
                             <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">{{ __('messages.products.attributes.finish') }}</span>
                             <span class="text-sm font-medium tracking-tight">{{ $product->finish }}</span>
                         </div>
-                        <div class="space-y-1">
-                            <span class="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/40 block font-bold">{{ __('messages.products.attributes.thickness') }}</span>
-                            <span class="text-sm font-medium tracking-tight">{{ $product->thickness }}</span>
-                        </div>
+                        
                     </div>
                 </div>
 
